@@ -199,6 +199,7 @@ h2 {
 .dark-bg {
     background-color: var(--dark-blue);
     color: #fff;
+    padding: 40px 20px 60px; /* Zapewnienie paddingu */
 }
 
 .light-blue-text {
@@ -272,6 +273,7 @@ h2 {
 
 .pink-bg {
     background-color: var(--pink);
+    padding: 40px 20px 60px; /* Zapewnienie paddingu */
 }
 
 .danger-info p {
@@ -325,6 +327,7 @@ h2 {
 .blue-bg {
     background-color: var(--blue);
     color: #fff;
+    padding: 40px 20px 60px; /* Zapewnienie paddingu */
 }
 
 .two-columns-mobile-stack {
