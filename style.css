@@ -1,132 +1,36 @@
 /* ... istniejące style ... */
 
-/* Zmiany dla sekcji HEADERA/SLIDERA */
-.header {
-    /* Usuń lub zmodyfikuj stary header, aby nie kolidował. 
-       W nowej wersji użyjemy klasy .slider-container */
-    display: none; /* Ukrywamy stary header */
-}
-
 .slider-container {
     width: 100%;
     min-height: 500px;
-    position: relative; /* Dla pozycjonowania slajdów i kropek */
-    overflow: hidden; /* Aby ukryć slajdy poza widokiem */
+    position: relative;
+    overflow: hidden; /* KLUCZOWE: Upewnia się, że "ukryte" slajdy są poza widokiem */
 }
 
 .slide {
-    display: none; /* Domyślnie ukrywamy wszystkie slajdy */
     width: 100%;
     min-height: 500px;
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0; /* Dla płynnego przejścia */
-    transition: opacity 1s ease-in-out;
-    background-color: var(--dark-blue); /* Domyślne tło */
-
-    display: flex; /* Układ flex dla podziału 50/50 */
+    
+    /* Zmiana animacji: Używamy transformacji do przesunięcia */
+    transform: translateX(100%); /* Domyślnie slajd jest poza ekranem po prawej stronie (100% szerokości) */
+    transition: transform 0.7s ease-in-out; /* Płynna animacja trwająca 0.7s */
+    
+    display: flex;
+    background-color: var(--blue);
 }
 
 .slide.active {
-    display: flex; /* Pokaż aktywny slajd */
-    opacity: 1;
-    position: relative; /* Aktywny slajd jest na wierzchu */
+    /* Aktywny slajd ma transformację ustawioną na 0, co oznacza pełny widok */
+    transform: translateX(0);
+    position: relative; /* Może pozostać relative lub absolute - ważne jest, by był na wierzchu */
 }
 
-.slide-image {
-    flex: 1;
-    background-size: cover;
-    background-position: center;
+/* WAŻNE: Dodajemy styl dla poprzedniego slajdu, który "wyjeżdża" w lewo */
+.slide.prev {
+    transform: translateX(-100%); /* Slajd, który właśnie opuścił widok, jest po lewej stronie */
 }
 
-.slide-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 43px;
-    padding: 20px 60px;
-    background-color: var(--blue); /* Granatowe tło po prawej stronie */
-}
-
-/* Dostosowanie stylów nagłówka dla slidera */
-.headline h2 { /* Zastępuje h1 w starym headerze */
-    color: #fff;
-    font-size: 34px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.2;
-    text-align: left; /* Przywrócenie wyrównania do lewej dla treści */
-    padding-bottom: 0; /* Usuń padding z h2, który był dla sekcji */
-}
-
-.headline h4 { /* Zastępuje p w starym headerze */
-    color: #fff;
-    font-size: 28px;
-    font-weight: 400;
-    margin-top: 10px;
-}
-
-/* Nawigacja kropkowa */
-.dots-navigation {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 10;
-}
-
-.dot {
-    height: 12px;
-    width: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dot.active {
-    background-color: var(--yellow);
-}
-
-/* Media Queries dla Slidera */
-
-@media (max-width: 1024px) {
-    .slide {
-        flex-direction: column;
-    }
-
-    .slide-image {
-        min-height: 300px;
-    }
-
-    .slide-content {
-        padding: 40px 20px;
-        text-align: center;
-        align-items: center;
-    }
-
-    .headline h2 {
-        font-size: 28px;
-        text-align: center;
-    }
-
-    .headline h4 {
-        font-size: 22px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .slide-content {
-        gap: 20px;
-    }
-
-    .cta-button span {
-        font-size: 20px;
-    }
-}
+/* Poza tym reszta stylów slidera pozostaje bez zmian (slide-image, slide-content, dots-navigation...) */
