@@ -1,32 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const slidesWrapper = document.querySelector('.slides-wrapper');
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const intervalTime = 3500; // 3.5 sekundy
+    const totalSlides = slides.length;
     let slideIndex = 0;
     let slideInterval;
 
-    // Funkcja do zarządzania klasami i animacją
-    function showSlide(newIndex) {
-        // Określenie, który slajd jest aktualnie wyświetlany (przed zmianą)
-        const currentSlide = slides[slideIndex];
+    // Funkcja do przesuwania karuzeli
+    function showSlide(index) {
+        // Obliczenie indeksu z zapętleniem (0, 1, 2, 0, 1, 2...)
+        const newIndex = (index + totalSlides) % totalSlides;
         
-        // Obliczenie nowego indeksu w zapętleniu
-        const nextIndex = (newIndex + slides.length) % slides.length;
-        
-        // Zresetowanie klas dla wszystkich slajdów
-        slides.forEach(slide => {
-            slide.classList.remove('active', 'prev');
-        });
-        
-        // 1. Oznaczenie poprzedniego slajdu jako 'prev' (aby przesunął się w lewo)
-        // Dzieje się to natychmiast, ale animacja trwa 0.7s
-        currentSlide.classList.add('prev');
-        
-        // 2. Oznaczenie nowego slajdu jako 'active' (aby wjechał na ekran z prawej)
-        slides[nextIndex].classList.add('active');
+        // Obliczenie wartości przesunięcia w procentach
+        const offset = newIndex * -100; // Slajd 0: 0%; Slajd 1: -100%; Slajd 2: -200%
 
-        // Zaktualizowanie indeksu dla następnego cyklu
-        slideIndex = nextIndex;
+        // Zastosowanie transformacji do przesunięcia całego kontenera
+        slidesWrapper.style.transform = `translateX(${offset}%)`;
+
+        // Aktualizacja indeksu
+        slideIndex = newIndex;
 
         // Aktualizacja nawigacji kropkowej
         dots.forEach(dot => {
@@ -40,13 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         showSlide(slideIndex + 1);
     }
 
-    // Ustawienie nasłuchu kliknięć na kropki (z zachowaniem funkcjonalności animacji)
+    // Ustawienie nasłuchu kliknięć na kropki
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            if (index !== slideIndex) { // Zmień slajd tylko, jeśli jest inny
+            if (index !== slideIndex) {
                 clearInterval(slideInterval); // Zatrzymaj auto-przewijanie
                 showSlide(index);
-                // Uruchom auto-przewijanie ponownie po ręcznej zmianie
+                // Uruchom auto-przewijanie ponownie
                 slideInterval = setInterval(nextSlide, intervalTime);
             }
         });
@@ -55,9 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Uruchomienie automatycznego przełączania slajdów
     slideInterval = setInterval(nextSlide, intervalTime);
 
-    // Pokaż pierwszy slajd po załadowaniu bez animacji wejścia
-    // Zapewniamy, że pierwszy slajd jest wyświetlany poprawnie od razu.
-    slides[0].classList.add('active');
-    slides[0].style.transform = 'translateX(0)'; 
-    dots[0].classList.add('active');
+    // Upewnienie się, że pierwszy slajd jest na pozycji 0 przy starcie
+    showSlide(0);
 });
