@@ -67,7 +67,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------- */
-/* SLIDER / HEADER STYLES - NOWA WERSJA KARUZELI */
+/* SLIDER / HEADER STYLES - WERSJA KARUZELA Z PASKAMI */
 /* ---------------------------------------------------------------------- */
 
 .header {
@@ -88,12 +88,12 @@ a {
     width: 300%; /* (3 slajdy * 100%) = 300% */
     height: 100%;
     
-    /* Płynne przejście całej karuzeli */
+    /* Płynne przejście */
     transition: transform 0.7s ease-in-out; 
 }
 
 .slide {
-    /* Slajd zajmuje 100% szerokości ekranu, czyli 1/3 szerokości slides-wrapper */
+    /* Każdy slajd zajmuje 100% szerokości ekranu, czyli 1/3 szerokości slides-wrapper */
     width: calc(100% / 3); 
     min-height: 500px;
     background-color: var(--blue);
@@ -136,32 +136,103 @@ a {
     margin-top: 10px;
 }
 
-/* Nawigacja kropkowa */
-.dots-navigation {
+/* Przyciski CTA */
+.cta-button {
+    background-color: var(--yellow);
+    color: var(--txt-blue);
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    max-width: 400px;
+}
+
+.cta-button:hover {
+    background-color: rgba(248, 195, 58, 0.8); 
+}
+
+.cta-button img {
+    height: 14px;
+}
+
+/* --- NOWA NAWIGACJA SLIDERA (PASKI I PAUZA) --- */
+
+.slider-controls {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 15px;
     z-index: 10;
 }
 
-.dot {
-    height: 12px;
-    width: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    display: inline-block;
+.progress-bars-container {
+    display: flex;
+    gap: 10px;
+}
+
+.progress-bar {
+    height: 4px;
+    width: 60px; /* Szerokość paska */
+    background-color: rgba(255, 255, 255, 0.4); /* Kolor tła nieaktywnego paska */
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 2px;
 }
 
-.dot.active {
-    background-color: var(--yellow);
+.progress-bar::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    background-color: var(--yellow); /* Kolor wypełnienia (aktywnego) paska */
+    transition: width 0.1s linear; /* Szybkie przejście do 0 przed startem */
 }
 
-/* POZOSTAŁE SEKCJE STRONY */
+/* Stan aktywnego paska - rozpoczyna animację wypełniania */
+.progress-bar.active::before {
+    width: 100%;
+    transition: width 3.5s linear; /* Czas wypełniania = interwał slajdu */
+}
+
+/* Przyciski Play/Pause */
+.pause-play-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #fff;
+    line-height: 0; /* Ułatwia centrowanie ikon */
+}
+
+.pause-play-button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ZMIANA IKON PAUZA/START */
+/* Upewnij się, że masz pliki 'pause.svg' i 'play.svg' w folderze img/ */
+.pause-play-button.paused img {
+    content: url('./img/play.svg'); 
+}
+
+.pause-play-button:not(.paused) img {
+    content: url('./img/pause.svg');
+}
+
+/* ---------------------------------------------------------------------- */
+/* POZOSTAŁE SEKCJE STRONY (niezmienione) */
+/* ---------------------------------------------------------------------- */
 
 .section {
     width: 100%;
@@ -203,32 +274,6 @@ h2 {
     text-align: center;
     margin-bottom: 40px;
     max-width: 800px;
-}
-
-/* CTA Button (używany w sliderze) */
-.cta-button {
-    background-color: var(--yellow);
-    color: var(--txt-blue);
-    border: none;
-    padding: 15px 30px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background-color 0.3s ease;
-    max-width: 400px;
-}
-
-.cta-button:hover {
-    background-color: rgba(248, 195, 58, 0.8); /* Lekko przyciemniony żółty */
-}
-
-.cta-button img {
-    height: 14px;
 }
 
 /* Sekcja Czym jest RSV */
