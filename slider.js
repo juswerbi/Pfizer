@@ -22,21 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funkcja resetująca i startująca animację paska
     function startBarAnimation(index) {
-        // 1. Resetuj wszystkie paski
+        // 1. Resetuj wszystkie paski poprzez usunięcie klasy 'active'
         progressBars.forEach(bar => {
             bar.classList.remove('active');
         });
         
-        // Timeout jest potrzebny, aby przeglądarka zdążyła zresetować animację
-        setTimeout(() => {
-            // 2. Startuj animację bieżącego paska
-            progressBars[index].classList.add('active');
-        }, 10);
+        // KLUCZOWA POPRAWKA: Używamy requestAnimationFrame (lub setTimeout 10ms), aby dać przeglądarce
+        // czas na zresetowanie stanu animacji (width: 0), zanim wystartuje ją ponownie (width: 100%).
+        requestAnimationFrame(() => {
+            if (!isPaused) {
+                // 2. Startuj animację bieżącego paska
+                progressBars[index].classList.add('active');
+            }
+        });
     }
 
     // Funkcja do przesuwania karuzeli do określonego indeksu
     function showSlide(index) {
         const newIndex = (index + totalSlides) % totalSlides;
+        // Wartość przesunięcia (0%, -100%, -200%)
         const offset = newIndex * -100; 
 
         slidesWrapper.style.transform = `translateX(${offset}%)`;
@@ -59,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pausePlayButton.classList.remove('paused');
             // Wznów animację paska dla aktualnego slajdu
             startBarAnimation(slideIndex); 
+            // Restart interwału
             slideInterval = setInterval(nextSlide, intervalTime);
         }
     }
@@ -70,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(slideInterval);
             pausePlayButton.classList.add('paused');
 
-            // Zatrzymanie animacji paska (usuwamy klasę active, co powoduje zatrzymanie animacji w CSS)
+            // Zatrzymanie animacji paska w CSS
             progressBars.forEach(bar => {
                 bar.classList.remove('active');
             });
@@ -95,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newIndex = parseInt(bar.dataset.index);
         if (newIndex !== slideIndex) {
-            // Natychmiast zatrzymujemy automat, aby uniknąć przeskoku
+            // Zatrzymujemy automat
             clearInterval(slideInterval); 
             
             // Przełączamy do wybranego slajdu
@@ -110,9 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Inicjalizacja ---
     
-    // Uruchomienie automatycznego przełączania slajdów
-    slideInterval = setInterval(nextSlide, intervalTime);
-
-    // Upewnienie się, że karuzela startuje z pierwszego slajdu i paska
+    // KLUCZOWA POPRAWKA: Pierwsze przejście do slajdu (0), aby ustawić go poprawnie (nie wywołujemy nextSlide)
     showSlide(0);
+
+    // Uruchomienie automatycznego przełączania slajdów PO RAZ PIERWSZY po upływie całego interwału
+    slideInterval = setInterval(nextSlide, intervalTime);
 });
