@@ -4,319 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szczepienia RSV</title>
-    <!-- Zintegrowane style z globals.css i style.css -->
-    <style>
-        @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
-        
-        /* Używam kolorów z palety */
-        :root {
-            --dark-blue: rgba(0, 0, 57, 1);
-            --blue: rgba(0, 1, 101, 1);
-            --txt-blue: rgba(5, 5, 60, 1);
-            --yellow: rgba(248, 195, 58, 1);
-            --light-blue: rgba(179, 228, 254, 1);
-            --pink: rgba(249, 231, 252, 1);
-            /* Nowe kolory dla wskaźników */
-            --indicator-color: #2796FF; /* Jasny błękit dla wypełnienia */
-            --indicator-text-color: #fff;
-            --slide3-background: #000165; /* Ciemnoniebieskie tło */
-        }
-        
-        /* Base Styles (z globals.css i style.css) */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: sans-serif; /* Fallback font */
-            color: var(--txt-blue);
-            background-color: #fff;
-            line-height: 1.5;
-        }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Layout (z globals.css) */
-        .desktop {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-        
-        .content-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Nawigacja i Stopka - bez zmian */
-        .navi {
-            width: 100%;
-            background-color: var(--dark-blue);
-            padding: 20px;
-        }
-        
-        .navbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 37px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .nav-item {
-            color: #fff;
-            font-weight: 700;
-            font-size: 21px;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        /* HEADER - Slajder */
-        .header {
-            width: 100%;
-            min-height: 500px; 
-            background-color: var(--dark-blue);
-            overflow: hidden; 
-            position: relative;
-        }
-
-        .slider-container {
-            /* Zmieniam szerokość na 400%, bo mamy 4 slajdy (3 + 1 kopia dla pętli) */
-            display: flex;
-            width: 400%; 
-            height: 100%;
-            transition: transform 0.8s ease-in-out; 
-        }
-
-        .slider-slide {
-            /* Każdy slajd ma 1/4 szerokości kontenera */
-            flex: 0 0 25%; 
-            display: flex;
-            min-height: 500px;
-        }
-
-        .header-image {
-            flex: 1; 
-            background-size: cover;
-            background-position: center;
-            min-height: 200px;
-        }
-        
-        .slide-1-image {
-            background-image: url(https://placehold.co/600x500/004d99/ffffff?text=RSV+Slajd+1); /* Placeholder */
-        }
-        
-        .slide-2-image {
-            background-image: url(https://placehold.co/600x500/004d99/ffffff?text=RSV+Slajd+2); /* Placeholder */
-        }
-        
-        /* Slajd 3 NIE MA OBRAZU, jest na jednolitym kolorze */
-        .slide-3-image {
-            display: none; /* Ukrywamy obraz na slajdzie 3 */
-        }
-
-        .slide-3-slide {
-             flex: 0 0 25%; 
-             display: flex;
-        }
-
-        .header-content {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 43px;
-            padding: 40px 60px;
-            background-color: var(--blue); 
-            color: #fff;
-        }
-
-        /* STYL SPECYFICZNY DLA SLAJDU 3 */
-        .header-content.slide-3-content-full {
-            flex: 100%; /* Zajmuje całą szerokość slajdu */
-            background-color: var(--slide3-background);
-            padding: 40px 100px; /* Większy padding boczny */
-        }
-
-        .slide-3-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            gap: 60px;
-        }
-
-        .indicator-row {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            margin-bottom: 40px;
-            min-height: 130px; /* Aby wskaźniki były wyrównane */
-        }
-
-        .indicator-text-block {
-            flex: 1;
-            font-size: 32px; /* Duża czcionka jak na obrazku */
-            font-weight: 400;
-            line-height: 1.3;
-            color: var(--indicator-text-color);
-        }
-
-        .indicator-text-block strong {
-            font-weight: 700;
-        }
-
-        /* STYLA DLA SVG - Kluczowe zmiany dla efektu obrysu */
-        .pie-chart-svg {
-            position: relative;
-            width: 130px; 
-            height: 130px;
-            flex-shrink: 0;
-        }
-
-        .pie-chart-value {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 36px; /* Rozmiar procentu */
-            font-weight: 900;
-            color: var(--indicator-text-color);
-        }
-
-        /* Kontur (biały pierścień) */
-        .pie-background-circle {
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.4); /* Półprzezroczysta biel dla tła konturu */
-            stroke-width: 6; /* Grubość konturu */
-        }
-
-        /* Wypełnienie (błękitny gradient) */
-        .pie-progress-circle {
-            fill: none;
-            stroke-width: 6; /* Taka sama grubość jak tło */
-            stroke-linecap: round;
-            transform: rotate(-90deg); /* Start od góry */
-            transform-origin: 50% 50%;
-            transition: stroke-dashoffset 0.8s ease-out;
-            /* Używamy gradientu błękitnego */
-            stroke: url(#blueGradient); 
-        }
-
-        /* Gradient */
-        .svg-gradients {
-            display: block;
-            width: 0;
-            height: 0;
-        }
-
-        /* --- STYLA DLA PRZYCISKÓW CTA --- */
-        .cta-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 30px;
-            background-color: var(--yellow);
-            color: var(--txt-blue);
-            font-weight: 700;
-            font-size: 22px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 450px; /* Maksymalna szerokość dla Slajdu 3 */
-            align-self: flex-start; /* Ustawienie na początku w Slajdzie 3 */
-        }
-
-        .cta-button:hover {
-            background-color: #ffc93c;
-        }
-        
-        .cta-button span {
-            color: var(--txt-blue);
-            font-size: 20px;
-        }
-
-        .cta-button img {
-            width: 20px;
-            height: 20px;
-            filter: brightness(0.3); 
-        }
-
-
-        /* Media Queries */
-        @media (max-width: 1024px) {
-            .slider-slide {
-                flex-direction: column;
-                min-height: auto;
-            }
-            .header-content {
-                padding: 40px 30px;
-                text-align: center;
-                align-items: center;
-            }
-            .header-image {
-                min-height: 300px;
-                flex: none;
-                width: 100%;
-            }
-
-            .header-content.slide-3-content-full {
-                padding: 40px 30px;
-            }
-
-            .indicator-row {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-                margin-bottom: 20px;
-            }
-            .indicator-text-block {
-                font-size: 24px;
-            }
-            .slide-3-content-wrapper {
-                gap: 40px;
-            }
-            .cta-button {
-                align-self: center; 
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content.slide-3-content-full {
-                padding: 30px 20px;
-            }
-             .indicator-text-block {
-                font-size: 20px;
-            }
-            .pie-chart-svg {
-                width: 100px;
-                height: 100px;
-            }
-            .pie-chart-value {
-                font-size: 30px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="globals.css">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="slider.js"></script>
 </head>
 <body>
     <div class="desktop">
         <nav class="navi">
             <div class="navbar">
-                <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV? 0.6</a>
+                <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV? 0.7</a>
                 <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                 <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                 <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
@@ -325,174 +21,219 @@
             </div>
         </nav>
 
-        <header class="header">
-            <div class="slider-container">
-                
-                <!-- SLIDE 1: Oryginalna treść -->
-                <div class="slider-slide active-slide">
-                    <div class="header-image slide-1-image"></div>
-                    <div class="header-content">
-                        <div class="headline">
-                            <h1>Już dziś zapytaj o możliwość szczepień przeciwko RSV</h1>
-                            <p>także tych <strong>bezpłatnych</strong>, również w aptece</p>
-                        </div>
-                        <button class="cta-button">
-                            <span>INFORMACJE O SZCZEPIENIU</span>
-                            <img src="img/image.svg" onerror="this.src='https://placehold.co/20x20/ffffff/000000?text=%3E'" alt="Strzałka">
-                        </button>
+        <header class="slider-container">
+            <div class="slide active">
+                <div class="slide-image" style="background-image: url(./img/img.png);"></div>
+                <div class="slide-content">
+                    <div class="headline">
+                        <h2>SLIDE 1: Już dziś zapytaj o szczepienia przeciwko RSV</h2>
+                        <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</h4>
                     </div>
+                    <button class="cta-button">
+                        <span>DOWIEDZ SIĘ WIĘCEJ</span>
+                        <img src="img/image.svg" alt="Strzałka">
+                    </button>
                 </div>
+            </div>
 
-                <!-- SLIDE 2: Placeholder -->
-                <div class="slider-slide">
-                    <div class="header-image slide-2-image"></div>
-                    <div class="header-content">
-                        <div class="headline">
-                            <h1>Lorem ipsum dolor sit amet consectetur.</h1>
-                            <p>Egestas eget mi amet mattis **risus nulla**.</p>
-                        </div>
-                        <button class="cta-button">
-                            <span>DOWIEDZ SIĘ WIĘCEJ</span>
-                            <img src="img/image.svg" onerror="this.src='https://placehold.co/20x20/ffffff/000000?text=%3E'" alt="Strzałka">
-                        </button>
+            <div class="slide">
+                <div class="slide-image" style="background-image: url(./img/img-1.png);"></div>
+                <div class="slide-content">
+                    <div class="headline">
+                        <h2>SLIDE 2: Seniorzy są w grupie ryzyka</h2>
+                        <h4>U większości ludzi choroba ma łagodny przebieg. U seniorów może prowadzić do poważnych powikłań.</h4>
                     </div>
+                    <button class="cta-button">
+                        <span>INFORMACJE DLA SENIORÓW</span>
+                        <img src="img/image.svg" alt="Strzałka">
+                    </button>
                 </div>
+            </div>
 
-                <!-- SLIDE 3: Wizualizacja Wskaźników 50% i 38% - Zastosowanie SVG -->
-                <div class="slider-slide slide-3-slide">
-                    <!-- Slajd 3 ma zajmować 100% szerokości i mieć specyficzne tło -->
-                    <div class="header-content slide-3-content-full"> 
-                        <div class="slide-3-content-wrapper">
-                            
-                            <!-- Wskaźnik 50% -->
-                            <div class="indicator-row">
-                                <!-- Element SVG dla wykresu -->
-                                <div class="pie-chart-svg" data-percent="50">
-                                    <svg viewBox="0 0 40 40" class="svg-gradients">
-                                        <defs>
-                                            <!-- Gradient błękitny dla wypełnienia procentowego -->
-                                            <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" style="stop-color:#48A6FF; stop-opacity:1" />
-                                                <stop offset="100%" style="stop-color:#90D9FF; stop-opacity:1" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                    <svg viewBox="0 0 40 40">
-                                        <!-- Biały, gruby kontur -->
-                                        <circle cx="20" cy="20" r="15.91549430918954" class="pie-background-circle" />
-                                        <!-- Błękitny progres (50%) -->
-                                        <circle cx="20" cy="20" r="15.91549430918954" class="pie-progress-circle" id="progress50"
-                                            stroke-dasharray="100" stroke-dashoffset="100" />
-                                    </svg>
-                                    <span class="pie-chart-value">50%</span>
-                                </div>
-                                
-                                <p class="indicator-text-block">
-                                    **Osób w grupie wiekowej 65+** <br>
-                                    **nigdy nie słyszało o RSV**
-                                </p>
-                            </div>
-
-                             <!-- Wskaźnik 38% -->
-                            <div class="indicator-row">
-                                <div class="pie-chart-svg" data-percent="38">
-                                     <svg viewBox="0 0 40 40">
-                                        <!-- Biały, gruby kontur -->
-                                        <circle cx="20" cy="20" r="15.91549430918954" class="pie-background-circle" />
-                                        <!-- Błękitny progres (38%) -->
-                                        <circle cx="20" cy="20" r="15.91549430918954" class="pie-progress-circle" id="progress38" 
-                                            stroke-dasharray="100" stroke-dashoffset="100" />
-                                    </svg>
-                                    <span class="pie-chart-value">38%</span>
-                                </div>
-
-                                <p class="indicator-text-block">
-                                    **Nie ma szczegółowej wiedzy** <br>
-                                    **na temat przebiegu infekcji**
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <button class="cta-button">
-                            <span>SPRAWDŹ MOŻLIWOŚCI SZCZEPIEŃ</span>
-                            <img src="img/image.svg" onerror="this.src='https://placehold.co/20x20/ffffff/000000?text=%3E'" alt="Strzałka">
-                        </button>
+            <div class="slide">
+                <div class="slide-image" style="background-image: url(./img/img-2.png);"></div>
+                <div class="slide-content">
+                    <div class="headline">
+                        <h2>SLIDE 3: Ochrona dla najmłodszych</h2>
+                        <h4>Szczepienie kobiet w ciąży to forma ochrony dla niemowląt w pierwszych miesiącach życia.</h4>
                     </div>
+                    <button class="cta-button">
+                        <span>SZCZEPIENIA DLA KOBIET W CIĄŻY</span>
+                        <img src="img/image.svg" alt="Strzałka">
+                    </button>
                 </div>
-
-                <!-- SLIDE 4 (KOPIA SLAJDU 1) - Używana do stworzenia efektu nieskończonej pętli -->
-                <div class="slider-slide">
-                    <div class="header-image slide-1-image"></div>
-                    <div class="header-content">
-                        <div class="headline">
-                            <h1>Już dziś zapytaj o możliwość szczepień przeciwko RSV</h1>
-                            <p>także tych <strong>bezpłatnych</strong>, również w aptece</p>
-                        </div>
-                        <button class="cta-button">
-                            <span>INFORMACJE O SZCZEPIENIU</span>
-                            <img src="img/image.svg" onerror="this.src='https://placehold.co/20x20/ffffff/000000?text=%3E'" alt="Strzałka">
-                        </button>
-                    </div>
-                </div>
-
+            </div>
+            <div class="dots-navigation">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </header>
-
-        <main class="content-wrapper">
-            <!-- Poniżej reszta strony (bez zmian) -->
+        <main>
             <section class="section" id="czym-jest-rsv">
-                <h2>CZYM JEST RSV?</h2>
-                <div class="two-columns">
+                <div class="content-wrapper">
+                    <h2>CZYM JEST RSV?</h2>
+                    <div class="separator"></div>
                     <div class="content-block">
-                        <p>Wirus syncytialny układu oddechowego (RSV) to bardzo zaraźliwy wirus, który może wywołać poważne infekcje dróg oddechowych. Jest on główną przyczyną zakażeń dolnych dróg oddechowych u niemowląt i małych dzieci, ale stanowi również poważne zagrożenie dla osób starszych oraz osób z przewlekłymi chorobami płuc i serca.</p>
-                        <p>Zakażenia RSV są sezonowe, a szczyt zachorowań przypada zazwyczaj na jesień i zimę.</p>
+                        <div class="icon-container">
+                            <img class="icon" src="img/vector-1.svg" alt="Ikona wirusa">
+                        </div>
+                        <p class="text-block">
+                            RSV to powszechny i bardzo zaraźliwy wirus, który atakuje drogi oddechowe i płuca. U większości ludzi choroba ma łagodny przebieg – przypomina przeziębienie i ustępuje samoistnie. Ale u niektórych może prowadzić do poważnych powikłań.
+                        </p>
                     </div>
-                    <div class="content-block">
-                        <div class="boxes-grid-2-col">
-                            <div class="box">
-                                <h3>Wysoka zaraźliwość</h3>
-                                <p>RSV rozprzestrzenia się bardzo łatwo drogą kropelkową.</p>
-                            </div>
-                            <div class="box">
-                                <h3>Sezonowość</h3>
-                                <p>Szczyt zachorowań przypada na okres jesienno-zimowy.</p>
-                            </div>
-                            <!-- Więcej boxów... -->
+                </div>
+            </section>
+
+            <section class="section" id="grupa-ryzyka">
+                <div class="content-wrapper">
+                    <h2>KTO JEST W GRUPIE RYZYKA?</h2>
+                    <div class="boxes-grid">
+                        <div class="box">
+                            <img class="box-icon" src="img/1.svg" alt="Ikona seniora">
+                            <p class="box-text">Seniorzy powyżej 60 roku życia</p>
+                        </div>
+                        <div class="box">
+                            <img class="box-icon" src="img/vector-2.svg" alt="Ikona rodziny">
+                            <p class="box-text">Dzieci i seniorzy z osłabioną odpornością lub chorobami serca/płuc</p>
+                        </div>
+                        <div class="box">
+                            <img class="box-icon" src="img/vector-5.svg" alt="Ikona dziecka">
+                            <p class="box-text">Niemowlęta poniżej 6 miesiąca życia</p>
+                        </div>
+                        <div class="box">
+                            <img class="box-icon" src="img/vector-6.svg" alt="Ikona niemowlaka">
+                            <p class="box-text">Dzieci urodzone przedwcześnie</p>
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <section class="section dark-bg" id="rsv-vs-grypa">
-                <!-- Treść sekcji RSV vs Grypa -->
+                <div class="content-wrapper">
+                    <h2>
+                        <span class="light-blue-text">RSV</span> a <span class="white-text">GRYPA</span>
+                    </h2>
+                    <p class="subtitle">
+                        Choć objawy RSV i grypy mogą być podobne, przebieg infekcji RSV jest często poważniejszy – zwłaszcza u osób starszych. Co mówią badania?
+                    </p>
+                    <div class="boxes-grid-2-col">
+                        <div class="column">
+                            <div class="stat-item">
+                                <img src="img/frame-1.svg" alt="Ikona">
+                                <span class="stat-number">84%</span>
+                                <p class="stat-text"><strong>Większe ryzyko hospitalizacji:</strong> Zakażenie RSV powoduje konieczność hospitalizacji u 84% pacjentów, podczas gdy grypa u 66%.2*</p>
+                            </div>
+                            <div class="stat-item">
+                                <img src="img/frame-1-1.svg" alt="Ikona">
+                                <span class="stat-number">37,5%</span>
+                                <p class="stat-text"><strong>Częstsze zapalenie płuc:</strong> W przebiegu RSV częściej dochodzi do zapalenia płuc (37,5% vs 23,2%).2*</p>
+                            </div>
+                            <div class="stat-item">
+                                <img src="img/frame-1-2.svg" alt="Ikona">
+                                <span class="stat-number">50,7%</span>
+                                <p class="stat-text"><strong>Częstsza potrzeba tlenoterapii:</strong> Aż 50,7% pacjentów z RSV wymagało leczenia tlenem, w porównaniu do 31,2% przy grypie.2*</p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="stat-item">
+                                <img src="img/vector-9.svg" alt="Ikona szpitala">
+                                <span class="stat-number"></span>
+                                <p class="stat-text"><strong>Dłuższy pobyt w szpitalu:</strong> Średni czas hospitalizacji wynosił 8 dni przy RSV vs 6 dni przy grypie.3†</p>
+                            </div>
+                            <div class="stat-item">
+                                <img src="img/frame-1-3.svg" alt="Ikona">
+                                <span class="stat-number">60+</span>
+                                <p class="stat-text"><strong>RSV częściej prowadzi do powikłań:</strong> takich jak zapalenie płuc czy niewydolność oddechowa i może być groźniejsze niż grypa, szczególnie dla osób po 60. roku życia, niemowląt oraz przewlekle chorych.1,4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-            
+
             <section class="section" id="objawy-i-zagrozenia">
-                <!-- Treść sekcji Objawy i Zagrożenia -->
+                <div class="content-wrapper">
+                    <h2>Jakie są typowe objawy i zagrożenia związane z zakażeniem RSV?</h2>
+                    <h3 class="section-title">Objawy</h3>
+                    <div class="two-columns">
+                        <p>
+                            <strong>Katar lub zatkany nos:</strong> Pierwszy objaw – infekcja górnych dróg oddechowych.<br><br>
+                            <strong>Kaszel (suchy lub mokry):</strong> Zazwyczaj pojawia się po objawach z nosa.<br><br>
+                            <strong>Stan podgorączkowy:</strong> Łagodna gorączka.<br><br>
+                            <strong>Zmęczenie:</strong> Utrata energii.<br><br>
+                            <strong>Świszczący oddech:</strong> Występuje głównie u niemowląt i seniorów – objaw zajęcia dolnych dróg oddechowych.
+                        </p>
+                        <p>
+                            <strong>Kichanie:</strong> Częste kichanie, które dodatkowo ułatwia rozprzestrzenianie wirusa.<br><br>
+                            <strong>Ból głowy:</strong> U niektórych osób pojawia się ból głowy, prawdopodobnie związany z zatkaniem zatok.<br><br>
+                            <strong>Ból gardła:</strong> Drapanie lub ból towarzyszący infekcji górnych dróg oddechowych.<br><br>
+                            <strong>Brak apetytu:</strong> Częsty u niemowląt i małych dzieci.
+                        </p>
+                    </div>
+                </div>
             </section>
-            
+
             <section class="section pink-bg">
-                <!-- Treść sekcji Zagrożenia -->
+                <div class="content-wrapper">
+                    <h3 class="section-title">Zagrożenia</h3>
+                    <div class="danger-info">
+                        <p>
+                            <strong>Hospitalizacja:</strong> choć nie jest objawem samym w sobie, może być konieczna w ciężkim przebiegu zakażenia RSV – zwłaszcza u niemowląt, seniorów i osób z osłabioną odpornością. W poważnych przypadkach infekcja może przerodzić się w zapalenie oskrzeli lub płuc, co wymaga leczenia szpitalnego.
+                        </p>
+                        <p>
+                            <strong>Ciężkie powikłania:</strong> Infekcja RSV może prowadzić do poważnych problemów zdrowotnych, zwłaszcza u osób starszych i z chorobami przewlekłymi. U pacjentów wymagających hospitalizacji często dochodzi do powikłań ze strony układu krążenia – może dojść do nasilenia objawów niewydolności serca, wystąpienia zaburzeń rytmu serca lub incydentów wieńcowych. Ciężki przebieg infekcji RSV zwiększa ryzyko nagłych zaostrzeń astmy i przewlekłej obturacyjnej choroby płuc.
+                        </p>
+                        <p>
+                            <strong>Ryzyko śmierci:</strong> W najcięższych przypadkach przebiegu zakażenia RSV może prowadzić do zgonu. Szczególnie narażone są osoby starsze, niemowlęta oraz osoby z osłabioną odpornością – u których infekcja może stanowić zagrożenie życia.
+                        </p>
+                    </div>
+                </div>
             </section>
-            
+
             <section class="section" id="szczepienia">
-                <!-- Treść sekcji Dla kogo szczepionka -->
+                <div class="content-wrapper">
+                    <h2>Dla kogo przeznaczona jest szczepionka przeciw RSV?</h2>
+                    <p class="subtitle">
+                        Szczepionka zalecana jest przede wszystkim osobom, które szczególnie narażone są na ciężki przebieg zakażenia RSV.
+                    </p>
+                    <div class="photo-info-block">
+                        <div class="photo-senior"></div>
+                        <div class="text-content">
+                            <h3>Seniorzy w wieku 65+</h3>
+                        </div>
+                    </div>
+                    <div class="photo-info-block reverse">
+                        <div class="photo-pregnant"></div>
+                        <div class="text-content">
+                            <h3>Kobiety w ciąży (32–36. tydzień)</h3>
+                            <p>Szczepienie w tym okresie pozwala przekazać dziecku odporność jeszcze przed narodzinami. Chroni niemowlę przez pierwsze 6 miesięcy życia – czyli wtedy, gdy ryzyko ciężkiego przebiegu zakażania RSV jest największe.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
-            
+
             <section class="section blue-bg" id="gdzie-sie-zaszczepic">
-                <!-- Treść sekcji Gdzie się zaszczepić -->
+                <div class="content-wrapper">
+                    <h2>Gdzie mogę się zaszczepić?</h2>
+                    <p class="subtitle">
+                        Nie odkładaj szczepienia. Zapytaj lekarza lub dowiedz się w aptece o możliwość bezpłatnego szczepienia.
+                    </p>
+                    <div class="two-columns-mobile-stack">
+                        <p class="text-block-small">
+                            Zadbaj o swoje zdrowie – szczepienie przeciwko RSV to bezpieczna i rekomendowana forma ochrony, szczególnie dla osób po 60. roku życia. Jest ono ujęte w Programie Szczepień Ochronnych i pomaga zapobiegać ciężkiemu przebiegowi infekcji oraz hospitalizacji. Można je bezpiecznie połączyć z innymi szczepieniami, np. przeciwko grypie.
+                        </p>
+                        <div class="ok-image"></div>
+                    </div>
+                </div>
             </section>
-            
         </main>
 
         <footer class="footer">
-            <div class="footer-content">
+            <div class="content-wrapper">
                 <div class="footer-section">
-                    <p>Materiały informacyjne na temat RSV i szczepień.</p>
-                    <p class="source-list">Źródła:</p>
-                    <p class="disclaimer">
-                        Niniejszym informujemy, że serwis www.szczepieniaRSV.pl, w żadnym przypadku nie został stworzony w celu udzielania porad ani konsultacji medycznych. Zastrzegamy równocześnie, że wszelkie informacje przekazywane za pośrednictwem serwisu internetowego www.szczepieniaRSV.pl mają wyłącznie charakter informacyjny i nie mogą zastępować fachowej porady udzielonej przez lekarza. Copyright © 2025 by Pfizer Polska. All rights reserved. PP-FSM-POL-0378 Pfizer Polska Sp. z o.o. ul. Żwirki i Wigury 16B, 02-092 Warszawa Sąd Rejonowy dla m.st. Warszawy | KRS: 0000022310 NIP: 5213115586 | Wysokość kapitału zakładowego: 33.860.000,00 PLN
-                    </p>
+                    <p class="disclaimer">*Na podstawie kohorty 725 pacjentów (152 z zakażeniem RSV i 573 z grypą) leczonych w KUH w Finlandii w okresie między listopadem 2017 roku a majem 20zywał leczenie tlenem, w porównaniu do 31,2% przy grypie.2*</p>
+                    <p class="disclaimer"><strong>RSV</strong> - syncytialny wirus oddechowy. </p>
+                    <p class="disclaimer"><strong>Referencje:</strong> 1. CDC. Clinical Overview of RSV. https://www.cdc.gov/rsv/hcp/clinical-overview/index.html (dostęp: 15.04.2025). 2. Hämäläinen A et al. BMJ Open. 2022 Dec 19;12(12):e060805. 3. Descamps A et al. Eur Respir J. 2022;59(3):2100651. 4. Ackerson B et al. Clin Infect Dis. 2019;69(2):197-203. 5. CDC. Symptoms and Care of RSV. https://www.cdc.gov/rsv/symptoms/index.html (dostęp: 15.04.2025). 6. De Martino JK et al. Open Forum Infect Dis. 2023;10(5):ofad203. 7. Savic M et al. Influenza Other Respir Viruses 2023;17:e13031.</p>
                 </div>
                 <div class="footer-section">
                     <ul class="footer-links">
@@ -502,104 +243,13 @@
                         <li><a href="#">Polityka prywatności</a></li>
                     </ul>
                 </div>
+                <div class="footer-section">
+                    <p class="disclaimer">
+                        Niniejszym informujemy, że serwis www.szczepieniaRSV.pl, w żadnym przypadku nie został stworzony w celu udzielania porad ani konsultacji medycznych. Zastrzegamy równocześnie, że wszelkie informacje przekazywane za pośrednictwem serwisu internetowego www.szczepieniaRSV.pl mają wyłącznie charakter informacyjny i nie mogą zastępować fachowej porady udzielonej przez lekarza. Copyright © 2025 by Pfizer Polska. All rights reserved. PP-FSM-POL-0378 Pfizer Polska Sp. z o.o. ul. Żwirki i Wigury 16B, 02-092 Warszawa Sąd Rejonowy dla m.st. Warszawy | KRS: 0000022310 NIP: 5213115586 | Wysokość kapitału zakładowego: 33.860.000,00 zł BDO: 000189470 tel.: (22) 335 61 00, faks: (22) 335 61 11, warsaw.office@pfizer.com
+                    </p>
+                </div>
             </div>
         </footer>
     </div>
-    
-    <!-- JavaScript dla Slajdera i Animacji Wskaźników -->
-    <script>
-        // Funkcja do animacji SVG (wizualizacja procentowa)
-        function animateIndicators() {
-            // Obwód koła o promieniu r=15.91549430918954 wynosi dokładnie 100
-            const circumference = 100;
-
-            document.querySelectorAll('.pie-chart-svg').forEach(container => {
-                const percent = container.getAttribute('data-percent');
-                const offset = circumference - (percent / 100) * circumference;
-                
-                // Znajdujemy element progresu wewnątrz kontenera
-                const progressCircle = container.querySelector('.pie-progress-circle');
-                
-                if (progressCircle) {
-                    // Ustawienie initial state (pełny offset)
-                    progressCircle.style.strokeDashoffset = circumference;
-                    
-                    // Wymuszenie reflow dla restartu animacji
-                    progressCircle.getBoundingClientRect(); 
-                    
-                    // Docelowy offset, który wizualizuje procent
-                    progressCircle.style.strokeDashoffset = offset;
-                }
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Logika Slajdera ---
-            const sliderContainer = document.querySelector('.slider-container');
-            const slides = document.querySelectorAll('.slider-slide');
-            const totalSlides = slides.length; // Teraz to 4 (3 oryginalne + 1 kopia)
-            let currentSlide = 0; 
-            const slideDuration = 5000; 
-            let sliderInterval; 
-
-            // Funkcja pomocnicza do ustawiania transformacji
-            function setSlideTransform(index, smooth = true) {
-                const offset = index * 100 / totalSlides; 
-                sliderContainer.style.transition = smooth ? 'transform 0.8s ease-in-out' : 'none';
-                sliderContainer.style.transform = `translateX(-${offset}%)`;
-            }
-
-            // Funkcja przejścia do slajdu (z uwzględnieniem pętli)
-            function goToSlide(index) {
-                setSlideTransform(index);
-                currentSlide = index;
-
-                // WYWOŁANIE ANIMACJI TYLKO NA SLAJDZIE 3 (index 2)
-                if (currentSlide === 2) {
-                    animateIndicators();
-                }
-            }
-
-            function nextSlide() {
-                let nextIndex = currentSlide + 1;
-                
-                if (nextIndex >= totalSlides) {
-                    // KROK 1: Przejście do WIRTUALNEGO slajdu (kopii Slajdu 1 na końcu)
-                    // Zapewnia płynny wizualny ruch 3 -> 1
-                    goToSlide(totalSlides - 1); // Przejdź do ostatniego slajdu (indeks 3)
-                    
-                    // KROK 2: Natychmiastowe, niewidoczne przejście do prawdziwego Slajdu 1
-                    setTimeout(() => {
-                        setSlideTransform(0, false); // Przeskocz do Slajdu 1 (indeks 0) bez animacji
-                        currentSlide = 0;
-                    }, 800); // Czekaj na zakończenie animacji (0.8s z CSS)
-                    
-                } else {
-                    // Normalne przejście do kolejnego slajdu
-                    goToSlide(nextIndex);
-                }
-            }
-
-            function startSlider() {
-                // Czyścimy poprzedni interwał na wszelki wypadek
-                if (sliderInterval) clearInterval(sliderInterval);
-                sliderInterval = setInterval(nextSlide, slideDuration);
-            }
-
-            function stopSlider() {
-                clearInterval(sliderInterval);
-            }
-
-            const headerElement = document.querySelector('.header');
-
-            headerElement.addEventListener('mouseenter', stopSlider);
-            headerElement.addEventListener('mouseleave', startSlider);
-
-            startSlider(); 
-            // Ustawienie początkowego slajdu
-            setSlideTransform(currentSlide); 
-            // --- Koniec Logiki Slajdera ---
-        });
-    </script>
 </body>
 </html>
