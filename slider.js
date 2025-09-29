@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // KLUCZOWY SELEKTOR: kontener, który będziemy przesuwać
     const slidesWrapper = document.querySelector('.slides-wrapper');
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
+    
+    // Ustawienia
     const intervalTime = 3500; // 3.5 sekundy
     const totalSlides = slides.length;
     let slideIndex = 0;
@@ -13,10 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const newIndex = (index + totalSlides) % totalSlides;
         
         // Obliczenie wartości przesunięcia w procentach
-        const offset = newIndex * -100; // Slajd 0: 0%; Slajd 1: -100%; Slajd 2: -200%
+        // Slajd 0: 0%; Slajd 1: -100%; Slajd 2: -200%
+        const offset = newIndex * -100; 
 
         // Zastosowanie transformacji do przesunięcia całego kontenera
-        slidesWrapper.style.transform = `translateX(${offset}%)`;
+        if (slidesWrapper) {
+             slidesWrapper.style.transform = `translateX(${offset}%)`;
+        }
 
         // Aktualizacja indeksu
         slideIndex = newIndex;
@@ -25,7 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         dots.forEach(dot => {
             dot.classList.remove('active');
         });
-        dots[slideIndex].classList.add('active');
+        // Upewniamy się, że kropka istnieje zanim ją aktywujemy
+        if (dots[slideIndex]) {
+            dots[slideIndex].classList.add('active');
+        }
     }
 
     // Funkcja do przełączania do następnego slajdu
@@ -46,7 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Uruchomienie automatycznego przełączania slajdów
-    slideInterval = setInterval(nextSlide, intervalTime);
+    if (slidesWrapper && totalSlides > 1) { // Sprawdzenie, czy elementy istnieją i ma sens uruchamiać slider
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
 
     // Upewnienie się, że pierwszy slajd jest na pozycji 0 przy starcie
     showSlide(0);
