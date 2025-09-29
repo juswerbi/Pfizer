@@ -1,36 +1,55 @@
 /* ... istniejące style ... */
 
+/* Zmiany dla sekcji HEADERA/SLIDERA */
+.header {
+    /* Ukrywamy stary header */
+    display: none; 
+}
+
 .slider-container {
     width: 100%;
     min-height: 500px;
     position: relative;
-    overflow: hidden; /* KLUCZOWE: Upewnia się, że "ukryte" slajdy są poza widokiem */
+    overflow: hidden; /* KLUCZOWE: Ukrywa slajdy, które są poza widokiem */
+}
+
+/* NOWY KONTENER WEWNĘTRZNY DLA KARUZELI */
+.slides-wrapper {
+    display: flex; /* Ustawia slajdy w rzędzie */
+    width: 300%; /* MUSI być (Liczba_Slajdów * 100)% = 300% */
+    height: 100%;
+    
+    /* Płynne przejście całej karuzeli */
+    transition: transform 0.7s ease-in-out; 
 }
 
 .slide {
-    width: 100%;
+    /* Slajd zajmuje 1/3 szerokości kontenera .slides-wrapper, czyli 100% szerokości ekranu (100% / 300%) */
+    width: calc(100% / 3); 
     min-height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-color: var(--blue);
     
-    /* Zmiana animacji: Używamy transformacji do przesunięcia */
-    transform: translateX(100%); /* Domyślnie slajd jest poza ekranem po prawej stronie (100% szerokości) */
-    transition: transform 0.7s ease-in-out; /* Płynna animacja trwająca 0.7s */
-    
+    display: flex; 
+    /* Reszta stylów układu 50/50 */
+}
+
+/* Ważne: usuwamy klasy .slide.active, .slide.prev i logikę opacity/absolute */
+/* Slajdy są teraz animowane poprzez przesunięcie kontenera .slides-wrapper */
+
+.slide-image {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+.slide-content {
+    flex: 1;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 43px;
+    padding: 20px 60px;
     background-color: var(--blue);
 }
 
-.slide.active {
-    /* Aktywny slajd ma transformację ustawioną na 0, co oznacza pełny widok */
-    transform: translateX(0);
-    position: relative; /* Może pozostać relative lub absolute - ważne jest, by był na wierzchu */
-}
-
-/* WAŻNE: Dodajemy styl dla poprzedniego slajdu, który "wyjeżdża" w lewo */
-.slide.prev {
-    transform: translateX(-100%); /* Slajd, który właśnie opuścił widok, jest po lewej stronie */
-}
-
-/* Poza tym reszta stylów slidera pozostaje bez zmian (slide-image, slide-content, dots-navigation...) */
+/* ... reszta stylów (headline, cta-button, dots-navigation) bez zmian ... */
