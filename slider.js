@@ -22,25 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funkcja resetująca i startująca animację paska
     function startBarAnimation(index) {
-        // 1. Resetuj wszystkie paski poprzez usunięcie klasy 'active'
+        // 1. Resetuj wszystkie paski
         progressBars.forEach(bar => {
             bar.classList.remove('active');
         });
         
-        // KLUCZOWA POPRAWKA: Używamy requestAnimationFrame (lub setTimeout 10ms), aby dać przeglądarce
-        // czas na zresetowanie stanu animacji (width: 0), zanim wystartuje ją ponownie (width: 100%).
-        requestAnimationFrame(() => {
+        // Zapewniamy, że przeglądarka zdąży odczytać usunięcie klasy 'active' (reset paska)
+        // przed jej ponownym dodaniem (start animacji). Użycie setTimeout 10ms jest bardziej 
+        // niezawodne w różnych przeglądarkach niż requestAnimationFrame dla tego konkretnego problemu.
+        setTimeout(() => {
             if (!isPaused) {
                 // 2. Startuj animację bieżącego paska
                 progressBars[index].classList.add('active');
             }
-        });
+        }, 10); // Czas resetu
     }
 
     // Funkcja do przesuwania karuzeli do określonego indeksu
     function showSlide(index) {
         const newIndex = (index + totalSlides) % totalSlides;
-        // Wartość przesunięcia (0%, -100%, -200%)
         const offset = newIndex * -100; 
 
         slidesWrapper.style.transform = `translateX(${offset}%)`;
@@ -55,16 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function nextSlide() {
         showSlide(slideIndex + 1);
     }
+    
+    // Funkcja restartująca interwał i animację paska
+    function restartSlider() {
+        clearInterval(slideInterval);
+        
+        // Upewniamy się, że pierwszy slajd jest natychmiast poprawnie wyświetlony
+        // i jego pasek startuje od razu.
+        if (!isPaused) {
+            startBarAnimation(slideIndex); 
+            // Restart interwału
+            slideInterval = setInterval(nextSlide, intervalTime);
+        }
+    }
 
-    // Funkcja startująca automatyczne przewijanie
+    // Funkcja startująca automatyczne przewijanie (używana po pauzie)
     function startSlider() {
         if (isPaused) {
             isPaused = false;
             pausePlayButton.classList.remove('paused');
-            // Wznów animację paska dla aktualnego slajdu
-            startBarAnimation(slideIndex); 
-            // Restart interwału
-            slideInterval = setInterval(nextSlide, intervalTime);
+            restartSlider(); // Używamy nowej funkcji do restartu
         }
     }
 
@@ -100,24 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newIndex = parseInt(bar.dataset.index);
         if (newIndex !== slideIndex) {
-            // Zatrzymujemy automat
-            clearInterval(slideInterval); 
             
-            // Przełączamy do wybranego slajdu
+            // Przełączamy slajd natychmiast
             showSlide(newIndex);
             
-            // Restartujemy automat, jeśli nie jest w trybie 'paused'
-            if (!isPaused) {
-                 slideInterval = setInterval(nextSlide, intervalTime);
-            }
+            // Restartujemy timer i animację paska (jeśli nie jest w trybie 'paused')
+            restartSlider();
         }
     });
 
     // --- Inicjalizacja ---
     
-    // KLUCZOWA POPRAWKA: Pierwsze przejście do slajdu (0), aby ustawić go poprawnie (nie wywołujemy nextSlide)
+    // Ustawienie pierwszego slajdu i paska
     showSlide(0);
 
-    // Uruchomienie automatycznego przełączania slajdów PO RAZ PIERWSZY po upływie całego interwału
+    // Uruchomienie automatycznego przełączania slajdów po raz pierwszy
     slideInterval = setInterval(nextSlide, intervalTime);
 });
