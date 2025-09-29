@@ -1,18 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // KLUCZOWY SELEKTOR: kontener, który będziemy przesuwać
+    // 1. Selektory
+    // KLUCZOWY ELEMENT: kontener, który będziemy przesuwać w poziomie
     const slidesWrapper = document.querySelector('.slides-wrapper');
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     
     // Ustawienia
-    const intervalTime = 3500; 
+    const intervalTime = 3500; // 3.5 sekundy
     const totalSlides = slides.length;
     let slideIndex = 0;
     let slideInterval;
 
-    // Funkcja do przesuwania karuzeli
+    if (!slidesWrapper || totalSlides === 0) {
+        console.error("Slider components not found. Check if .slides-wrapper and .slide elements are in HTML.");
+        return; // Zakończ, jeśli nie ma elementów
+    }
+
+    // Funkcja do przesuwania karuzeli do określonego indeksu
     function showSlide(index) {
-        // Obliczenie indeksu z zapętleniem
+        // Obliczenie nowego indeksu z zapętleniem
         const newIndex = (index + totalSlides) % totalSlides;
         
         // Obliczenie wartości przesunięcia w procentach
@@ -20,14 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const offset = newIndex * -100; 
 
         // Zastosowanie transformacji do przesunięcia CAŁEGO KONTENERA
-        if (slidesWrapper) {
-             slidesWrapper.style.transform = `translateX(${offset}%)`;
-        }
+        slidesWrapper.style.transform = `translateX(${offset}%)`;
 
         // Aktualizacja indeksu
         slideIndex = newIndex;
 
-        // Aktualizacja nawigacji kropkowej
+        // Aktualizacja nawigacji kropkowej (active state)
         dots.forEach(dot => {
             dot.classList.remove('active');
         });
@@ -45,7 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             if (index !== slideIndex) {
-                clearInterval(slideInterval); // Zatrzymaj auto-przewijanie
+                // Czyszczenie i restart interwału, aby użytkownik miał czas na przeczytanie slajdu po kliknięciu
+                clearInterval(slideInterval); 
                 showSlide(index);
                 // Uruchom auto-przewijanie ponownie
                 slideInterval = setInterval(nextSlide, intervalTime);
@@ -54,10 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Uruchomienie automatycznego przełączania slajdów
-    if (slidesWrapper && totalSlides > 1) {
-        slideInterval = setInterval(nextSlide, intervalTime);
-    }
+    slideInterval = setInterval(nextSlide, intervalTime);
 
-    // Pokaż pierwszy slajd na pozycji 0 przy starcie
+    // Upewnienie się, że karuzela startuje z pierwszego slajdu
     showSlide(0);
 });
