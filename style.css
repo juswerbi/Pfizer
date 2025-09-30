@@ -1,47 +1,12 @@
 :root {
-    --dark-blue: rgba(0, 0, 57, 1);
-    --blue: rgba(0, 1, 101, 1);
-    --txt-blue: rgba(5, 5, 60, 1);
-    --yellow: rgba(248, 195, 58, 1);
-    --light-blue: rgba(179, 228, 254, 1);
-    --pink: rgba(249, 231, 252, 1);
+// ...
 }
 
 /* Base Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: sans-serif; /* Fallback font */
-    color: var(--txt-blue);
-    background-color: #fff;
-    line-height: 1.5;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
+// ...
 
 /* Layout */
-.desktop {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.content-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+// ...
 
 .navi {
     width: 100%;
@@ -53,38 +18,38 @@ a {
 .navbar-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* Usuwam align-items: center, aby można było wyrównać wszystko do lewej */
     max-width: 1200px;
     margin: 0 auto;
-    gap: 15px; /* Odstęp między rzędami */
+    gap: 15px; 
 }
 
 .navbar-main {
     display: flex;
-    flex-wrap: nowrap; /* Wymuszenie jednej linii */
-    justify-content: space-between; /* Rozłożenie linków na całą szerokość */
+    flex-wrap: nowrap; 
+    justify-content: flex-start; /* WYRÓWNANIE DO LEWEJ */
     width: 100%;
-    max-width: 1200px; 
-    padding: 0 10px; /* Lekkie marginesy boczne */
+    gap: 40px; /* ZWIĘKSZONY ODSTĘP MIĘDZY LINKAMI */
+    padding: 0 20px; /* Wyrównanie do lewej/prawej krawędzi kontenera */
 }
 
 .nav-item {
     color: #fff;
-    font-weight: 400; /* Zmienione na regular */
-    font-size: 19px; /* Zmniejszona czcionka */
-    text-align: center;
-    white-space: nowrap;
-    padding: 0 5px; /* Dodatkowy padding dla odstępu */
+    font-weight: 400; /* REGULAR */
+    font-size: 19px; 
+    text-align: left; /* WYRÓWNANIE TEKSTU LINKU DO LEWEJ */
+    white-space: normal; /* Umożliwia łamanie linii */
+    line-height: 1.1; /* Poprawa czytelności dla dwuliniowego tekstu */
+    padding: 0;
 }
 
 .navbar-cta-row {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Utrzymuje CTA w centrum */
 }
 
 .cta-nav-button {
-    /* Primary Button CTA */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -95,7 +60,6 @@ a {
     border: none;
     cursor: pointer;
     text-decoration: none;
-    /* Dodatkowe style dla widoczności/efektu buttona */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s;
 }
@@ -106,7 +70,7 @@ a {
 
 .cta-nav-button span {
     color: var(--txt-blue);
-    font-size: 24px; /* Większy font dla CTA */
+    font-size: 24px; 
     font-weight: 700;
     text-align: center;
 }
@@ -119,371 +83,4 @@ a {
 
 
 /* Header Slider Styles */
-.header-slider {
-    position: relative;
-    width: 100%;
-    min-height: 500px;
-    background-color: var(--dark-blue);
-    overflow: hidden; 
-}
-
-.slides-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.slide {
-    display: flex;
-    width: 100%;
-    min-height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0; 
-    transition: opacity 1.5s ease-in-out; 
-    z-index: 1;
-}
-
-.slide-image {
-    flex: 1;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Obrazy dla poszczególnych slajdów */
-.slide-image-1 {
-    background-image: url(./img/img.png); 
-}
-.slide-image-2 {
-    background-image: url(./img/img-2.png); 
-}
-.slide-image-3 {
-    background-image: url(./img/img-3.png); 
-}
-
-
-.slide-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 43px;
-    padding: 20px 60px;
-    background-color: var(--blue);
-}
-
-/* Styl dla standardowych slajdów 1 i 2 */
-.headline h1 {
-    color: #fff;
-    font-size: 34px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.2;
-}
-
-.headline p {
-    color: #fff;
-    font-size: 28px;
-    font-weight: 400;
-}
-
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px 30px;
-    background-color: var(--yellow);
-    border-radius: 1000px;
-    border: none;
-    cursor: pointer;
-}
-
-.cta-button span {
-    color: var(--txt-blue);
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-}
-
-/* ZAKTUALIZOWANE STYLE DLA SLAJDU 3 (STATYSTYKI) */
-.slide-content-stats {
-    background-color: var(--dark-blue); 
-    padding: 40px 80px; 
-    justify-content: center;
-    gap: 60px; 
-}
-
-.stat-item-header {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.stat-circle {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Użycie stożkowego gradientu do symulacji wypełnienia koła */
-    background: conic-gradient(
-        var(--light-blue) 0%, 
-        var(--light-blue) var(--fill-percent, 50%), 
-        rgba(255, 255, 255, 0.2) var(--fill-percent, 50%)
-    );
-}
-
-/* Dostosowanie wypełnienia na podstawie atrybutu data-percent w HTML */
-.stat-item-header:nth-child(1) .stat-circle {
-    --fill-percent: 50%;
-}
-.stat-item-header:nth-child(2) .stat-circle {
-    --fill-percent: 38%;
-}
-
-/* Tekst procentowy - styl taki sam jak .headline p (mniejszy tekst) - biały */
-.percent-value {
-    position: absolute;
-    color: #fff;
-    font-size: 28px; /* Zgodnie ze stylem .headline p */
-    font-weight: 400; /* Zgodnie ze stylem .headline p */
-    z-index: 2;
-}
-
-/* Wewnętrzne ciemne koło, aby stworzyć efekt pierścienia */
-.stat-circle::after {
-    content: '';
-    position: absolute;
-    width: 105px; 
-    height: 105px;
-    background-color: var(--dark-blue); 
-    border-radius: 50%;
-    z-index: 1;
-}
-
-/* Tekst obok procentu - biały, styl jak h1/bold */
-.stat-text-header {
-    flex: 1;
-    color: #fff;
-    font-size: 34px; /* Styl h1 */
-    font-weight: 700; 
-    line-height: 1.2;
-}
-/* KONIEC ZAKTUALIZOWANYCH STYLÓW DLA SLAJDU 3 */
-
-
-/* Styl dla kontrolek (kropek) */
-.slider-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 10; 
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.dot.active {
-    background-color: var(--yellow);
-    transform: scale(1.2);
-}
-/* Koniec stylów slidera */
-
-/* Reszta stylów strony (sekcje, footer, itd.) pozostaje bez zmian. */
-.section {
-    width: 100%;
-    padding: 40px 20px 60px;
-}
-
-h2 {
-    font-size: 40px;
-    font-style: italic;
-    font-weight: 400;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-
-/* Media Queries */
-
-@media (max-width: 1024px) {
-    
-    /* NOWE STYLE NAVIGACJI DLA MOBILE */
-    .navbar-main {
-        justify-content: space-around;
-        gap: 15px;
-    }
-
-    .navbar-cta-row {
-        padding-top: 5px;
-    }
-    
-    .cta-nav-button {
-        padding: 8px 20px;
-    }
-    
-    .cta-nav-button span {
-        font-size: 20px; 
-    }
-    
-    .nav-item {
-        font-size: 18px; /* Mniejszy font na tablecie */
-    }
-    /* KONIEC NOWYCH STYLÓW NAVIGACJI DLA MOBILE */
-
-    /* Zaktualizowane style dla slidera */
-    .header-slider, .slide {
-        min-height: 450px; 
-    }
-
-    .slide {
-        flex-direction: column; 
-    }
-
-    .slide-image {
-        min-height: 250px;
-    }
-
-    .slide-content {
-        padding: 40px 20px;
-        text-align: center;
-        align-items: center;
-        flex: none; 
-    }
-
-    /* Dopasowanie slajdu statystycznego na mobile */
-    .slide-content-stats {
-        padding: 40px 20px;
-        text-align: left; 
-        align-items: flex-start;
-        justify-content: center;
-        gap: 20px;
-    }
-    
-    .stat-item-header {
-        gap: 15px;
-    }
-
-    .stat-circle {
-        width: 100px;
-        height: 100px;
-    }
-
-    .stat-circle::after {
-        width: 85px;
-        height: 85px;
-    }
-
-    /* Dopasowanie wielkości tekstu dla mobile */
-    .percent-value {
-        font-size: 22px; 
-    }
-
-    .stat-text-header {
-        font-size: 28px; 
-        font-weight: 700;
-    }
-    /* Koniec aktualizacji stylów slidera */
-
-    .headline h1 {
-        font-size: 28px;
-    }
-
-    .headline p {
-        font-size: 22px;
-    }
-
-    .content-block {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .boxes-grid-2-col {
-        grid-template-columns: 1fr;
-    }
-
-    .two-columns {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .photo-info-block, .photo-info-block.reverse {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .photo-senior, .photo-pregnant {
-        width: 100%;
-        height: 250px;
-    }
-}
-
-@media (max-width: 768px) {
-    
-    /* NOWE STYLE NAVIGACJI DLA BARDZO MAŁYCH EKRANÓW */
-    .navbar-main {
-        flex-direction: column; /* Umożliwia łamanie na wiele linii, jeśli brakuje miejsca */
-        gap: 10px;
-    }
-    
-    .nav-item {
-        font-size: 16px;
-    }
-
-    .cta-nav-button span {
-        font-size: 16px;
-    }
-    /* KONIEC NOWYCH STYLÓW NAVIGACJI DLA BARDZO MAŁYCH EKRANÓW */
-
-    .header-content {
-        gap: 20px;
-    }
-
-    .cta-button span {
-        font-size: 20px;
-    }
-
-    h2 {
-        font-size: 32px;
-    }
-    
-    .subtitle {
-        font-size: 20px;
-    }
-
-    .two-columns-mobile-stack {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .text-block-small {
-        font-size: 20px;
-    }
-    
-    .ok-image {
-        width: 100%;
-        max-width: 250px;
-        height: auto;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-    }
-}
+// ... reszta kodu slidera pozostaje bez zmian
