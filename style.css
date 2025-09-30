@@ -105,10 +105,10 @@ a {
     background-image: url(./img/img.png); 
 }
 .slide-image-2 {
-    background-image: url(./img/img-2.png); 
+    background-image: url(./img/img-2.png); /* Przykładowe tło, zmień w razie potrzeby */
 }
 .slide-image-3 {
-    background-image: url(./img/img-3.png); 
+    background-image: url(./img/img-3.png); /* Przykładowe tło, zmień w razie potrzeby */
 }
 
 
@@ -121,6 +121,75 @@ a {
     padding: 20px 60px;
     background-color: var(--blue);
 }
+
+/* Specjalne style dla slajdu statystycznego (Slajd 3) */
+.slide-content-stats {
+    background-color: var(--dark-blue); /* Ciemnoniebieskie tło jak na obrazku */
+    padding: 40px 80px; /* Większy padding */
+    justify-content: space-around; /* Rozłożenie elementów pionowo */
+    gap: 40px; /* Zmniejszony gap dla lepszego dopasowania */
+}
+
+.stat-item-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 600px;
+}
+
+.stat-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Użycie stożkowego gradientu do symulacji wypełnienia koła */
+    background: conic-gradient(
+        var(--light-blue) 0%, /* Początek wypełnienia */
+        var(--light-blue) var(--fill-percent, 50%), /* Uzupełnianie */
+        rgba(255, 255, 255, 0.2) var(--fill-percent, 50%) /* Reszta tła (jaśniejsza) */
+    );
+    /* Użycie atrybutu data-percent w JS do dynamicznej zmiany (w tym wypadku statycznie) */
+    --fill-percent: 0%; 
+}
+
+/* Dostosowanie wypełnienia na podstawie atrybutu data-percent w HTML */
+.stat-item-header:nth-child(1) .stat-circle {
+    --fill-percent: 50%;
+}
+.stat-item-header:nth-child(2) .stat-circle {
+    --fill-percent: 38%;
+}
+
+.percent-value {
+    position: absolute;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    z-index: 2; /* Upewnienie się, że tekst jest widoczny */
+}
+
+/* Wewnętrzne białe koło, aby stworzyć efekt pierścienia */
+.stat-circle::after {
+    content: '';
+    position: absolute;
+    width: 105px; /* Mniejsze niż 120px */
+    height: 105px;
+    background-color: var(--dark-blue); /* To samo tło co kontener, aby ukryć środek */
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.stat-text-header {
+    flex: 1;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
 
 /* Styl dla standardowych slajdów 1 i 2 */
 .headline h1 {
@@ -156,76 +225,6 @@ a {
     text-align: center;
 }
 
-/* NOWE STYLE DLA SLAJDU 3 (STATYSTYKI) */
-.slide-content-stats-new {
-    background-color: var(--dark-blue); /* Ciemnoniebieskie tło jak na obrazku */
-    padding: 40px 80px; 
-    justify-content: center;
-    gap: 60px; /* Większy odstęp między elementami */
-}
-
-.stat-item-header-new {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.stat-circle-new {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Użycie stożkowego gradientu do symulacji wypełnienia koła */
-    background: conic-gradient(
-        var(--light-blue) 0%, 
-        var(--light-blue) var(--fill-percent, 50%), 
-        rgba(255, 255, 255, 0.2) var(--fill-percent, 50%)
-    );
-}
-
-/* Dostosowanie wypełnienia na podstawie atrybutu data-percent w HTML */
-.stat-item-header-new:nth-child(1) .stat-circle-new {
-    --fill-percent: 50%;
-}
-.stat-item-header-new:nth-child(2) .stat-circle-new {
-    --fill-percent: 38%;
-}
-
-/* Tekst procentowy - styl taki sam jak .headline p */
-.stat-percent-value {
-    position: absolute;
-    color: #fff;
-    font-size: 28px; /* Odpowiada .headline p */
-    font-weight: 400; /* Odpowiada .headline p */
-    z-index: 2;
-}
-
-/* Wewnętrzne ciemne koło, aby stworzyć efekt pierścienia */
-.stat-circle-new::after {
-    content: '';
-    position: absolute;
-    width: 105px; 
-    height: 105px;
-    background-color: var(--dark-blue); 
-    border-radius: 50%;
-    z-index: 1;
-}
-
-/* Tekst obok procentu - biały kolor, styl .headline p (zmieniony na .headline h1) */
-.stat-text-header-new {
-    flex: 1;
-    color: #fff;
-    font-size: 34px; /* Styl h1 */
-    font-weight: 400; 
-    line-height: 1.2;
-    font-style: italic; /* Zgodnie ze stylem H1 na slajdach 1 i 2 */
-}
-/* KONIEC NOWYCH STYLÓW */
-
-
 /* Styl dla kontrolek (kropek) */
 .slider-dots {
     position: absolute;
@@ -257,15 +256,8 @@ a {
     width: 100%;
     padding: 40px 20px 60px;
 }
-
-h2 {
-    font-size: 40px;
-    font-style: italic;
-    font-weight: 400;
-    text-align: center;
-    padding-bottom: 20px;
-}
 /* ... i tak dalej, wszystkie pozostałe style z oryginalnego style.css ... */
+
 
 /* Media Queries */
 
@@ -296,36 +288,35 @@ h2 {
     }
 
     /* Dopasowanie slajdu statystycznego na mobile */
-    .slide-content-stats-new {
+    .slide-content-stats {
         padding: 40px 20px;
-        text-align: left; 
+        text-align: left; /* Wracamy do lewego wyrównania */
         align-items: flex-start;
         justify-content: center;
         gap: 20px;
     }
     
-    .stat-item-header-new {
+    .stat-item-header {
         gap: 15px;
     }
 
-    .stat-circle-new {
+    .stat-circle {
         width: 100px;
         height: 100px;
     }
 
-    .stat-circle-new::after {
+    .stat-circle::after {
         width: 85px;
         height: 85px;
     }
 
-    /* Dopasowanie wielkości tekstu dla mobile */
-    .stat-percent-value {
-        font-size: 22px; /* Odpowiada mobile .headline p */
+    .percent-value {
+        font-size: 28px;
     }
 
-    .stat-text-header-new {
-        font-size: 28px; /* Odpowiada mobile .headline h1 */
-        font-weight: 400;
+    .stat-text-header {
+        font-size: 24px;
+        font-weight: 400; /* Zgodnie ze wzorem z obrazka */
     }
     /* Koniec aktualizacji stylów slidera */
 
