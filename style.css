@@ -61,18 +61,20 @@ a {
 
 .navbar-main {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 37px;
+    flex-wrap: nowrap; /* Wymuszenie jednej linii */
+    justify-content: space-between; /* Rozłożenie linków na całą szerokość */
     width: 100%;
+    max-width: 1200px; 
+    padding: 0 10px; /* Lekkie marginesy boczne */
 }
 
 .nav-item {
     color: #fff;
-    font-weight: 700;
-    font-size: 21px;
+    font-weight: 400; /* Zmienione na regular */
+    font-size: 19px; /* Zmniejszona czcionka */
     text-align: center;
     white-space: nowrap;
+    padding: 0 5px; /* Dodatkowy padding dla odstępu */
 }
 
 .navbar-cta-row {
@@ -82,28 +84,36 @@ a {
 }
 
 .cta-nav-button {
+    /* Primary Button CTA */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 10px 25px; /* Mniejszy padding niż w headerze */
+    padding: 15px 30px; 
     background-color: var(--yellow);
     border-radius: 1000px;
     border: none;
     cursor: pointer;
     text-decoration: none;
+    /* Dodatkowe style dla widoczności/efektu buttona */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.cta-nav-button:hover {
+    background-color: color-mix(in srgb, var(--yellow) 90%, black);
 }
 
 .cta-nav-button span {
     color: var(--txt-blue);
-    font-size: 21px; /* Taki sam jak nav-item */
+    font-size: 24px; /* Większy font dla CTA */
     font-weight: 700;
     text-align: center;
 }
 
 .cta-arrow {
-    width: 14px;
-    height: 14px;
+    width: 20px; 
+    height: 20px;
 }
 /* KONIEC NOWYCH STYLÓW NAVIGACJI */
 
@@ -261,9 +271,8 @@ a {
     flex: 1;
     color: #fff;
     font-size: 34px; /* Styl h1 */
-    font-weight: 700; /* Użyłem 700 (bold), aby lepiej oddać wizualny styl z obrazka, reszta strony używa 400 italic */
+    font-weight: 700; 
     line-height: 1.2;
-    /* Usunąłem italic, bo tekst na obrazku jest bold, ale nie italic */
 }
 /* KONIEC ZAKTUALIZOWANYCH STYLÓW DLA SLAJDU 3 */
 
@@ -307,7 +316,6 @@ h2 {
     text-align: center;
     padding-bottom: 20px;
 }
-/* ... pozostałe style z oryginalnego style.css ... */
 
 
 /* Media Queries */
@@ -316,7 +324,7 @@ h2 {
     
     /* NOWE STYLE NAVIGACJI DLA MOBILE */
     .navbar-main {
-        justify-content: center;
+        justify-content: space-around;
         gap: 15px;
     }
 
@@ -325,12 +333,15 @@ h2 {
     }
     
     .cta-nav-button {
-        /* Węższy przycisk na mobile */
         padding: 8px 20px;
     }
     
     .cta-nav-button span {
-        font-size: 18px; 
+        font-size: 20px; 
+    }
+    
+    .nav-item {
+        font-size: 18px; /* Mniejszy font na tablecie */
     }
     /* KONIEC NOWYCH STYLÓW NAVIGACJI DLA MOBILE */
 
@@ -379,11 +390,11 @@ h2 {
 
     /* Dopasowanie wielkości tekstu dla mobile */
     .percent-value {
-        font-size: 22px; /* Odpowiada mobile .headline p */
+        font-size: 22px; 
     }
 
     .stat-text-header {
-        font-size: 28px; /* Odpowiada mobile .headline h1 */
+        font-size: 28px; 
         font-weight: 700;
     }
     /* Koniec aktualizacji stylów slidera */
@@ -424,17 +435,13 @@ h2 {
 @media (max-width: 768px) {
     
     /* NOWE STYLE NAVIGACJI DLA BARDZO MAŁYCH EKRANÓW */
-    .navbar-container {
-        gap: 10px;
-    }
-
     .navbar-main {
-        flex-direction: column;
+        flex-direction: column; /* Umożliwia łamanie na wiele linii, jeśli brakuje miejsca */
         gap: 10px;
     }
     
     .nav-item {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .cta-nav-button span {
