@@ -66,51 +66,54 @@ a {
     white-space: nowrap;
 }
 
-/* ======================================================= */
-/* STYLE DLA SLIDERA (NAGŁÓWKA) */
-/* ======================================================= */
-
-.slider-header {
+/* Header Slider Styles - ZASTĘPUJE ORYGINALNY .header */
+.header-slider {
+    position: relative;
     width: 100%;
     min-height: 500px;
-    overflow: hidden; /* KLUCZOWE: Ukrywa slajdy poza widokiem */
-    position: relative;
-    background-color: var(--dark-blue); /* Fallback */
+    background-color: var(--dark-blue);
+    overflow: hidden; 
 }
 
-.slider-container {
-    display: flex;
-    width: 300%; /* W zależności od liczby slajdów (3 slajdy * 100%) */
+.slides-container {
+    width: 100%;
     height: 100%;
-    transition: transform 0.8s ease-in-out; /* Płynne przejście */
+    position: relative;
 }
 
 .slide {
-    width: 33.333%; /* Każdy slajd zajmuje 1/3 szerokości kontenera, czyli 100% widoku */
     display: flex;
-    flex-shrink: 0; 
+    width: 100%;
     min-height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out; 
+    z-index: 1;
 }
 
 .slide-image {
-    flex: 1; /* 50% szerokości slajdu */
+    flex: 1;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* Definicja obrazów dla slajdów (użyj ścieżek do swoich obrazów) */
+/* Obrazy dla poszczególnych slajdów */
 .slide-image-1 {
     background-image: url(./img/img.png); 
 }
 .slide-image-2 {
-    background-image: url(./img/img-1.png); 
+    background-image: url(./img/img-2.png); 
 }
 .slide-image-3 {
-    background-image: url(https://placehold.co/1200x500/003C71/ffffff?text=SLIDE+3+IMAGE); 
+    background-image: url(./img/img-3.png); 
 }
 
+
 .slide-content {
-    flex: 1; /* 50% szerokości slajdu */
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -143,11 +146,6 @@ a {
     border-radius: 1000px;
     border: none;
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
 }
 
 .cta-button span {
@@ -157,11 +155,32 @@ a {
     text-align: center;
 }
 
-/* Usunięto style dla .slider-dots i .dot */
+/* Styl dla kontrolek (kropek) */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10; 
+}
 
-/* ======================================================= */
-/* POZOSTAŁE SEKCJE STRONY */
-/* ======================================================= */
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.dot.active {
+    background-color: var(--yellow);
+    transform: scale(1.2);
+}
+
+/* Koniec stylów slidera */
 
 .section {
     width: 100%;
@@ -325,202 +344,4 @@ h2 {
 
 .photo-info-block {
     display: flex;
-    gap: 60px;
-    align-items: center;
-    margin-bottom: 60px;
-}
-
-.photo-info-block.reverse {
-    flex-direction: row-reverse;
-}
-
-.photo-senior {
-    width: 584px;
-    height: 339px;
-    background-image: url(./img/img-1.png);
-    background-size: cover;
-    background-position: center;
-}
-
-.photo-pregnant {
-    width: 584px;
-    height: 339px;
-    background-image: url(./img/img-2.png);
-    background-size: cover;
-    background-position: center;
-}
-
-.text-content {
-    flex: 1;
-}
-
-.text-content h3 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.text-content p {
-    font-size: 24px;
-    line-height: 1.4;
-}
-
-.blue-bg {
-    background-color: var(--blue);
-    color: #fff;
-    padding: 40px 20px 60px;
-}
-
-.two-columns-mobile-stack {
-    display: flex;
-    gap: 60px;
-    align-items: center;
-}
-
-.text-block-small {
-    font-size: 24px;
-    line-height: 1.4;
-    max-width: 518px;
-}
-
-.ok-image {
-    width: 336px;
-    height: 293px;
-    background-image: url(./img/vector-10.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.footer {
-    width: 100%;
-    background-color: var(--dark-blue);
-    color: #fff;
-    padding: 40px 20px 80px;
-}
-
-.footer-section {
-    margin-bottom: 40px;
-}
-
-.disclaimer {
-    font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 10px;
-}
-
-.footer-links {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px 40px;
-    font-size: 14px;
-}
-
-/* ======================================================= */
-/* Media Queries */
-/* ======================================================= */
-
-@media (max-width: 1024px) {
-    .navbar {
-        justify-content: space-around;
-        gap: 15px;
-    }
-
-    /* Dopasowanie slidera dla mniejszych ekranów - slajdy układają się w kolumnę */
-    .slide {
-        flex-direction: column;
-        min-height: auto;
-    }
-
-    .slide-image {
-        min-height: 300px;
-        flex: 0 0 auto; /* Obrazek ma stałą wysokość */
-        width: 100%;
-    }
-
-    .slide-content {
-        padding: 40px 20px;
-        text-align: center;
-        align-items: center;
-        flex: 1; /* Kontent zajmuje resztę miejsca */
-        gap: 20px;
-    }
-
-    .headline h1 {
-        font-size: 28px;
-    }
-
-    .headline p {
-        font-size: 22px;
-    }
-
-    .content-block {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .boxes-grid-2-col {
-        grid-template-columns: 1fr;
-    }
-
-    .two-columns {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .photo-info-block, .photo-info-block.reverse {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .photo-senior, .photo-pregnant {
-        width: 100%;
-        height: 250px;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .nav-item {
-        font-size: 18px;
-    }
-
-    .cta-button span {
-        font-size: 20px;
-    }
-
-    h2 {
-        font-size: 32px;
-    }
-    
-    .subtitle {
-        font-size: 20px;
-    }
-
-    .two-columns-mobile-stack {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .text-block-small {
-        font-size: 20px;
-    }
-    
-    .ok-image {
-        width: 100%;
-        max-width: 250px;
-        height: auto;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-    }
-}
+    gap: 60px
