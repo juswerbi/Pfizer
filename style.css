@@ -1,4 +1,3 @@
-/* --- ZMIENNE KOLORÓW --- */
 :root {
     --dark-blue: rgba(0, 0, 57, 1);
     --blue: rgba(0, 1, 101, 1);
@@ -6,14 +5,17 @@
     --yellow: rgba(248, 195, 58, 1);
     --light-blue: rgba(179, 228, 254, 1);
     --pink: rgba(249, 231, 252, 1);
-    /* Kolory dla Slajdu 3 */
-    --indicator-text-color: #fff;
-    --slide3-background: #000165; 
 }
 
-/* Base Styles (Dla body, linków) - część przeniesiona z globals.css */
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: sans-serif;
+    font-family: sans-serif; /* Fallback font */
     color: var(--txt-blue);
     background-color: #fff;
     line-height: 1.5;
@@ -24,7 +26,7 @@ a {
     color: inherit;
 }
 
-/* Layout (Dla .desktop, .content-wrapper, .navi, .navbar) - część przeniesiona z globals.css */
+/* Layout */
 .desktop {
     display: flex;
     flex-direction: column;
@@ -64,233 +66,344 @@ a {
     white-space: nowrap;
 }
 
-/* --- HEADER - SLAJDER --- */
-.header {
+/* NOWE STYLE DLA SLIDERA (Zastępuje .header) */
+.slider-header {
     width: 100%;
-    min-height: 500px; 
-    background-color: var(--dark-blue);
-    overflow: hidden; /* KLUCZOWE: ukrywa nieaktywne slajdy */
+    min-height: 500px;
+    overflow: hidden; /* Ukrywa slajdy poza widokiem */
     position: relative;
+    background-color: var(--dark-blue); /* Fallback */
 }
 
 .slider-container {
-    /* Mamy 3 slajdy, więc kontener ma 300% szerokości */
     display: flex;
-    width: 300%; 
+    width: 300%; /* 3 slajdy * 100% */
     height: 100%;
-    transition: transform 0.8s ease-in-out; /* Płynna animacja przejścia */
+    transition: transform 0.8s ease-in-out; /* Płynne przejście */
 }
 
-.slider-slide {
-    /* Każdy slajd ma 1/3 szerokości kontenera */
-    flex: 0 0 33.33%; 
+.slide {
+    width: 33.333%; /* Każdy slajd zajmuje 1/3 szerokości kontenera (100% widoku) */
     display: flex;
+    flex-shrink: 0; /* Zapobiega kurczeniu się slajdów */
     min-height: 500px;
 }
 
-/* --- Sekcje slajdów (Obraz i Treść) --- */
-.header-image {
-    flex: 1; /* Zajmuje 50% slajdu */
+.slide-image {
+    flex: 1; /* 50% szerokości slajdu */
     background-size: cover;
     background-position: center;
-    min-height: 200px;
 }
 
-.slide-1-image {
-    background-image: url(https://placehold.co/600x500/004d99/ffffff?text=RSV+Slajd+1);
+/* Zastosowanie oryginalnych i przykładowych obrazów dla slajdów */
+.slide-image-1 {
+    background-image: url(./img/img.png); /* Oryginalny obraz */
+}
+.slide-image-2 {
+    /* Przykładowy obraz 2 (używam oryginalnego, jeśli nie ma innego, lub możesz go podmienić) */
+    background-image: url(./img/img-1.png); 
+}
+.slide-image-3 {
+    /* Przykładowy obraz 3 (używam oryginalnego, jeśli nie ma innego, lub możesz go podmienić) */
+    background-image: url(https://placehold.co/1200x500/003C71/ffffff?text=SLIDE+3+IMAGE); 
 }
 
-.slide-2-image {
-    background-image: url(https://placehold.co/600x500/004d99/ffffff?text=RSV+Slajd+2);
-}
-
-.header-content {
-    flex: 1; /* Zajmuje 50% slajdu */
+.slide-content {
+    flex: 1; /* 50% szerokości slajdu */
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 43px;
-    padding: 40px 60px;
-    background-color: var(--blue); 
-    color: #fff;
+    padding: 20px 60px;
+    background-color: var(--blue);
 }
 
 .headline h1 {
-    font-size: 40px;
-    font-weight: 700;
+    color: #fff;
+    font-size: 34px;
+    font-style: italic;
+    font-weight: 400;
     line-height: 1.2;
-    margin-bottom: 10px;
 }
 
 .headline p {
-    font-size: 26px;
+    color: #fff;
+    font-size: 28px;
     font-weight: 400;
 }
 
-
-/* --- STYL SPECYFICZNY DLA SLAJDU 3 (Wskaźniki) --- */
-.slide-3-slide {
-    flex: 0 0 33.33%; 
-    display: flex;
-}
-
-.header-content.slide-3-content-full {
-    flex: 100%; /* Slajd 3 zajmuje całe 100% szerokości 1/3 kontenera */
-    background-color: var(--slide3-background);
-    padding: 40px 100px; 
-}
-
-.slide-3-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    gap: 60px;
-}
-
-.indicator-row {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin-bottom: 40px;
-    min-height: 130px;
-}
-
-.indicator-text-block {
-    flex: 1;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.3;
-    color: var(--indicator-text-color);
-}
-
-.indicator-text-block strong {
-    font-weight: 700;
-}
-
-/* --- STYLA DLA SVG PIE CHART --- */
-.pie-chart-svg {
-    position: relative;
-    width: 130px; 
-    height: 130px;
-    flex-shrink: 0;
-}
-
-.pie-chart-value {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 36px;
-    font-weight: 900;
-    color: var(--indicator-text-color);
-}
-
-/* Kontur (biały pierścień) */
-.pie-background-circle {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.4); 
-    stroke-width: 6; 
-}
-
-/* Wypełnienie (błękitny gradient) */
-.pie-progress-circle {
-    fill: none;
-    stroke-width: 6; 
-    stroke-linecap: round;
-    transform: rotate(-90deg); /* Zaczynamy od góry */
-    transform-origin: 50% 50%;
-    transition: stroke-dashoffset 0.8s ease-out; /* KLUCZOWE: animacja */
-    stroke: url(#blueGradient); 
-}
-
-.svg-gradients {
-    /* Ukryj dodatkowe SVG z definicjami gradientów */
-    display: block;
-    width: 0;
-    height: 0;
-}
-
-
-/* --- STYLA DLA PRZYCISKÓW CTA --- */
 .cta-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 15px 30px;
+    padding: 20px 30px;
     background-color: var(--yellow);
-    color: var(--txt-blue);
-    font-weight: 700;
-    font-size: 22px;
+    border-radius: 1000px;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 450px;
-    align-self: flex-start; /* Domyślnie na lewo dla Slajdu 3 */
-}
-
-.cta-button:hover {
-    background-color: #ffc93c;
 }
 
 .cta-button span {
     color: var(--txt-blue);
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
 }
 
-.cta-button img {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0.3); 
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
 }
 
-/* --- OGÓLNE SEKCJE STRONY --- */
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: var(--yellow);
+}
+/* KONIEC STYLÓW DLA SLIDERA */
+
 .section {
     width: 100%;
-    padding: 40px 0;
-    max-width: 1200px;
+    padding: 40px 20px 60px;
 }
 
-.section h2 {
-    font-size: 32px;
+h2 {
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.separator {
+    width: 30px;
+    height: 122px;
+}
+
+.content-block {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    margin-top: 20px;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 109px;
+    height: 121px;
+}
+
+.text-block {
+    font-size: 24px;
+    line-height: 1.4;
+    max-width: 997px;
+}
+
+.boxes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.box-icon {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+}
+
+.box-text {
+    font-size: 24px;
     font-weight: 700;
-    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.dark-bg {
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 40px 20px 60px;
+}
+
+.light-blue-text {
+    color: var(--light-blue);
+}
+
+.white-text {
+    color: #fff;
+}
+
+.subtitle {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.boxes-grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto; /* Ustawienie, aby cały grid był wyśrodkowany */
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.stat-item img {
+    width: 150px;
+    height: auto;
+}
+
+.stat-number {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--light-blue);
+    line-height: 1;
+}
+
+.stat-text {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.section-title {
+    font-size: 40px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
     color: var(--txt-blue);
+    margin-bottom: 40px;
 }
 
 .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 200px;
+    font-size: 24px;
+    line-height: 1.4;
 }
 
-.content-block p {
+.pink-bg {
+    background-color: var(--pink);
+    padding: 40px 20px 60px;
+}
+
+.danger-info p {
+    font-size: 24px;
+    line-height: 1.4;
     margin-bottom: 20px;
 }
 
-.boxes-grid-2-col {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 30px;
+.photo-info-block {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 60px;
 }
 
-.box {
-    background-color: var(--light-blue);
-    padding: 30px;
-    border-radius: 12px;
+.photo-info-block.reverse {
+    flex-direction: row-reverse;
 }
 
-.box h3 {
+.photo-senior {
+    width: 584px;
+    height: 339px;
+    background-image: url(./img/img-1.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.photo-pregnant {
+    width: 584px;
+    height: 339px;
+    background-image: url(./img/img-2.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h3 {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-/* --- FOOTER --- */
+.text-content p {
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.blue-bg {
+    background-color: var(--blue);
+    color: #fff;
+    padding: 40px 20px 60px;
+}
+
+.two-columns-mobile-stack {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.text-block-small {
+    font-size: 24px;
+    line-height: 1.4;
+    max-width: 518px;
+}
+
+.ok-image {
+    width: 336px;
+    height: 293px;
+    background-image: url(./img/vector-10.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .footer {
     width: 100%;
     background-color: var(--dark-blue);
@@ -298,93 +411,129 @@ a {
     padding: 40px 20px 80px;
 }
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 40px;
+.footer-section {
+    margin-bottom: 40px;
 }
 
-.footer-section {
-    max-width: 400px;
+.disclaimer {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
 }
 
 .footer-links {
     list-style: none;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+    font-size: 14px;
 }
 
-.footer-links li a {
-    font-size: 16px;
-    margin-bottom: 10px;
-    display: block;
-}
+/* Media Queries */
 
-.disclaimer {
-    font-size: 12px;
-    opacity: 0.7;
-    margin-top: 20px;
-}
-
-/* --- MEDIA QUERIES (Responsywność) --- */
 @media (max-width: 1024px) {
-    .slider-slide {
+    .navbar {
+        justify-content: space-around;
+        gap: 15px;
+    }
+
+    /* Dopasowanie slidera dla mniejszych ekranów - slajdy układają się w kolumnę */
+    .slide {
         flex-direction: column;
         min-height: auto;
     }
-    .header-content {
-        padding: 40px 30px;
-        text-align: center;
-        align-items: center;
-    }
-    .header-image {
+
+    .slide-image {
         min-height: 300px;
-        flex: none;
+        flex: 0 0 auto; /* Obrazek ma stałą wysokość */
         width: 100%;
     }
 
-    .header-content.slide-3-content-full {
-        padding: 40px 30px;
+    .slide-content {
+        padding: 40px 20px;
+        text-align: center;
+        align-items: center;
+        flex: 1; /* Kontent zajmuje resztę miejsca */
     }
 
-    .indicator-row {
+    .headline h1 {
+        font-size: 28px;
+    }
+
+    .headline p {
+        font-size: 22px;
+    }
+
+    .content-block {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
-        margin-bottom: 20px;
     }
-    .indicator-text-block {
-        font-size: 24px;
+    
+    .boxes-grid-2-col {
+        grid-template-columns: 1fr;
     }
-    .slide-3-content-wrapper {
+
+    .two-columns {
+        grid-template-columns: 1fr;
         gap: 40px;
     }
-    .cta-button {
-        align-self: center; 
+
+    .photo-info-block, .photo-info-block.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .photo-senior, .photo-pregnant {
+        width: 100%;
+        height: 250px;
     }
 }
 
 @media (max-width: 768px) {
-    .header-content.slide-3-content-full {
-        padding: 30px 20px;
-    }
-    .indicator-text-block {
-        font-size: 20px;
-    }
-    .pie-chart-svg {
-        width: 100px;
-        height: 100px;
-    }
-    .pie-chart-value {
-        font-size: 30px;
-    }
-    .two-columns, .boxes-grid-2-col {
-        grid-template-columns: 1fr;
-    }
     .navbar {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .nav-item {
+        font-size: 18px;
+    }
+
+    .slide-content {
+        gap: 20px;
+    }
+
+    .cta-button span {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+    
+    .subtitle {
+        font-size: 20px;
+    }
+
+    .two-columns-mobile-stack {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .text-block-small {
+        font-size: 20px;
+    }
+    
+    .ok-image {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
     }
 }
