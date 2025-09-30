@@ -1,129 +1,92 @@
+/**
+ * Funkcja animateIndicators
+ * Odpowiada za animację kół progresu SVG (pie charts) na Slajdzie 3.
+ * Wykorzystuje właściwość stroke-dashoffset do płynnego wypełniania pierścienia.
+ */
+function animateIndicators() {
+    // Obwód koła o promieniu r=15.91549430918954 wynosi dokładnie 100,
+    // co ułatwia mapowanie procentów (np. 50% = offset 50).
+    const circumference = 100;
+
+    document.querySelectorAll('.pie-chart-svg').forEach(container => {
+        const percent = container.getAttribute('data-percent');
+        // Obliczenie docelowego offsetu. Np. dla 50% -> offset = 100 - 50 = 50.
+        const offset = circumference - (percent / 100) * circumference;
+        
+        const progressCircle = container.querySelector('.pie-progress-circle');
+        
+        if (progressCircle) {
+            // Ustawienie initial state (pełny offset, ukryty progres)
+            progressCircle.style.strokeDashoffset = circumference;
+            
+            // Wymuszenie reflow dla restartu animacji po zmianie offsetu
+            // Gwarantuje, że przejście będzie animowane po powrocie na slajd 3
+            progressCircle.getBoundingClientRect(); 
+            
+            // Docelowy offset - rozpoczęcie animacji z CSS transition
+            progressCircle.style.strokeDashoffset = offset;
+        }
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Selektory
-    const slidesWrapper = document.querySelector('.slides-wrapper');
-    const slides = document.querySelectorAll('.slide');
-    const barsContainer = document.querySelector('.progress-bars-container');
-    const progressBars = document.querySelectorAll('.progress-bar');
-    const pausePlayButton = document.querySelector('.pause-play-button');
-    
-    // Ustawienia
-    const intervalTime = 3500; // 3.5 sekundy
-    const totalSlides = slides.length;
-    let slideIndex = 0;
-    let slideInterval;
-    let isPaused = false;
+    // --- Konfiguracja Slajdera ---
+    const sliderContainer = document.querySelector('.slider-container');
+    const slides = document.querySelectorAll('.slider-slide');
+    const totalSlides = slides.length; // Liczba slajdów: 3
+    let currentSlide = 0; 
+    const slideDuration = 5000; // Czas wyświetlania slajdu (5 sekund)
+    let sliderInterval; 
 
-    if (!slidesWrapper || totalSlides === 0) {
-        console.error("Slider components not found. Check if .slides-wrapper and .slide elements are in HTML.");
-        return; 
-    }
-
-    // --- Funkcje Kontrolne ---
-
-    // Funkcja resetująca i startująca animację paska
-    function startBarAnimation(index) {
-        // 1. Resetuj wszystkie paski
-        progressBars.forEach(bar => {
-            bar.classList.remove('active');
-        });
+    /**
+     * Ustawia pozycję kontenera slajdów i aktualizuje stan.
+     * @param {number} index - Indeks slajdu, do którego należy przejść.
+     */
+    function goToSlide(index) {
+        // Logika pętli: (0 + 1) % 3 = 1; (2 + 1) % 3 = 0 (powrót na początek)
+        currentSlide = index % totalSlides;
         
-        // Zapewniamy, że przeglądarka zdąży odczytać usunięcie klasy 'active' (reset paska)
-        // przed jej ponownym dodaniem (start animacji). Użycie setTimeout 10ms jest bardziej 
-        // niezawodne w różnych przeglądarkach niż requestAnimationFrame dla tego konkretnego problemu.
-        setTimeout(() => {
-            if (!isPaused) {
-                // 2. Startuj animację bieżącego paska
-                progressBars[index].classList.add('active');
-            }
-        }, 10); // Czas resetu
-    }
+        // Obliczenie przesunięcia w procentach (np. 0%, 33.33%, 66.66%)
+        const offset = currentSlide * 100 / totalSlides; 
+        
+        sliderContainer.style.transform = `translateX(-${offset}%)`;
 
-    // Funkcja do przesuwania karuzeli do określonego indeksu
-    function showSlide(index) {
-        const newIndex = (index + totalSlides) % totalSlides;
-        const offset = newIndex * -100; 
-
-        slidesWrapper.style.transform = `translateX(${offset}%)`;
-        slideIndex = newIndex;
-
-        if (!isPaused) {
-            startBarAnimation(slideIndex);
+        // WYWOŁANIE ANIMACJI TYLKO NA SLAJDZIE 3 (index 2)
+        if (currentSlide === 2) {
+            animateIndicators();
         }
     }
 
-    // Funkcja do przełączania do następnego slajdu
+    /**
+     * Przechodzi do następnego slajdu w pętli.
+     */
     function nextSlide() {
-        showSlide(slideIndex + 1);
-    }
-    
-    // Funkcja restartująca interwał i animację paska
-    function restartSlider() {
-        clearInterval(slideInterval);
-        
-        // Upewniamy się, że pierwszy slajd jest natychmiast poprawnie wyświetlony
-        // i jego pasek startuje od razu.
-        if (!isPaused) {
-            startBarAnimation(slideIndex); 
-            // Restart interwału
-            slideInterval = setInterval(nextSlide, intervalTime);
-        }
+        goToSlide(currentSlide + 1);
     }
 
-    // Funkcja startująca automatyczne przewijanie (używana po pauzie)
+    /**
+     * Startuje automatyczny slajder.
+     */
     function startSlider() {
-        if (isPaused) {
-            isPaused = false;
-            pausePlayButton.classList.remove('paused');
-            restartSlider(); // Używamy nowej funkcji do restartu
-        }
+        if (sliderInterval) clearInterval(sliderInterval);
+        sliderInterval = setInterval(nextSlide, slideDuration);
     }
 
-    // Funkcja zatrzymująca automatyczne przewijanie
-    function pauseSlider() {
-        if (!isPaused) {
-            isPaused = true;
-            clearInterval(slideInterval);
-            pausePlayButton.classList.add('paused');
-
-            // Zatrzymanie animacji paska w CSS
-            progressBars.forEach(bar => {
-                bar.classList.remove('active');
-            });
-        }
+    /**
+     * Zatrzymuje automatyczny slajder.
+     */
+    function stopSlider() {
+        clearInterval(sliderInterval);
     }
 
-    // --- Nasłuchiwacze Zdarzeń ---
+    const headerElement = document.querySelector('.header');
 
-    // 1. Kliknięcie na przycisk Play/Pause
-    pausePlayButton.addEventListener('click', () => {
-        if (isPaused) {
-            startSlider();
-        } else {
-            pauseSlider();
-        }
-    });
+    // Pauza slajdera przy najechaniu myszą
+    headerElement.addEventListener('mouseenter', stopSlider);
+    headerElement.addEventListener('mouseleave', startSlider);
 
-    // 2. Kliknięcie na pasek postępu (nawigacja)
-    barsContainer.addEventListener('click', (e) => {
-        const bar = e.target.closest('.progress-bar');
-        if (!bar) return;
-
-        const newIndex = parseInt(bar.dataset.index);
-        if (newIndex !== slideIndex) {
-            
-            // Przełączamy slajd natychmiast
-            showSlide(newIndex);
-            
-            // Restartujemy timer i animację paska (jeśli nie jest w trybie 'paused')
-            restartSlider();
-        }
-    });
-
-    // --- Inicjalizacja ---
-    
-    // Ustawienie pierwszego slajdu i paska
-    showSlide(0);
-
-    // Uruchomienie automatycznego przełączania slajdów po raz pierwszy
-    slideInterval = setInterval(nextSlide, intervalTime);
+    // Inicjalizacja: Uruchom slajder po załadowaniu strony
+    startSlider(); 
+    goToSlide(currentSlide); 
 });
