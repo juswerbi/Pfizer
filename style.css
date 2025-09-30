@@ -66,7 +66,7 @@ a {
     white-space: nowrap;
 }
 
-/* Header Slider Styles - ZASTĘPUJE ORYGINALNY .header */
+/* Header Slider Styles - ZASTĘPUJE ORYGINALNY HEADER */
 .header-slider {
     position: relative;
     width: 100%;
@@ -100,7 +100,7 @@ a {
     background-repeat: no-repeat;
 }
 
-/* Obrazy dla poszczególnych slajdów */
+/* Obrazy dla poszczególnych slajdów (Musisz umieścić img-2.png i img-3.png) */
 .slide-image-1 {
     background-image: url(./img/img.png); 
 }
@@ -179,7 +179,6 @@ a {
     background-color: var(--yellow);
     transform: scale(1.2);
 }
-
 /* Koniec stylów slidera */
 
 .section {
@@ -344,4 +343,205 @@ h2 {
 
 .photo-info-block {
     display: flex;
-    gap: 60px
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.photo-info-block.reverse {
+    flex-direction: row-reverse;
+}
+
+.photo-senior {
+    width: 584px;
+    height: 339px;
+    background-image: url(./img/img-1.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.photo-pregnant {
+    width: 584px;
+    height: 339px;
+    background-image: url(./img/img-2.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.text-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.text-content p {
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.blue-bg {
+    background-color: var(--blue);
+    color: #fff;
+    padding: 40px 20px 60px;
+}
+
+.two-columns-mobile-stack {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+}
+
+.text-block-small {
+    font-size: 24px;
+    line-height: 1.4;
+    max-width: 518px;
+}
+
+.ok-image {
+    width: 336px;
+    height: 293px;
+    background-image: url(./img/vector-10.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.footer {
+    width: 100%;
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 40px 20px 80px;
+}
+
+.footer-section {
+    margin-bottom: 40px;
+}
+
+.disclaimer {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+    font-size: 14px;
+}
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+    .navbar {
+        justify-content: space-around;
+        gap: 15px;
+    }
+
+    /* Zaktualizowane style dla slidera */
+    .header-slider, .slide {
+        min-height: 450px; 
+    }
+
+    .slide {
+        flex-direction: column; /* Stos pionowy: obraz, a pod nim treść */
+    }
+
+    .slide-image {
+        min-height: 250px;
+    }
+
+    .slide-content {
+        padding: 40px 20px;
+        text-align: center;
+        align-items: center;
+        flex: none; 
+    }
+    /* Koniec aktualizacji stylów slidera */
+
+    .headline h1 {
+        font-size: 28px;
+    }
+
+    .headline p {
+        font-size: 22px;
+    }
+
+    .content-block {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .boxes-grid-2-col {
+        grid-template-columns: 1fr;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .photo-info-block, .photo-info-block.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .photo-senior, .photo-pregnant {
+        width: 100%;
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .nav-item {
+        font-size: 18px;
+    }
+
+    .header-content {
+        gap: 20px;
+    }
+
+    .cta-button span {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+    
+    .subtitle {
+        font-size: 20px;
+    }
+
+    .two-columns-mobile-stack {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .text-block-small {
+        font-size: 20px;
+    }
+    
+    .ok-image {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
