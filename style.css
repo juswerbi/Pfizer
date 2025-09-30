@@ -1,9 +1,12 @@
 :root {
-// ... (Wartości kolorów bez zmian)
+// ...
 }
 
 /* Base Styles */
-// ... (Style bazowe bez zmian)
+// ...
+
+/* Layout */
+// ...
 
 .navi {
     width: 100%;
@@ -11,14 +14,13 @@
     padding: 20px;
 }
 
-/* STYLE NAVIGACJI (OSTATECZNA WERSJA WYRÓWNANIA) */
+/* STYLE NAVIGACJI (OSTATECZNA WERSJA WYRÓWNANIA I ODSTĘPU) */
 .navbar-container {
     display: flex;
     flex-direction: column;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 15px; 
-    /* Usuwam padding, bo jest on w navbar-main i navbar-cta-row dla lepszej kontroli */
+    gap: 23px; /* ZMIANA: Zwiększony odstęp między .navbar-main a .navbar-cta-row (15px + 8px) */
 }
 
 .navbar-main {
@@ -27,7 +29,7 @@
     justify-content: flex-start; /* GŁÓWNE LINKI: WYRÓWNANIE DO LEWEJ */
     width: 100%;
     gap: 40px; 
-    padding: 0 20px; /* Wyrównanie do lewej krawędzi strony */
+    padding: 0 20px; 
 }
 
 .nav-item {
@@ -44,7 +46,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-end; /* PRZYCISK CTA: WYRÓWNANIE DO PRAWEJ */
-    padding: 0 20px; /* Wyrównanie do prawej krawędzi strony */
+    padding: 0 20px; 
 }
 
 .cta-nav-button {
@@ -82,11 +84,23 @@
 
 
 /* Header Slider Styles */
-// ... (Cała sekcja .header-slider i poniżej pozostaje **bez zmian**)
+.header-slider {
+// ... reszta stylów slidera i całej strony pozostaje bez zmian.
+// Upewnij się, że masz wszystkie style slidera z poprzednich wersji
+// w swoim pliku style.css, np. .slide-image-1, .slide-content-stats, itd.
+}
+// ...
+// Kontynuacja pozostałego kodu CSS
+// ...
+/* Media Queries */
 
 @media (max-width: 1024px) {
     
     /* STYLE NAVIGACJI DLA TABLETU */
+    .navbar-container {
+        gap: 15px; /* Przywracamy standardowy odstęp na tablecie */
+    }
+    
     .navbar-main {
         justify-content: center;
         gap: 15px;
@@ -95,39 +109,17 @@
 
     .nav-item {
         font-size: 16px; 
-        text-align: center; /* Na mniejszych ekranach centrum może wyglądać lepiej */
+        text-align: center;
     }
     
     .navbar-cta-row {
-        justify-content: center; /* Na tablecie CTA wraca na środek dla lepszego UX */
+        justify-content: center; /* CTA wraca na środek na tablecie */
         padding: 0;
     }
 
     .cta-nav-button span {
         font-size: 20px; 
     }
-    // ... (reszta media query bez zmian)
+// ... (reszta media query)
 }
-
-@media (max-width: 768px) {
-    
-    /* STYLE NAVIGACJI DLA MOBILE */
-    .navbar-main {
-        flex-direction: column; 
-        gap: 10px;
-    }
-    
-    .nav-item {
-        font-size: 16px;
-        text-align: center;
-    }
-
-    .navbar-cta-row {
-        justify-content: center;
-    }
-
-    .cta-nav-button span {
-        font-size: 16px;
-    }
-    // ... (reszta media query bez zmian)
-}
+// ...
