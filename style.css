@@ -83,15 +83,59 @@
 /* KONIEC STYLÓW NAVIGACJI */
 
 
-/* Header Slider Styles */
-.header-slider {
-// ... reszta stylów slidera i całej strony pozostaje bez zmian.
-// Upewnij się, że masz wszystkie style slidera z poprzednich wersji
-// w swoim pliku style.css, np. .slide-image-1, .slide-content-stats, itd.
-}
-// ...
-// Kontynuacja pozostałego kodu CSS
-// ...
+ /* Zaktualizowane style dla slidera */
+    .header-slider, .slide {
+        min-height: 450px; 
+    }
+
+    .slide {
+        flex-direction: column; 
+    }
+
+    .slide-image {
+        min-height: 250px;
+    }
+
+    .slide-content {
+        padding: 40px 20px;
+        text-align: center;
+        align-items: center;
+        flex: none; 
+    }
+
+    /* Dopasowanie slajdu statystycznego na mobile */
+    .slide-content-stats {
+        padding: 40px 20px;
+        text-align: left; 
+        align-items: flex-start;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .stat-item-header {
+        gap: 15px;
+    }
+
+    .stat-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .stat-circle::after {
+        width: 85px;
+        height: 85px;
+    }
+
+    /* Dopasowanie wielkości tekstu dla mobile */
+    .percent-value {
+        font-size: 22px; 
+    }
+
+    .stat-text-header {
+        font-size: 28px; 
+        font-weight: 700;
+    }
+    /* Koniec aktualizacji stylów slidera */
 /* Media Queries */
 
 @media (max-width: 1024px) {
