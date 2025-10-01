@@ -251,6 +251,108 @@ a {
 }
 /* Koniec stylów slidera */
 
+/* ------------------------------------------------------------------ */
+/* --- NOWE STYLE DLA SEKCJI CZYM JEST RSV? (ZGODNIE ZE SCREENEM) --- */
+/* ------------------------------------------------------------------ */
+
+.rsv-info-section {
+    /* Ustawienia kontenera, aby wymusić wyśrodkowanie i duży margines */
+    max-width: 900px; /* Zgodnie ze screenem, treść jest węższa */
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column; /* Ustawienie elementów w kolumnie */
+    align-items: center; /* Wyśrodkowanie w poziomie */
+    text-align: center; /* Wyśrodkowanie tekstu */
+}
+
+.rsv-info-header {
+    /* Styl dla tytułu: CZYM JEST RSV? */
+    color: var(--txt-blue); /* Bardzo ciemny granat/niebieski */
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 40px; /* Większy odstęp pod nagłówkiem */
+    letter-spacing: 0.05em; /* Lekkiespacerowanie, jak na screenie */
+    font-style: italic; /* Dodane dla lepszego dopasowania do screena */
+}
+
+.rsv-info-text-block {
+    /* Blok dla ikony i tekstu głównego, aby trzymać je razem */
+    display: flex;
+    align-items: flex-start; /* Wyrównanie ikony i tekstu na górze */
+    gap: 30px;
+    margin-bottom: 40px; /* Odstęp przed przyciskiem */
+}
+
+.virus-icon {
+    /* Styl dla ikony wirusa */
+    width: 80px; /* Zgodnie ze screenem, jest mniejsza */
+    height: 80px;
+    color: var(--txt-blue); 
+}
+
+/* Styl dla tekstu głównego */
+.rsv-info-paragraph {
+    flex: 1; /* Tekst zajmuje resztę miejsca */
+    color: var(--txt-blue);
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: left; /* Tekst powinien być wyrównany do lewej w bloku */
+    padding-top: 10px; /* Mała korekta, by tekst zaczynał się niżej niż ikona */
+}
+
+.rsv-info-paragraph strong {
+    /* Pogrubione fragmenty zgodnie ze screenem */
+    font-weight: 700;
+}
+
+/* Secondary CTA Button - Styl dla "Zobacz więcej" */
+.secondary-cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background-color: transparent;
+    border: 2px solid var(--dark-blue); /* Granatowa ramka */
+    border-radius: 1000px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-cta-button span {
+    color: var(--dark-blue); /* Granatowy tekst */
+    font-size: 18px;
+    font-weight: 400; /* Zgodnie ze screenem (mniej pogrubiony) */
+}
+
+/* Użycie znaku Unicodowego dla strzałki, jak na screenie */
+.secondary-cta-button span::after {
+    content: " →"; 
+    font-weight: 400; 
+    margin-left: 5px;
+}
+
+/* Ukrycie oryginalnej strzałki */
+.secondary-cta-button img {
+    display: none;
+}
+
+
+.secondary-cta-button:hover {
+    background-color: var(--dark-blue); /* Odwrócenie kolorów na hover */
+}
+
+.secondary-cta-button:hover span {
+    color: #fff; /* Biały tekst na hover */
+}
+
+.secondary-cta-button:hover span::after {
+    color: #fff; /* Biała strzałka na hover */
+}
+
+
 /* Reszta stylów strony (sekcje, footer, itd.) pozostaje bez zmian. */
 .section {
     width: 100%;
@@ -400,132 +502,31 @@ a {
         gap: 10px;
         align-items: center;
     }
-/* --- Sekcja Czym jest RSV? --- */
 
-.rsv-info-section {
-    max-width: 1000px; /* Lekko węższy, żeby był bardziej czytelny */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 60px 20px;
-}
-
-.rsv-info-text-block {
-    flex: 2; /* Więcej miejsca na tekst */
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.rsv-info-icon-block {
-    flex: 1; /* Mniej miejsca na ikonę */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.rsv-info-header {
-    color: var(--dark-blue); /* Granatowy */
-    font-size: 42px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.rsv-info-paragraph {
-    color: var(--txt-blue); /* Granatowy (bardzo ciemny) */
-    font-size: 20px;
-    line-height: 1.6;
-}
-
-.highlight-blue {
-    font-weight: 700;
-    color: var(--dark-blue); /* Pogrubienie kluczowych fraz granatowym */
-}
-
-.virus-icon {
-    width: 200px; /* Duża, wyrazista ikona */
-    height: auto;
-}
-
-/* Secondary CTA Button - Styl dla "ZOBACZ WIĘCEJ" */
-.secondary-cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 30px;
-    background-color: transparent; /* Przezroczyste tło */
-    border: 2px solid var(--dark-blue); /* Granatowa ramka */
-    border-radius: 1000px;
-    cursor: pointer;
-    align-self: flex-start; /* Wyrównanie do lewej */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.secondary-cta-button span {
-    color: var(--dark-blue); /* Granatowy tekst */
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.secondary-cta-button img {
-    filter: invert(1) hue-rotate(240deg) saturate(100%) brightness(0.2); 
-    /* Sprawia, że svg staje się ciemny, jeśli jest domyślnie biały/jasny */
-}
-
-.secondary-cta-button:hover {
-    background-color: var(--dark-blue); /* Odwrócenie kolorów na hover */
-}
-
-.secondary-cta-button:hover span {
-    color: #fff; /* Biały tekst na hover */
-}
-
-.secondary-cta-button:hover img {
-    filter: none; /* Wróć do domyślnego koloru strzałki (jeśli jest biała lub jasna) */
-}
-
-/* Media Queries dla sekcji RSV */
-@media (max-width: 1024px) {
+    /* Dostosowania dla sekcji RSV na mobile */
     .rsv-info-section {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
+        padding: 40px 20px;
+    }
+
+    .rsv-info-header {
+        font-size: 32px;
+        margin-bottom: 30px;
     }
 
     .rsv-info-text-block {
-        order: 2; /* Tekst pod ikoną */
+        flex-direction: column; /* Stos pionowy na mobile */
         align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
     }
-
-    .rsv-info-icon-block {
-        order: 1; /* Ikona nad tekstem */
-    }
-
-    .secondary-cta-button {
-        align-self: center; /* Wyśrodkowanie przycisku */
-    }
-
-    .rsv-info-header {
-        font-size: 36px;
-    }
-
+    
     .rsv-info-paragraph {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 768px) {
-    .rsv-info-header {
-        font-size: 32px;
-    }
-
-    .rsv-info-paragraph {
+        text-align: center; /* Wyśrodkowanie tekstu na mobile */
         font-size: 16px;
     }
-
+    
     .virus-icon {
-        width: 150px;
+        width: 60px;
+        height: 60px;
     }
 }
