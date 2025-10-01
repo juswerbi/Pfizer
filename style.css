@@ -252,62 +252,56 @@ a {
 /* Koniec stylów slidera */
 
 /* ------------------------------------------------------------------ */
-/* --- NOWE STYLE DLA SEKCJI CZYM JEST RSV? (ZGODNIE ZE SCREENEM) --- */
+/* --- NOWE STYLE DLA SEKCJI CZYM JEST RSV? (ZAKTUALIZOWANE) --- */
 /* ------------------------------------------------------------------ */
 
 .rsv-info-section {
-    /* Ustawienia kontenera, aby wymusić wyśrodkowanie i duży margines */
-    max-width: 900px; /* Zgodnie ze screenem, treść jest węższa */
+    max-width: 900px;
     margin: 0 auto;
     padding: 60px 20px;
     display: flex;
-    flex-direction: column; /* Ustawienie elementów w kolumnie */
-    align-items: center; /* Wyśrodkowanie w poziomie */
-    text-align: center; /* Wyśrodkowanie tekstu */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .rsv-info-header {
-    /* Styl dla tytułu: CZYM JEST RSV? */
-    color: var(--txt-blue); /* Bardzo ciemny granat/niebieski */
+    color: var(--txt-blue);
     font-size: 40px;
     font-weight: 700;
     line-height: 1.2;
-    margin-bottom: 40px; /* Większy odstęp pod nagłówkiem */
-    letter-spacing: 0.05em; /* Lekkiespacerowanie, jak na screenie */
-    font-style: italic; /* Dodane dla lepszego dopasowania do screena */
+    margin-bottom: 40px;
+    letter-spacing: 0.05em;
+    font-style: italic;
 }
 
 .rsv-info-text-block {
-    /* Blok dla ikony i tekstu głównego, aby trzymać je razem */
     display: flex;
-    align-items: flex-start; /* Wyrównanie ikony i tekstu na górze */
+    align-items: flex-start;
     gap: 30px;
-    margin-bottom: 40px; /* Odstęp przed przyciskiem */
+    margin-bottom: 40px;
 }
 
 .virus-icon {
-    /* Styl dla ikony wirusa */
-    width: 80px; /* Zgodnie ze screenem, jest mniejsza */
-    height: 80px;
+    /* NOWY ROZMIAR IKONY */
+    width: 132px; 
+    height: 132px;
     color: var(--txt-blue); 
 }
 
-/* Styl dla tekstu głównego */
 .rsv-info-paragraph {
-    flex: 1; /* Tekst zajmuje resztę miejsca */
+    flex: 1;
     color: var(--txt-blue);
     font-size: 20px;
     line-height: 1.6;
-    text-align: left; /* Tekst powinien być wyrównany do lewej w bloku */
-    padding-top: 10px; /* Mała korekta, by tekst zaczynał się niżej niż ikona */
+    text-align: left;
+    padding-top: 10px;
 }
 
 .rsv-info-paragraph strong {
-    /* Pogrubione fragmenty zgodnie ze screenem */
     font-weight: 700;
 }
 
-/* Secondary CTA Button - Styl dla "Zobacz więcej" */
 .secondary-cta-button {
     display: flex;
     align-items: center;
@@ -315,43 +309,51 @@ a {
     gap: 10px;
     padding: 15px 30px;
     background-color: transparent;
-    border: 2px solid var(--dark-blue); /* Granatowa ramka */
+    border: 2px solid var(--dark-blue);
     border-radius: 1000px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .secondary-cta-button span {
-    color: var(--dark-blue); /* Granatowy tekst */
+    color: var(--dark-blue);
     font-size: 18px;
-    font-weight: 400; /* Zgodnie ze screenem (mniej pogrubiony) */
+    font-weight: 400;
 }
 
-/* Użycie znaku Unicodowego dla strzałki, jak na screenie */
 .secondary-cta-button span::after {
     content: " →"; 
     font-weight: 400; 
     margin-left: 5px;
 }
 
-/* Ukrycie oryginalnej strzałki */
 .secondary-cta-button img {
     display: none;
 }
 
 
 .secondary-cta-button:hover {
-    background-color: var(--dark-blue); /* Odwrócenie kolorów na hover */
+    background-color: var(--dark-blue);
 }
 
 .secondary-cta-button:hover span {
-    color: #fff; /* Biały tekst na hover */
+    color: #fff;
 }
 
 .secondary-cta-button:hover span::after {
-    color: #fff; /* Biała strzałka na hover */
+    color: #fff;
 }
 
+
+/* Zaktualizowane Media Query dla urządzeń mobilnych */
+@media (max-width: 768px) {
+    /* ... (inne style pozostają bez zmian) ... */
+
+    .virus-icon {
+        width: 80px; /* Zmniejszenie na mobile, żeby się zmieściła */
+        height: 80px;
+    }
+}
 
 /* Reszta stylów strony (sekcje, footer, itd.) pozostaje bez zmian. */
 .section {
@@ -526,7 +528,7 @@ a {
     }
     
     .virus-icon {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
     }
 }
