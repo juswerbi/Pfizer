@@ -1,98 +1,194 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+/* ... Import zmiennych z globals ... */
 
-:root {
-    --dark-blue: #000039; /* HEX jest bezpieczniejszy */
-    --blue: #000165;
-    --txt-blue: #05053c;
-    --yellow: #F8C33A;
-    --light-blue: #B3E4FE;
-    --focus-outline: 3px solid #F8C33A;
+/* --- Header Slider --- */
+.header-slider {
+    position: relative;
+    width: 100%;
+    /* Min-height zmieniony na viewport height (vh) lub auto dla lepszego RWD */
+    min-height: 500px;
+    background-color: var(--dark-blue);
+    overflow: hidden;
 }
 
-html {
-    font-size: 16px; /* Baza dla rem */
-    scroll-behavior: smooth;
+.slides-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
-/* Obsługa preferencji redukcji ruchu (Accessibility) */
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+.slide {
+    display: flex;
+    width: 100%;
+    min-height: 500px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Zamiast tylko opacity, używamy visibility, aby ukryć przed screen readerami */
+    opacity: 0;
+    visibility: hidden; 
+    transition: opacity 0.6s ease-in-out, visibility 0.6s;
+    z-index: 1;
 }
 
-body {
-    font-family: sans-serif;
-    line-height: 1.5;
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+.slide-image-wrapper {
+    flex: 1;
+    position: relative;
+    min-height: 300px;
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Zachowuje się jak background-size: cover */
+    display: block;
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 3.75rem;
+    background-color: var(--blue);
+}
+
+/* Typography updates to REM */
+.headline h1 {
+    color: #fff;
+    font-size: 2.125rem; /* 34px */
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.headline p {
+    color: #fff;
+    font-size: 1.75rem; /* 28px */
+}
+
+/* Buttons */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 1.25rem 2rem;
+    background-color: var(--yellow);
+    border-radius: 50px;
+    transition: transform 0.2s;
+    /* Kontrast: Żółte tło + Ciemny tekst = OK */
     color: var(--txt-blue);
 }
 
-/* Focus Visible - kluczowe dla WCAG 2.2 */
-:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: 2px;
+.cta-button:hover {
+    transform: scale(1.05);
 }
 
-/* Skip link */
-.skip-link {
+.cta-button span {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Statystyki */
+.slide-content-stats {
+    background-color: var(--dark-blue);
+}
+
+.stat-circle {
+    /* Dynamiczny gradient na podstawie zmiennej CSS */
+    background: conic-gradient(
+        var(--light-blue) 0%,
+        var(--light-blue) calc(var(--percent) * 1%),
+        rgba(255, 255, 255, 0.2) calc(var(--percent) * 1%)
+    );
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+/* Środek koła */
+.stat-circle::after {
+    content: '';
     position: absolute;
-    top: -9999px;
+    width: 104px;
+    height: 104px;
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+}
+.percent-value {
+    z-index: 2;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Controls */
+.slider-controls {
+    position: absolute;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--yellow);
-    color: var(--dark-blue);
-    padding: 1rem;
-    z-index: 9999;
-    font-weight: bold;
-    text-decoration: none;
-}
-.skip-link:focus {
-    top: 0;
-}
-
-/* Reszta stylów globalnych */
-.desktop {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    width: 100%;
+    gap: 15px;
+    z-index: 10;
 }
 
-.navi {
-    width: 100%;
-    background-color: var(--dark-blue);
-    padding: 1.25rem; /* 20px -> 1.25rem */
+.dot {
+    width: 16px; /* Większe dla łatwiejszego trafienia */
+    height: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent; /* Dla trybu wysokiego kontrastu */
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
 }
 
-.navbar {
+.dot.active {
+    background-color: var(--yellow);
+    transform: scale(1.2);
+}
+
+/* Pause button (mały, dyskretny, ale dostępny) */
+.pause-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 10px;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 2.3rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
-.nav-item {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.3125rem; /* 21px */
-    text-align: center;
-    white-space: nowrap;
-    padding: 0.5rem; /* Powiększenie obszaru kliknięcia */
+/* Media Queries RWD */
+@media (max-width: 1024px) {
+    .slide {
+        flex-direction: column;
+    }
+    .slide-image-wrapper {
+        flex: none;
+        height: 300px; /* Stała wysokość obrazka na tablecie */
+        min-height: auto;
+    }
+    .slide-content {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+    .headline h1 { font-size: 1.75rem; }
+    .headline p { font-size: 1.375rem; }
 }
-
-/* Footer styles (bez zmian logicznych, tylko jednostki) */
-.footer {
-    width: 100%;
-    background-color: var(--dark-blue);
-    color: #fff;
-    padding: 2.5rem 1.25rem 5rem;
-}
-/* ... reszta footera ... */
