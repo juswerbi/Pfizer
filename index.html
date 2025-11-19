@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Szczepienia RSV</title>
+    <title>Szczepienia RSV - Ochrona i Profilaktyka</title>
     <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="image" href="./img/img.png">
 </head>
 <body>
     <div class="desktop">
-        <nav class="navi">
+        <a href="#main-content" class="skip-link">Przejdź do treści</a>
+
+        <nav class="navi" aria-label="Główna nawigacja">
             <div class="navbar">
-                <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV? 0.16</a>
+                <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV?</a>
                 <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                 <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                 <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
@@ -20,75 +23,82 @@
             </div>
         </nav>
 
-        <header class="header-slider">
-            <div class="slides-container">
+        <header class="header-slider" aria-label="Najważniejsze informacje o kampanii">
+            <div class="slides-container" id="slider-region" aria-live="polite">
                 
-                <div class="slide" data-slide-index="0">
-                    <div class="slide-image slide-image-1"></div>
+                <div class="slide active" id="slide-1" aria-hidden="false">
+                    <div class="slide-image-wrapper">
+                        <img src="./img/img.png" alt="Szczęśliwa starsza para na spacerze" class="slide-img">
+                    </div>
                     <div class="slide-content">
                         <div class="headline">
                             <h1>Już dziś zapytaj o możliwość szczepień przeciwko RSV</h1>
                             <p>także tych <strong>bezpłatnych</strong>, również w aptece</p>
                         </div>
-                        <button class="cta-button">
+                        <a href="#szczepienia" class="cta-button">
                             <span>INFORMACJE O SZCZEPIENIU</span>
-                            <img src="img/image.svg" alt="Strzałka">
-                        </button>
+                            <img src="img/image.svg" alt="" aria-hidden="true">
+                        </a>
                     </div>
                 </div>
 
-                <div class="slide" data-slide-index="1">
-                    <div class="slide-image slide-image-2"></div>
+                <div class="slide" id="slide-2" aria-hidden="true">
+                    <div class="slide-image-wrapper">
+                        <img src="./img/img-2.png" alt="Dziadek trzymający wnuczka na rękach" class="slide-img">
+                    </div>
                     <div class="slide-content">
                         <div class="headline">
                             <h1>Chroń siebie i najbliższych przed wirusem RSV</h1>
                             <p>sprawdź, kto jest w grupie podwyższonego ryzyka</p>
                         </div>
-                        <button class="cta-button">
+                        <a href="grupa-ryzyka.html" class="cta-button">
                             <span>SPRAWDŹ GRUPĘ RYZYKA</span>
-                            <img src="img/image.svg" alt="Strzałka">
-                        </button>
+                            <img src="img/image.svg" alt="" aria-hidden="true">
+                        </a>
                     </div>
                 </div>
 
-                <div class="slide" data-slide-index="2">
-                    <div class="slide-image slide-image-3"></div>
+                <div class="slide" id="slide-3" aria-hidden="true">
+                    <div class="slide-image-wrapper">
+                        <img src="./img/img-3.png" alt="Grafika przedstawiająca wirusa RSV" class="slide-img">
+                    </div>
                     <div class="slide-content slide-content-stats">
                         <div class="stat-item-header">
-                            <div class="stat-circle" data-percent="50">
-                                <span class="percent-value">50%</span>
+                            <div class="stat-circle" role="img" aria-label="Wykres kołowy: 50 procent" style="--percent: 50;">
+                                <span class="percent-value" aria-hidden="true">50%</span>
                             </div>
                             <p class="stat-text-header">Osób w grupie wiekowej 65+ nigdy nie słyszało o RSV</p>
                         </div>
                         <div class="stat-item-header">
-                            <div class="stat-circle" data-percent="38">
-                                <span class="percent-value">38%</span>
+                            <div class="stat-circle" role="img" aria-label="Wykres kołowy: 38 procent" style="--percent: 38;">
+                                <span class="percent-value" aria-hidden="true">38%</span>
                             </div>
                             <p class="stat-text-header">Nie ma szczegółowej wiedzy na temat przebiegu infekcji².</p>
                         </div>
-                        </div>
+                    </div>
                 </div>
-
             </div>
             
-            <div class="slider-dots">
-                <span class="dot active" data-slide-index="0"></span>
-                <span class="dot" data-slide-index="1"></span>
-                <span class="dot" data-slide-index="2"></span>
+            <div class="slider-controls">
+                <div class="slider-dots" role="tablist" aria-label="Wybierz slajd">
+                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide-1" aria-label="Slajd 1"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide-2" aria-label="Slajd 2"></button>
+                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide-3" aria-label="Slajd 3"></button>
+                </div>
+                <button id="pause-slider" class="pause-btn" aria-label="Zatrzymaj automatyczne przewijanie">
+                    ❚❚
+                </button>
             </div>
-
         </header>
 
-        <main>
-  <section class="section" id="czym-jest-rsv">
+        <main id="main-content">
+            <section class="section" id="czym-jest-rsv">
                 <div class="rsv-info-section">
                     <h2 class="rsv-info-header">CZYM JEST RSV?</h2>
-                    
                     <div class="rsv-info-text-block">
                         <div class="rsv-info-icon-block">
-                             <img src="img/virus-icon.svg" alt="Ikona wirusa RSV" class="virus-icon">
+                             <img src="img/virus-icon.svg" alt="" aria-hidden="true" class="virus-icon">
                         </div>
-                        
                         <div class="rsv-info-paragraph">
                             <p>
                                 Syncytialny wirus oddechowy (RSV, ang. respiratory syncytial virus) to <strong>powszechny i bardzo zaraźliwy wirus</strong>, który atakuje drogi oddechowe i płuca.
@@ -100,64 +110,17 @@
                         </div>
                     </div>
                     
-                    <button class="secondary-cta-button">
+                    <a href="#wiecej" class="secondary-cta-button">
                         <span>Zobacz więcej</span>
-                    </button>
+                    </a>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-// ...
-// RESZTA KODU POZOSTAJE BEZ ZMIAN
-// ...
-        </footer>
+            </footer>
     </div>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            let currentSlide = 0;
-            const slideDuration = 7000; // Czas wyświetlania slajdu (7 sekund)
-            let slideInterval = setInterval(nextSlide, slideDuration); 
-
-            function showSlide(index) {
-                // Ukryj wszystkie slajdy i usuń aktywne klasy
-                slides.forEach(slide => {
-                    slide.style.opacity = 0;
-                    slide.style.zIndex = 1;
-                });
-                dots.forEach(dot => dot.classList.remove('active'));
-
-                // Pokaż wybrany slajd
-                slides[index].style.opacity = 1;
-                slides[index].style.zIndex = 2; // Aktywny slajd nad innymi
-
-                // Aktywuj kropkę
-                dots[index].classList.add('active');
-
-                currentSlide = index;
-            }
-
-            function nextSlide() {
-                let next = (currentSlide + 1) % slides.length;
-                showSlide(next);
-            }
-            
-            // Obsługa kliknięcia w kropkę
-            dots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    clearInterval(slideInterval); // Zatrzymaj automat. zmianę
-                    const index = parseInt(this.getAttribute('data-slide-index'));
-                    showSlide(index);
-                    slideInterval = setInterval(nextSlide, slideDuration); // Wznów automat. zmianę
-                });
-            });
-
-            // Ustaw pierwszy slajd jako widoczny przy starcie
-            showSlide(currentSlide);
-        });
-    </script>
+    <script src="slider.js"></script>
 </body>
 </html>
