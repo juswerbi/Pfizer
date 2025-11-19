@@ -1,66 +1,110 @@
-// Ten skrypt steruje działaniem slidera.
-// Zapewnia automatyczne przewijanie (3.5s). Logika kropek nawigacyjnych została usunięta.
-
 document.addEventListener('DOMContentLoaded', () => {
-    // === 1. POBIERANIE ELEMENTÓW DOM ===
-    const headerElement = document.querySelector('.slider-header');
-    const sliderContainer = document.querySelector('.slider-container');
     const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const pauseBtn = document.getElementById('pause-slider');
+    const sliderRegion = document.getElementById('slider-region');
     
-    // Sprawdzenie, czy kluczowe elementy zostały znalezione, aby zapobiec błędom
-    if (!sliderContainer || slides.length === 0 || !headerElement) {
-        console.error("Błąd: Nie znaleziono wszystkich wymaganych elementów slidera. Upewnij się, że używasz klas: .slider-header, .slider-container, .slide.");
-        return; 
-    }
-
-    // === 2. KONFIGURACJA ===
-    const slideCount = slides.length;
     let currentSlide = 0;
-    const slideDuration = 3500; // 3.5 sekundy
-    let sliderInterval;
+    let slideInterval;
+    let isPlaying = true;
+    const slideDuration = 7000;
 
-    // === 3. FUNKCJE STERUJĄCE SLIDEREM ===
-
-    /**
-     * Aktualizuje widok slidera (przesunięcie).
-     */
-    function updateSlider() {
-        // Używamy currentSlide do obliczenia przesunięcia (0%, -100%, -200%, itd.)
-        const offset = -currentSlide * 100; 
-        sliderContainer.style.transform = `translateX(${offset}%)`;
+    // Funkcja inicjująca
+    function init() {
+        updateSlides(0);
+        startSlider();
     }
 
-    /**
-     * Przechodzi do następnego slajdu.
-     */
+    function updateSlides(index) {
+        // Reset
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            slide.setAttribute('aria-hidden', 'true');
+            
+            // Wyłącz interaktywne elementy w nieaktywnych slajdach
+            const focusables = slide.querySelectorAll('a, button');
+            focusables.forEach(el => el.setAttribute('tabindex', '-1'));
+            
+            dots[i].classList.remove('active');
+            dots[i].setAttribute('aria-selected', 'false');
+        });
+
+        // Set Active
+        slides[index].classList.add('active');
+        slides[index].setAttribute('aria-hidden', 'false');
+        
+        // Włącz interaktywne elementy w aktywnym slajdzie
+        const activeFocusables = slides[index].querySelectorAll('a, button');
+        activeFocusables.forEach(el => el.setAttribute('tabindex', '0'));
+
+        dots[index].classList.add('active');
+        dots[index].setAttribute('aria-selected', 'true');
+        
+        currentSlide = index;
+    }
+
     function nextSlide() {
-        // Zapętlenie: jeśli jesteśmy na ostatnim slajdzie, wracamy do 0.
-        currentSlide = (currentSlide + 1) % slideCount;
-        updateSlider();
-    }
-    
-    /**
-     * Uruchamia automatyczne przełączanie slajdów.
-     */
-    function startSlider() {
-        stopSlider(); // Zawsze czyścimy poprzedni interwał przed uruchomieniem nowego
-        sliderInterval = setInterval(nextSlide, slideDuration);
-    }
-    
-    /**
-     * Zatrzymuje automatyczne przełączanie slajdów.
-     */
-    function stopSlider() {
-        clearInterval(sliderInterval);
+        const nextIndex = (currentSlide + 1) % slides.length;
+        updateSlides(nextIndex);
     }
 
-    // === 4. INICJALIZACJA I OBSŁUGA INTERAKCJI UŻYTKOWNIKA ===
+    function startSlider() {
+        if (!isPlaying) return;
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, slideDuration);
+    }
+
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
+
+    function togglePlayState() {
+        if (isPlaying) {
+            stopSlider();
+            isPlaying = false;
+            pauseBtn.innerHTML = "▶";
+            pauseBtn.setAttribute('aria-label', "Wznów automatyczne przewijanie");
+        } else {
+            isPlaying = true;
+            startSlider();
+            pauseBtn.innerHTML = "❚❚";
+            pauseBtn.setAttribute('aria-label', "Zatrzymaj automatyczne przewijanie");
+        }
+    }
+
+    // --- Event Listeners ---
+
+    // 1. Dots click
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopSlider(); // Użytkownik przejmuje kontrolę
+            updateSlides(index);
+            // Opcjonalnie: wznów po chwili lub zostaw zatrzymane
+        });
+    });
+
+    // 2. Pause Button
+    if(pauseBtn) {
+        pauseBtn.addEventListener('click', togglePlayState);
+    }
+
+    // 3. Accessibility: Stop on hover AND Focus
+    // WCAG 2.2.2 Pause, Stop, Hide
+    const sliderHeader = document.querySelector('.header-slider');
     
-    // Zatrzymanie slajdów, gdy kursor najedzie na nagłówek, i wznowienie po opuszczeniu
-    headerElement.addEventListener('mouseenter', stopSlider);
-    headerElement.addEventListener('mouseleave', startSlider);
-    
-    // Uruchomienie slidera przy ładowaniu strony
-    updateSlider(); 
-    startSlider();
+    sliderHeader.addEventListener('mouseenter', stopSlider);
+    sliderHeader.addEventListener('mouseleave', () => {
+        if (isPlaying) startSlider();
+    });
+
+    sliderHeader.addEventListener('focusin', stopSlider);
+    sliderHeader.addEventListener('focusout', (e) => {
+        // Wznów tylko jeśli focus opuścił cały slider
+        if (!sliderHeader.contains(e.relatedTarget) && isPlaying) {
+            startSlider();
+        }
+    });
+
+    // Start
+    init();
 });
