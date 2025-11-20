@@ -66,7 +66,7 @@ a {
     white-space: nowrap;
 }
 
-/* Header Slider Styles - ZASTĘPUJE ORYGINALNY HEADER */
+/* Header Slider Styles */
 .header-slider {
     position: relative;
     width: 100%;
@@ -100,7 +100,6 @@ a {
     background-repeat: no-repeat;
 }
 
-/* Obrazy dla poszczególnych slajdów */
 .slide-image-1 {
     background-image: url(./img/img.png); 
 }
@@ -221,7 +220,6 @@ a {
     text-align: center;
 }
 
-/* Styl dla kontrolek (kropek) */
 .slider-dots {
     position: absolute;
     bottom: 20px;
@@ -338,7 +336,7 @@ a {
 }
 
 /* ------------------------------------------------------------------ */
-/* --- SEKCJA INFOGRAFIKI (NOWE) --- */
+/* --- SEKCJA INFOGRAFIKI --- */
 /* ------------------------------------------------------------------ */
 
 .infographic-header {
@@ -379,16 +377,13 @@ a {
     justify-content: center;
 }
 
-/* Rysowanie ludzika za pomocą maski */
 .icon-human {
     display: inline-block;
     width: 24px;
     height: 45px;
-    background-color: var(--light-blue); /* Kolor nieaktywny */
-    
+    background-color: var(--light-blue); 
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 45'%3E%3Cpath d='M12 0C15.3137 0 18 2.68629 18 6C18 9.31371 15.3137 12 12 12C8.68629 12 6 9.31371 6 6C6 2.68629 8.68629 0 12 0ZM12 14C17.5228 14 22 18.4772 22 24V28C22 29.1046 21.1046 30 20 30H18V43C18 44.1046 17.1046 45 16 45H14C12.8954 45 12 44.1046 12 43V34H12V43C12 44.1046 11.1046 45 10 45H8C6.89543 45 6 44.1046 6 43V30H4C2.89543 30 2 29.1046 2 28V24C2 18.4772 6.47715 14 12 14Z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 45'%3E%3Cpath d='M12 0C15.3137 0 18 2.68629 18 6C18 9.31371 15.3137 12 12 12C8.68629 12 6 9.31371 6 6C6 2.68629 8.68629 0 12 0ZM12 14C17.5228 14 22 18.4772 22 24V28C22 29.1046 21.1046 30 20 30H18V43C18 44.1046 17.1046 45 16 45H14C12.8954 45 12 44.1046 12 43V34H12V43C12 44.1046 11.1046 45 10 45H8C6.89543 45 6 44.1046 6 43V30H4C2.89543 30 2 29.1046 2 28V24C2 18.4772 6.47715 14 12 14Z'/%3E%3C/svg%3E");
-    
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -398,7 +393,7 @@ a {
 }
 
 .icon-human.active {
-    background-color: var(--yellow); /* Kolor aktywny */
+    background-color: var(--yellow); 
 }
 
 .stat-number {
@@ -415,6 +410,103 @@ a {
     line-height: 1.4;
     max-width: 300px;
     margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* --- SEKCJA WSPÓŁCZEŚNI SENIORZY (NOWA) --- */
+/* ------------------------------------------------------------------ */
+
+.section-title {
+    font-size: 40px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--txt-blue);
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.traits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    width: 100%;
+}
+
+.trait-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.trait-card:hover {
+    transform: translateY(-5px);
+}
+
+.trait-icon-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #999;
+    font-size: 12px;
+    font-weight: bold;
+    /* Tutaj style dla przyszłego obrazka */
+}
+
+.trait-chart {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--yellow) calc(var(--p) * 1%), 
+        var(--light-blue) 0
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.trait-chart::after {
+    content: '';
+    position: absolute;
+    width: 84px; /* Grubość wykresu */
+    height: 84px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.chart-value {
+    position: relative;
+    z-index: 1;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.trait-content h3 {
+    font-size: 20px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.trait-content p {
+    font-size: 16px;
+    color: var(--txt-blue);
+    line-height: 1.5;
 }
 
 .section {
@@ -509,7 +601,7 @@ a {
         font-size: 20px;
     }
 
-    /* Dostosowania dla sekcji RSV na mobile */
+    /* Dostosowania dla sekcji RSV */
     .rsv-info-section {
         padding: 40px 20px;
     }
@@ -536,7 +628,7 @@ a {
         height: 80px;
     }
 
-    /* Dostosowania dla sekcji Infografiki na mobile */
+    /* Dostosowania dla sekcji Infografiki POZ/Apteka */
     .infographic-header {
         font-size: 28px;
         margin-bottom: 40px;
@@ -554,6 +646,17 @@ a {
     .icon-human {
         width: 20px;
         height: 38px;
+    }
+
+    /* Dostosowania dla sekcji Współcześni Seniorzy */
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
+    
+    .traits-grid {
+        grid-template-columns: 1fr; /* Jedna kolumna na mobile */
+        gap: 30px;
     }
 
     .footer-links {
