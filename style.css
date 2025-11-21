@@ -44,7 +44,7 @@ a {
 }
 
 /* ========================================= */
-/* --- NAWIGACJA (POPRAWIONA v2) --- */
+/* --- NAWIGACJA --- */
 /* ========================================= */
 
 .navi {
@@ -61,12 +61,10 @@ a {
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    /* KLUCZOWE: Zapobiega spadaniu elementów do nowej linii */
     flex-wrap: nowrap; 
     width: 100%;
 }
 
-/* Kontener na linki tekstowe */
 .nav-menu {
     display: flex;
     gap: 30px;
@@ -83,7 +81,6 @@ a {
     transition: 0.3s;
 }
 
-/* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
@@ -93,7 +90,7 @@ a {
     margin-left: auto;
     font-size: 16px;
     display: block;
-    white-space: nowrap; /* Tekst w przycisku nigdy się nie łamie */
+    white-space: nowrap;
 }
 
 .nav-item.nav-cta:hover {
@@ -101,16 +98,15 @@ a {
     background-color: #ffd65c;
 }
 
-/* Hamburger Menu */
 .hamburger {
-    display: none; /* Ukryty na desktopie */
+    display: none; 
     cursor: pointer;
     background: none;
     border: none;
-    padding: 10px; /* Większe pole kliknięcia */
-    margin-right: 15px; /* Odstęp od krawędzi/logo gdyby było */
+    padding: 10px; 
+    margin-right: 15px; 
     z-index: 101;
-    flex-shrink: 0; /* Hamburger nigdy się nie zgniata */
+    flex-shrink: 0; 
 }
 
 .bar {
@@ -123,32 +119,50 @@ a {
 }
 
 /* ========================================= */
-/* --- HEADER SLIDER --- */
+/* --- HEADER SLIDER (POPRAWIONA RESPONSYWNOŚĆ) --- */
 /* ========================================= */
 .header-slider {
     position: relative;
     width: 100%;
-    min-height: 500px;
+    /* Usuwamy sztywne min-height z kontenera, grid sam ustali wysokość */
     background-color: var(--dark-blue);
-    overflow: hidden; 
+    /* overflow: hidden; - usuwamy, żeby kropki (dots) mogły wystawać jeśli trzeba, lub zostawiamy */
+    overflow: hidden;
 }
 
 .slides-container {
     width: 100%;
-    height: 100%;
+    /* ZMIANA: Używamy Grid zamiast relative, żeby slajdy się nakładały, 
+       ale rodzic widział ich wysokość */
+    display: grid;
+    grid-template-columns: 1fr;
     position: relative;
 }
 
 .slide {
+    /* ZMIANA: Slajdy wchodzą w tę samą komórkę grida */
+    grid-column: 1;
+    grid-row: 1;
+    
     display: flex;
     width: 100%;
-    min-height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    min-height: 500px; /* Na desktopie trzymamy min. 500px */
+    
+    /* ZMIANA: Usuwamy position: absolute */
+    position: relative; 
+    
     opacity: 0; 
     transition: opacity 1.5s ease-in-out; 
     z-index: 1;
+    
+    /* Ważne: ukryte slajdy nie mogą być klikalne */
+    pointer-events: none; 
+}
+
+/* Klasa dodawana/obsługiwana przez JS (aktywny slajd ma opacity: 1) */
+.slide[style*="opacity: 1"] {
+    pointer-events: auto;
+    z-index: 2;
 }
 
 .slide-image {
@@ -156,6 +170,7 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    min-height: 100%; /* Żeby obrazek wypełniał wysokość */
 }
 
 .slide-image-1 { background-image: url(./img/img.png); }
@@ -200,6 +215,7 @@ a {
         rgba(255, 255, 255, 0.2) var(--fill-percent, 50%) 
     );
     --fill-percent: 0%; 
+    flex-shrink: 0; /* Zapobiega zgniataniu koła */
 }
 
 .stat-item-header:nth-child(1) .stat-circle { --fill-percent: 50%; }
@@ -255,6 +271,7 @@ a {
     border-radius: 1000px;
     border: none;
     cursor: pointer;
+    max-width: 100%; /* Żeby nie wystawał na mobile */
 }
 
 .cta-button span {
@@ -576,17 +593,14 @@ a {
     /* --- NAPRAWA MENU MOBILNEGO --- */
     .hamburger {
         display: block;
-        order: 1; /* Hamburger po lewej */
+        order: 1;
     }
 
     .navbar {
-        flex-direction: row; /* Zawsze w rzędzie! */
         justify-content: space-between; 
         align-items: center;
-        flex-wrap: nowrap; /* Nigdy nie zawijaj */
     }
 
-    /* Ukryte menu (dropdown) */
     .nav-menu {
         position: absolute;
         top: 100%;
@@ -605,27 +619,52 @@ a {
 
     .nav-menu.active { display: flex; }
     
-    /* Przycisk Gdzie się zaszczepić - po prawej */
     .nav-item.nav-cta {
         order: 2;
-        margin-left: auto; /* Dopycha do prawej */
+        margin-left: auto;
         padding: 8px 20px;
         font-size: 14px;
         width: auto;
-        flex-shrink: 0; /* Nie pozwala się skurczyć */
+        flex-shrink: 0;
     }
 
-    /* Animacja hamburgera */
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* --- RESZTA ELEMENTÓW --- */
-    .header-slider, .slide { min-height: 450px; }
-    .slide { flex-direction: column; }
-    .slide-image { min-height: 250px; }
-    .slide-content { padding: 40px 20px; text-align: center; align-items: center; flex: none; }
-    .slide-content-stats { padding: 40px 20px; text-align: left; align-items: flex-start; justify-content: center; gap: 20px; }
+    /* --- SLIDER MOBILNY (AUTO HEIGHT) --- */
+    /* Slajd dostosowuje wysokość do treści, a nie sztywne 500px */
+    .header-slider, .slide {
+        min-height: auto; 
+        height: auto;
+    }
+
+    .slide {
+        flex-direction: column; /* Obrazek na górze, treść na dole */
+    }
+
+    .slide-image {
+        min-height: 300px; /* Minimalna wysokość obrazka na mobile */
+        width: 100%;
+    }
+
+    .slide-content {
+        padding: 40px 20px 60px; /* Większy padding na dole na kropki */
+        text-align: center;
+        align-items: center;
+        flex: none; /* Niech treść zajmuje tyle miejsca ile potrzebuje */
+        width: 100%;
+    }
+
+    .slide-content-stats {
+        padding: 40px 20px 60px;
+        text-align: left; 
+        align-items: flex-start;
+        justify-content: center;
+        gap: 30px;
+    }
+    
+    /* --- Reszta responsywności --- */
     .stat-item-header { gap: 15px; }
     .stat-circle { width: 100px; height: 100px; }
     .stat-circle::after { width: 85px; height: 85px; }
@@ -636,10 +675,9 @@ a {
 }
 
 @media (max-width: 768px) {
-    /* --- Jeszcze mniejsze ekrany (mobile) --- */
     .nav-item.nav-cta {
-        font-size: 13px; /* Mniejszy tekst na małych ekranach */
-        padding: 8px 15px; /* Mniejszy guzik */
+        font-size: 13px; 
+        padding: 8px 15px; 
     }
 
     .rsv-info-section { padding: 40px 20px; }
