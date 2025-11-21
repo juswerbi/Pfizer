@@ -43,19 +43,28 @@ a {
     align-items: center;
 }
 
+/* --- NAWIGACJA (ZMODYFIKOWANA) --- */
 .navi {
     width: 100%;
     background-color: var(--dark-blue);
     padding: 20px;
+    position: relative; /* Ważne dla pozycjonowania menu mobilnego */
+    z-index: 100; /* Żeby menu było nad sliderem */
 }
 
 .navbar {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 37px;
+    align-items: center;
+    justify-content: space-between; /* Rozdziela elementy na boki */
     max-width: 1200px;
     margin: 0 auto;
+}
+
+/* Kontener na linki (standardowe menu) */
+.nav-menu {
+    display: flex;
+    gap: 37px;
+    align-items: center;
 }
 
 .nav-item {
@@ -64,20 +73,40 @@ a {
     font-size: 21px;
     text-align: center;
     white-space: nowrap;
+    transition: 0.3s;
 }
 
-/* Styl wyróżnionego przycisku w menu (NOWE) */
+/* Styl wyróżnionego przycisku CTA */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
     padding: 12px 30px;
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
+    margin-left: 20px; /* Odstęp od reszty menu */
 }
 
 .nav-item.nav-cta:hover {
     transform: scale(1.05);
     background-color: #ffd65c;
+}
+
+/* Hamburger Menu (Domyślnie ukryty na desktopie) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff; /* Biały kolor pasków */
 }
 
 /* Header Slider Styles */
@@ -562,9 +591,57 @@ a {
 /* ------------------------------------------------------------------ */
 
 @media (max-width: 1024px) {
+    
+    /* --- RESPONDER HAMBURGERA --- */
+    .hamburger {
+        display: block; /* Pokaż ikonę hamburgera */
+        order: 1; /* Hamburger pierwszy z lewej */
+    }
+
+    /* Ukryj normalne menu i zrób z niego dropdown */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        flex-direction: column;
+        background-color: var(--dark-blue);
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        display: none; /* Domyślnie ukryte */
+        gap: 20px;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Klasa dodawana przez JS - pokazuje menu */
+    .nav-menu.active {
+        display: flex;
+    }
+
+    /* Animacja hamburgera po kliknięciu (X) */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Przycisk CTA zostaje na miejscu, ale dopasowujemy go */
+    .nav-item.nav-cta {
+        order: 2; /* CTA po prawej */
+        margin-left: 0;
+        padding: 10px 20px;
+        font-size: 16px; /* Trochę mniejszy font żeby się mieścił */
+    }
+    
+    /* ----------------------------- */
+
     .navbar {
-        justify-content: space-around;
-        gap: 15px;
+        justify-content: space-between;
+        gap: 10px;
     }
 
     .header-slider, .slide {
@@ -627,28 +704,18 @@ a {
 }
 
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .nav-item {
-        font-size: 18px;
-    }
-    
-    /* Dostosowanie przycisku CTA na mobile */
-    .nav-item.nav-cta {
-        margin-top: 10px; 
-        width: 100%;
-        max-width: 300px;
-    }
-
     .header-content {
         gap: 20px;
     }
 
     .cta-button span {
         font-size: 20px;
+    }
+
+    /* Jeszcze mniejszy CTA na telefonach */
+    .nav-item.nav-cta {
+        font-size: 14px;
+        padding: 10px 15px;
     }
 
     /* Dostosowania dla sekcji RSV */
