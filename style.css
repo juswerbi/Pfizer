@@ -44,24 +44,26 @@ a {
 }
 
 /* ========================================= */
-/* --- NAWIGACJA (POPRAWIONA) --- */
+/* --- NAWIGACJA (POPRAWIONA v2) --- */
 /* ========================================= */
 
 .navi {
     width: 100%;
     background-color: var(--dark-blue);
-    padding: 15px 20px; /* Zmniejszony padding dla lepszego wyglądu na mobile */
-    position: relative; 
+    padding: 15px 20px;
+    position: relative;
     z-index: 100;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Rozsuwa elementy: Logo/Menu | Linki | Przycisk */
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: nowrap; /* Zapobiega zawijaniu się elementów */
+    /* KLUCZOWE: Zapobiega spadaniu elementów do nowej linii */
+    flex-wrap: nowrap; 
+    width: 100%;
 }
 
 /* Kontener na linki tekstowe */
@@ -69,28 +71,29 @@ a {
     display: flex;
     gap: 30px;
     align-items: center;
-    margin: 0 auto; /* Centruje menu jeśli jest miejsce */
+    margin: 0 auto;
 }
 
 .nav-item {
     color: #fff;
     font-weight: 700;
-    font-size: 18px; /* Lekko mniejszy font żeby się mieściło */
+    font-size: 18px;
     text-align: center;
     white-space: nowrap;
     transition: 0.3s;
 }
 
-/* Styl wyróżnionego przycisku CTA (Gdzie się zaszczepić) */
+/* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
     padding: 10px 25px;
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
-    margin-left: auto; /* Dopycha przycisk do prawej strony na desktopie */
+    margin-left: auto;
     font-size: 16px;
-    display: block; /* Zawsze widoczny jako blok/przycisk */
+    display: block;
+    white-space: nowrap; /* Tekst w przycisku nigdy się nie łamie */
 }
 
 .nav-item.nav-cta:hover {
@@ -98,14 +101,16 @@ a {
     background-color: #ffd65c;
 }
 
-/* Hamburger Menu (Ikona) */
+/* Hamburger Menu */
 .hamburger {
     display: none; /* Ukryty na desktopie */
     cursor: pointer;
     background: none;
     border: none;
-    padding: 10px;
+    padding: 10px; /* Większe pole kliknięcia */
+    margin-right: 15px; /* Odstęp od krawędzi/logo gdyby było */
     z-index: 101;
+    flex-shrink: 0; /* Hamburger nigdy się nie zgniata */
 }
 
 .bar {
@@ -570,16 +575,18 @@ a {
     
     /* --- NAPRAWA MENU MOBILNEGO --- */
     .hamburger {
-        display: block; /* Pokaż ikonę */
-        order: 1; /* Po lewej */
+        display: block;
+        order: 1; /* Hamburger po lewej */
     }
 
     .navbar {
+        flex-direction: row; /* Zawsze w rzędzie! */
         justify-content: space-between; 
         align-items: center;
+        flex-wrap: nowrap; /* Nigdy nie zawijaj */
     }
 
-    /* Ukryj linki i ustaw je w kolumnie */
+    /* Ukryte menu (dropdown) */
     .nav-menu {
         position: absolute;
         top: 100%;
@@ -590,24 +597,22 @@ a {
         width: 100%;
         text-align: center;
         padding: 20px 0;
-        display: none; /* KLUCZOWE: domyślnie ukryte! */
+        display: none; 
         gap: 20px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
         z-index: 999;
     }
 
-    .nav-menu.active {
-        display: flex; /* Pokaż po kliknięciu */
-    }
+    .nav-menu.active { display: flex; }
     
     /* Przycisk Gdzie się zaszczepić - po prawej */
     .nav-item.nav-cta {
         order: 2;
-        margin-left: 0;
+        margin-left: auto; /* Dopycha do prawej */
         padding: 8px 20px;
         font-size: 14px;
-        width: auto; /* Ważne: nie rozciągaj na 100% */
-        max-width: none;
+        width: auto;
+        flex-shrink: 0; /* Nie pozwala się skurczyć */
     }
 
     /* Animacja hamburgera */
@@ -631,6 +636,12 @@ a {
 }
 
 @media (max-width: 768px) {
+    /* --- Jeszcze mniejsze ekrany (mobile) --- */
+    .nav-item.nav-cta {
+        font-size: 13px; /* Mniejszy tekst na małych ekranach */
+        padding: 8px 15px; /* Mniejszy guzik */
+    }
+
     .rsv-info-section { padding: 40px 20px; }
     .rsv-info-header { font-size: 32px; margin-bottom: 30px; }
     .rsv-info-text-block { flex-direction: column; align-items: center; gap: 20px; margin-bottom: 30px; }
