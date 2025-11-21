@@ -336,7 +336,7 @@ a {
 }
 
 /* ------------------------------------------------------------------ */
-/* --- SEKCJA INFOGRAFIKI --- */
+/* --- SEKCJA INFOGRAFIKI (POZ/APTEKA) --- */
 /* ------------------------------------------------------------------ */
 
 .infographic-header {
@@ -428,7 +428,7 @@ a {
 .traits-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 50px; 
     width: 100%;
 }
 
@@ -436,7 +436,7 @@ a {
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 16px;
-    padding: 30px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -449,26 +449,22 @@ a {
     transform: translateY(-5px);
 }
 
-.trait-icon-placeholder {
-    width: 80px;
-    height: 80px;
-    background-color: #f0f0f0;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    color: #999;
-    font-size: 12px;
-    font-weight: bold;
-    /* Tutaj style dla przyszłego obrazka */
+/* Kontener na wykres i bąbelek z procentem */
+.chart-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
+/* Wykres kołowy */
 .trait-chart {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
+    /* Tworzenie wykresu */
     background: conic-gradient(
         var(--yellow) calc(var(--p) * 1%), 
         var(--light-blue) 0
@@ -476,31 +472,62 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
+/* Białe koło w środku (dziura) - zmniejszone dla grubszego obrysu */
 .trait-chart::after {
     content: '';
     position: absolute;
-    width: 84px; /* Grubość wykresu */
-    height: 84px;
+    width: 100px; /* Mniejsza średnica = grubszy obrys (20px grubości) */
+    height: 100px;
     background-color: #fff;
     border-radius: 50%;
+    z-index: 1;
 }
 
-.chart-value {
+/* Ikona wewnątrz wykresu */
+.trait-icon-placeholder {
     position: relative;
-    z-index: 1;
-    font-size: 24px;
+    z-index: 2; /* Musi być nad białą dziurą */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 10px;
+    font-weight: bold;
+    /* Tu dodasz background-image dla ikony w przyszłości */
+}
+
+/* Bąbelek z wartością procentową */
+.chart-value-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* Przesunięcie żeby nachodził na krawędź */
+    transform: translate(10%, -10%); 
+    width: 50px;
+    height: 50px;
+    background-color: var(--blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--blue);
+    z-index: 3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 2px solid #fff; /* Biała obwódka dla kontrastu */
 }
 
 .trait-content h3 {
     font-size: 20px;
     color: var(--blue);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-weight: 700;
+    line-height: 1.4;
 }
 
 .trait-content p {
@@ -655,8 +682,8 @@ a {
     }
     
     .traits-grid {
-        grid-template-columns: 1fr; /* Jedna kolumna na mobile */
-        gap: 30px;
+        grid-template-columns: 1fr; 
+        gap: 40px;
     }
 
     .footer-links {
