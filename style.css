@@ -66,6 +66,20 @@ a {
     white-space: nowrap;
 }
 
+/* Styl wyróżnionego przycisku w menu (NOWE) */
+.nav-item.nav-cta {
+    background-color: var(--yellow);
+    color: var(--txt-blue);
+    padding: 12px 30px;
+    border-radius: 100px;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.nav-item.nav-cta:hover {
+    transform: scale(1.05);
+    background-color: #ffd65c;
+}
+
 /* Header Slider Styles */
 .header-slider {
     position: relative;
@@ -413,7 +427,7 @@ a {
 }
 
 /* ------------------------------------------------------------------ */
-/* --- SEKCJA WSPÓŁCZEŚNI SENIORZY (NOWA) --- */
+/* --- SEKCJA WSPÓŁCZEŚNI SENIORZY (ZAKTUALIZOWANA) --- */
 /* ------------------------------------------------------------------ */
 
 .section-title {
@@ -485,45 +499,29 @@ a {
     z-index: 1;
 }
 
-/* Ikona wewnątrz wykresu - kontener */
+/* Ikona wewnątrz wykresu - Centrowanie IMG */
 .trait-icon-placeholder {
     position: relative;
-    z-index: 2; /* Musi być nad "dziurą" wykresu */
-    width: 60px; /* Obszar w którym centrujemy */
+    z-index: 2; /* Musi być nad białą dziurą */
+    width: 60px;
     height: 60px;
-    
-    /* KLUCZOWE DLA WYŚRODKOWANIA: */
     display: flex;
-    align-items: center;      /* Środek pionowo */
-    justify-content: center;  /* Środek poziomo */
+    align-items: center;
+    justify-content: center;
 }
 
-/* Styl dla samego obrazka z pliku */
 .trait-icon-placeholder img {
-    display: block; /* Usuwa zbędne marginesy */
-    width: 36px;    /* Rozmiar ikony */
-    height: 36px;
-    object-fit: contain; /* Gwarantuje, że ikona się nie zdeformuje */
-}
-
-/* ZMIANA TUTAJ: Stylujemy teraz znacznik img, a nie svg */
-.trait-icon-placeholder img {
-    width: 36px;      /* Rozmiar ikony */
-    height: 36px;
-    object-fit: contain; /* Zapobiega rozciąganiu, jeśli proporcje są inne */
-}
-
-.trait-icon-placeholder svg {
+    display: block;
     width: 36px;
     height: 36px;
+    object-fit: contain;
 }
 
-/* Bąbelek z wartością procentową - POZYCJA ZMIENIONA NA DÓŁ-LEWO */
+/* Bąbelek z wartością procentową - LEWY DOLNY RÓG */
 .chart-value-badge {
     position: absolute;
-    bottom: 0; /* Było top: 0 */
-    left: 0;   /* Było right: 0 */
-    /* Przesunięcie żeby lekko wystawało */
+    bottom: 0;
+    left: 0;
     transform: translate(-10%, 10%); 
     width: 50px;
     height: 50px;
@@ -636,6 +634,13 @@ a {
     
     .nav-item {
         font-size: 18px;
+    }
+    
+    /* Dostosowanie przycisku CTA na mobile */
+    .nav-item.nav-cta {
+        margin-top: 10px; 
+        width: 100%;
+        max-width: 300px;
     }
 
     .header-content {
