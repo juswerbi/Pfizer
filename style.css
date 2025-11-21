@@ -497,7 +497,7 @@ a {
     color: #ccc;
     font-size: 10px;
     font-weight: bold;
-    /* Tu dodasz background-image dla ikony w przyszłości */
+    color: var(--txt-blue);
 }
 
 /* Bąbelek z wartością procentową */
