@@ -485,16 +485,25 @@ a {
     z-index: 1;
 }
 
-/* Ikona wewnątrz wykresu */
+/* Ikona wewnątrz wykresu - kontener */
 .trait-icon-placeholder {
     position: relative;
-    z-index: 2;
-    width: 60px;
+    z-index: 2; /* Musi być nad "dziurą" wykresu */
+    width: 60px; /* Obszar w którym centrujemy */
     height: 60px;
+    
+    /* KLUCZOWE DLA WYŚRODKOWANIA: */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Usunęliśmy color: var(--blue), bo img ma swój własny kolor z pliku */
+    align-items: center;      /* Środek pionowo */
+    justify-content: center;  /* Środek poziomo */
+}
+
+/* Styl dla samego obrazka z pliku */
+.trait-icon-placeholder img {
+    display: block; /* Usuwa zbędne marginesy */
+    width: 36px;    /* Rozmiar ikony */
+    height: 36px;
+    object-fit: contain; /* Gwarantuje, że ikona się nie zdeformuje */
 }
 
 /* ZMIANA TUTAJ: Stylujemy teraz znacznik img, a nie svg */
