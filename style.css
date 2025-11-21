@@ -494,19 +494,21 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ccc;
-    font-size: 10px;
-    font-weight: bold;
-    color: var(--txt-blue);
+    color: var(--blue); /* Ikony w kolorze niebieskim */
 }
 
-/* Bąbelek z wartością procentową */
+.trait-icon-placeholder svg {
+    width: 36px;
+    height: 36px;
+}
+
+/* Bąbelek z wartością procentową - POZYCJA ZMIENIONA NA DÓŁ-LEWO */
 .chart-value-badge {
     position: absolute;
-    top: 0;
-    right: 0;
-    /* Przesunięcie żeby nachodził na krawędź */
-    transform: translate(10%, -10%); 
+    bottom: 0; /* Było top: 0 */
+    left: 0;   /* Było right: 0 */
+    /* Przesunięcie żeby lekko wystawało */
+    transform: translate(-10%, 10%); 
     width: 50px;
     height: 50px;
     background-color: var(--blue);
@@ -519,7 +521,7 @@ a {
     font-weight: 700;
     z-index: 3;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    border: 2px solid #fff; /* Biała obwódka dla kontrastu */
+    border: 2px solid #fff; 
 }
 
 .trait-content h3 {
