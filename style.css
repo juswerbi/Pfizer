@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: sans-serif; /* Fallback font */
+    font-family: sans-serif;
     color: var(--txt-blue);
     background-color: #fff;
     line-height: 1.5;
@@ -43,47 +43,54 @@ a {
     align-items: center;
 }
 
-/* --- NAWIGACJA (ZMODYFIKOWANA) --- */
+/* ========================================= */
+/* --- NAWIGACJA (POPRAWIONA) --- */
+/* ========================================= */
+
 .navi {
     width: 100%;
     background-color: var(--dark-blue);
-    padding: 20px;
-    position: relative; /* Ważne dla pozycjonowania menu mobilnego */
-    z-index: 100; /* Żeby menu było nad sliderem */
+    padding: 15px 20px; /* Zmniejszony padding dla lepszego wyglądu na mobile */
+    position: relative; 
+    z-index: 100;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Rozdziela elementy na boki */
+    justify-content: space-between; /* Rozsuwa elementy: Logo/Menu | Linki | Przycisk */
     max-width: 1200px;
     margin: 0 auto;
+    flex-wrap: nowrap; /* Zapobiega zawijaniu się elementów */
 }
 
-/* Kontener na linki (standardowe menu) */
+/* Kontener na linki tekstowe */
 .nav-menu {
     display: flex;
-    gap: 37px;
+    gap: 30px;
     align-items: center;
+    margin: 0 auto; /* Centruje menu jeśli jest miejsce */
 }
 
 .nav-item {
     color: #fff;
     font-weight: 700;
-    font-size: 21px;
+    font-size: 18px; /* Lekko mniejszy font żeby się mieściło */
     text-align: center;
     white-space: nowrap;
     transition: 0.3s;
 }
 
-/* Styl wyróżnionego przycisku CTA */
+/* Styl wyróżnionego przycisku CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
-    padding: 12px 30px;
+    padding: 10px 25px;
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
-    margin-left: 20px; /* Odstęp od reszty menu */
+    margin-left: auto; /* Dopycha przycisk do prawej strony na desktopie */
+    font-size: 16px;
+    display: block; /* Zawsze widoczny jako blok/przycisk */
 }
 
 .nav-item.nav-cta:hover {
@@ -91,12 +98,14 @@ a {
     background-color: #ffd65c;
 }
 
-/* Hamburger Menu (Domyślnie ukryty na desktopie) */
+/* Hamburger Menu (Ikona) */
 .hamburger {
-    display: none;
+    display: none; /* Ukryty na desktopie */
     cursor: pointer;
     background: none;
     border: none;
+    padding: 10px;
+    z-index: 101;
 }
 
 .bar {
@@ -104,12 +113,13 @@ a {
     width: 25px;
     height: 3px;
     margin: 5px auto;
-    -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    background-color: #fff; /* Biały kolor pasków */
+    background-color: #fff;
 }
 
-/* Header Slider Styles */
+/* ========================================= */
+/* --- HEADER SLIDER --- */
+/* ========================================= */
 .header-slider {
     position: relative;
     width: 100%;
@@ -143,16 +153,9 @@ a {
     background-repeat: no-repeat;
 }
 
-.slide-image-1 {
-    background-image: url(./img/img.png); 
-}
-.slide-image-2 {
-    background-image: url(./img/img-2.png); 
-}
-.slide-image-3 {
-    background-image: url(./img/img-3.png); 
-}
-
+.slide-image-1 { background-image: url(./img/img.png); }
+.slide-image-2 { background-image: url(./img/img-2.png); }
+.slide-image-3 { background-image: url(./img/img-3.png); }
 
 .slide-content {
     flex: 1;
@@ -164,7 +167,6 @@ a {
     background-color: var(--blue);
 }
 
-/* Specjalne style dla slajdu statystycznego (Slajd 3) */
 .slide-content-stats {
     background-color: var(--dark-blue); 
     padding: 40px 80px; 
@@ -195,12 +197,8 @@ a {
     --fill-percent: 0%; 
 }
 
-.stat-item-header:nth-child(1) .stat-circle {
-    --fill-percent: 50%;
-}
-.stat-item-header:nth-child(2) .stat-circle {
-    --fill-percent: 38%;
-}
+.stat-item-header:nth-child(1) .stat-circle { --fill-percent: 50%; }
+.stat-item-header:nth-child(2) .stat-circle { --fill-percent: 38%; }
 
 .percent-value {
     position: absolute;
@@ -228,8 +226,6 @@ a {
     line-height: 1.2;
 }
 
-
-/* Styl dla standardowych slajdów 1 i 2 */
 .headline h1 {
     color: #fff;
     font-size: 34px;
@@ -287,10 +283,9 @@ a {
     transform: scale(1.2);
 }
 
-/* ------------------------------------------------------------------ */
+/* ========================================= */
 /* --- SEKCJA CZYM JEST RSV? --- */
-/* ------------------------------------------------------------------ */
-
+/* ========================================= */
 .rsv-info-section {
     max-width: 900px;
     margin: 0 auto;
@@ -362,26 +357,18 @@ a {
     margin-left: 5px;
 }
 
-.secondary-cta-button img {
-    display: none;
-}
-
 .secondary-cta-button:hover {
     background-color: var(--dark-blue);
 }
 
-.secondary-cta-button:hover span {
-    color: #fff;
-}
-
+.secondary-cta-button:hover span, 
 .secondary-cta-button:hover span::after {
     color: #fff;
 }
 
-/* ------------------------------------------------------------------ */
-/* --- SEKCJA INFOGRAFIKI (POZ/APTEKA) --- */
-/* ------------------------------------------------------------------ */
-
+/* ========================================= */
+/* --- SEKCJA INFOGRAFIKI (LUDZIKI) --- */
+/* ========================================= */
 .infographic-header {
     color: var(--txt-blue);
     font-size: 36px;
@@ -435,9 +422,7 @@ a {
     mask-size: contain;
 }
 
-.icon-human.active {
-    background-color: var(--yellow); 
-}
+.icon-human.active { background-color: var(--yellow); }
 
 .stat-number {
     display: block;
@@ -455,10 +440,9 @@ a {
     margin: 0 auto;
 }
 
-/* ------------------------------------------------------------------ */
-/* --- SEKCJA WSPÓŁCZEŚNI SENIORZY (ZAKTUALIZOWANA) --- */
-/* ------------------------------------------------------------------ */
-
+/* ========================================= */
+/* --- SEKCJA WSPÓŁCZEŚNI SENIORZY --- */
+/* ========================================= */
 .section-title {
     font-size: 40px;
     font-weight: 700;
@@ -488,11 +472,8 @@ a {
     transition: transform 0.3s;
 }
 
-.trait-card:hover {
-    transform: translateY(-5px);
-}
+.trait-card:hover { transform: translateY(-5px); }
 
-/* Kontener na wykres i bąbelek z procentem */
 .chart-wrapper {
     position: relative;
     width: 140px;
@@ -501,13 +482,11 @@ a {
     margin-top: 10px;
 }
 
-/* Wykres kołowy */
 .trait-chart {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    /* Tworzenie wykresu */
     background: conic-gradient(
         var(--yellow) calc(var(--p) * 1%), 
         var(--light-blue) 0
@@ -517,21 +496,19 @@ a {
     justify-content: center;
 }
 
-/* Białe koło w środku (dziura) - zmniejszone dla grubszego obrysu */
 .trait-chart::after {
     content: '';
     position: absolute;
-    width: 100px; /* Mniejsza średnica = grubszy obrys (20px grubości) */
+    width: 100px; 
     height: 100px;
     background-color: #fff;
     border-radius: 50%;
     z-index: 1;
 }
 
-/* Ikona wewnątrz wykresu - Centrowanie IMG */
 .trait-icon-placeholder {
     position: relative;
-    z-index: 2; /* Musi być nad białą dziurą */
+    z-index: 2; 
     width: 60px;
     height: 60px;
     display: flex;
@@ -546,7 +523,6 @@ a {
     object-fit: contain;
 }
 
-/* Bąbelek z wartością procentową - LEWY DOLNY RÓG */
 .chart-value-badge {
     position: absolute;
     bottom: 0;
@@ -586,199 +562,85 @@ a {
     padding: 40px 20px 60px;
 }
 
-/* ------------------------------------------------------------------ */
-/* --- MEDIA QUERIES --- */
-/* ------------------------------------------------------------------ */
+/* ========================================= */
+/* --- MEDIA QUERIES (RESPONSYWNOŚĆ) --- */
+/* ========================================= */
 
 @media (max-width: 1024px) {
     
-    /* --- RESPONDER HAMBURGERA --- */
+    /* --- NAPRAWA MENU MOBILNEGO --- */
     .hamburger {
-        display: block; /* Pokaż ikonę hamburgera */
-        order: 1; /* Hamburger pierwszy z lewej */
+        display: block; /* Pokaż ikonę */
+        order: 1; /* Po lewej */
     }
 
-    /* Ukryj normalne menu i zrób z niego dropdown */
+    .navbar {
+        justify-content: space-between; 
+        align-items: center;
+    }
+
+    /* Ukryj linki i ustaw je w kolumnie */
     .nav-menu {
         position: absolute;
         top: 100%;
         left: 0;
+        right: 0;
         flex-direction: column;
         background-color: var(--dark-blue);
         width: 100%;
         text-align: center;
         padding: 20px 0;
-        display: none; /* Domyślnie ukryte */
+        display: none; /* KLUCZOWE: domyślnie ukryte! */
         gap: 20px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+        z-index: 999;
     }
 
-    /* Klasa dodawana przez JS - pokazuje menu */
     .nav-menu.active {
-        display: flex;
+        display: flex; /* Pokaż po kliknięciu */
     }
-
-    /* Animacja hamburgera po kliknięciu (X) */
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* Przycisk CTA zostaje na miejscu, ale dopasowujemy go */
+    
+    /* Przycisk Gdzie się zaszczepić - po prawej */
     .nav-item.nav-cta {
-        order: 2; /* CTA po prawej */
+        order: 2;
         margin-left: 0;
-        padding: 10px 20px;
-        font-size: 16px; /* Trochę mniejszy font żeby się mieścił */
-    }
-    
-    /* ----------------------------- */
-
-    .navbar {
-        justify-content: space-between;
-        gap: 10px;
+        padding: 8px 20px;
+        font-size: 14px;
+        width: auto; /* Ważne: nie rozciągaj na 100% */
+        max-width: none;
     }
 
-    .header-slider, .slide {
-        min-height: 450px; 
-    }
+    /* Animacja hamburgera */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    .slide {
-        flex-direction: column; 
-    }
-
-    .slide-image {
-        min-height: 250px;
-    }
-
-    .slide-content {
-        padding: 40px 20px;
-        text-align: center;
-        align-items: center;
-        flex: none; 
-    }
-
-    .slide-content-stats {
-        padding: 40px 20px;
-        text-align: left; 
-        align-items: flex-start;
-        justify-content: center;
-        gap: 20px;
-    }
-    
-    .stat-item-header {
-        gap: 15px;
-    }
-
-    .stat-circle {
-        width: 100px;
-        height: 100px;
-    }
-
-    .stat-circle::after {
-        width: 85px;
-        height: 85px;
-    }
-
-    .percent-value {
-        font-size: 28px;
-    }
-
-    .stat-text-header {
-        font-size: 24px;
-        font-weight: 400; 
-    }
-
-    .headline h1 {
-        font-size: 28px;
-    }
-
-    .headline p {
-        font-size: 22px;
-    }
+    /* --- RESZTA ELEMENTÓW --- */
+    .header-slider, .slide { min-height: 450px; }
+    .slide { flex-direction: column; }
+    .slide-image { min-height: 250px; }
+    .slide-content { padding: 40px 20px; text-align: center; align-items: center; flex: none; }
+    .slide-content-stats { padding: 40px 20px; text-align: left; align-items: flex-start; justify-content: center; gap: 20px; }
+    .stat-item-header { gap: 15px; }
+    .stat-circle { width: 100px; height: 100px; }
+    .stat-circle::after { width: 85px; height: 85px; }
+    .percent-value { font-size: 28px; }
+    .stat-text-header { font-size: 24px; }
+    .headline h1 { font-size: 28px; }
+    .headline p { font-size: 22px; }
 }
 
 @media (max-width: 768px) {
-    .header-content {
-        gap: 20px;
-    }
-
-    .cta-button span {
-        font-size: 20px;
-    }
-
-    /* Jeszcze mniejszy CTA na telefonach */
-    .nav-item.nav-cta {
-        font-size: 14px;
-        padding: 10px 15px;
-    }
-
-    /* Dostosowania dla sekcji RSV */
-    .rsv-info-section {
-        padding: 40px 20px;
-    }
-
-    .rsv-info-header {
-        font-size: 32px;
-        margin-bottom: 30px;
-    }
-
-    .rsv-info-text-block {
-        flex-direction: column; 
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-    
-    .rsv-info-paragraph {
-        text-align: center; 
-        font-size: 16px;
-    }
-    
-    .virus-icon {
-        width: 80px;
-        height: 80px;
-    }
-
-    /* Dostosowania dla sekcji Infografiki POZ/Apteka */
-    .infographic-header {
-        font-size: 28px;
-        margin-bottom: 40px;
-    }
-    
-    .infographic-stats-container {
-        flex-direction: column;
-        gap: 60px;
-    }
-    
-    .stat-card {
-        min-width: auto;
-    }
-    
-    .icon-human {
-        width: 20px;
-        height: 38px;
-    }
-
-    /* Dostosowania dla sekcji Współcześni Seniorzy */
-    .section-title {
-        font-size: 32px;
-        margin-bottom: 40px;
-    }
-    
-    .traits-grid {
-        grid-template-columns: 1fr; 
-        gap: 40px;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-    }
+    .rsv-info-section { padding: 40px 20px; }
+    .rsv-info-header { font-size: 32px; margin-bottom: 30px; }
+    .rsv-info-text-block { flex-direction: column; align-items: center; gap: 20px; margin-bottom: 30px; }
+    .rsv-info-paragraph { text-align: center; font-size: 16px; }
+    .virus-icon { width: 80px; height: 80px; }
+    .infographic-header { font-size: 28px; margin-bottom: 40px; }
+    .infographic-stats-container { flex-direction: column; gap: 60px; }
+    .stat-card { min-width: auto; }
+    .icon-human { width: 20px; height: 38px; }
+    .section-title { font-size: 32px; margin-bottom: 40px; }
+    .traits-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-links { flex-direction: column; gap: 10px; align-items: center; }
 }
