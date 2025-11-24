@@ -44,13 +44,13 @@ a {
 }
 
 /* ========================================= */
-/* --- NAWIGACJA --- */
+/* --- NAWIGACJA (UPDATED: 9 LINKÓW) --- */
 /* ========================================= */
 
 .navi {
     width: 100%;
     background-color: var(--dark-blue);
-    padding: 15px 20px;
+    padding: 10px 20px; /* Nieco mniejszy padding góra/dół */
     position: relative;
     z-index: 100;
 }
@@ -65,9 +65,11 @@ a {
     width: 100%;
 }
 
+/* Kontener na linki tekstowe */
 .nav-menu {
     display: flex;
-    gap: 30px;
+    /* Zmniejszony odstęp, żeby zmieścić więcej elementów */
+    gap: 15px; 
     align-items: center;
     margin: 0 auto;
 }
@@ -75,22 +77,38 @@ a {
 .nav-item {
     color: #fff;
     font-weight: 700;
-    font-size: 18px;
+    /* Zmniejszony font na desktopie dla zmieszczenia treści */
+    font-size: 15px; 
     text-align: center;
-    white-space: nowrap;
+    
+    /* Ustawienia dla łamania linii na desktopie */
+    white-space: normal; /* Pozwól na łamanie tekstu */
+    line-height: 1.2;    /* Zmniejszona interlinia dla dwuwierszowych linków */
+    max-width: 110px;    /* Wymusza przełamanie długich nazw */
+    
+    /* Wyśrodkowanie pionowe (dla linków 1-wierszowych vs 2-wierszowych) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;    /* Stała wysokość kontenera linku */
     transition: 0.3s;
 }
 
+/* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
-    padding: 10px 25px;
+    padding: 10px 20px; /* Trochę węższy padding */
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
     margin-left: auto;
-    font-size: 16px;
+    font-size: 15px;
+    
+    /* Resetujemy style "zwykłych" linków dla przycisku */
+    max-width: none; 
+    white-space: nowrap; 
+    min-height: auto;
     display: block;
-    white-space: nowrap;
 }
 
 .nav-item.nav-cta:hover {
@@ -98,6 +116,7 @@ a {
     background-color: #ffd65c;
 }
 
+/* Hamburger Menu */
 .hamburger {
     display: none; 
     cursor: pointer;
@@ -119,47 +138,35 @@ a {
 }
 
 /* ========================================= */
-/* --- HEADER SLIDER (POPRAWIONA RESPONSYWNOŚĆ) --- */
+/* --- HEADER SLIDER --- */
 /* ========================================= */
 .header-slider {
     position: relative;
     width: 100%;
-    /* Usuwamy sztywne min-height z kontenera, grid sam ustali wysokość */
     background-color: var(--dark-blue);
-    /* overflow: hidden; - usuwamy, żeby kropki (dots) mogły wystawać jeśli trzeba, lub zostawiamy */
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 .slides-container {
     width: 100%;
-    /* ZMIANA: Używamy Grid zamiast relative, żeby slajdy się nakładały, 
-       ale rodzic widział ich wysokość */
     display: grid;
     grid-template-columns: 1fr;
     position: relative;
 }
 
 .slide {
-    /* ZMIANA: Slajdy wchodzą w tę samą komórkę grida */
     grid-column: 1;
     grid-row: 1;
-    
     display: flex;
     width: 100%;
-    min-height: 500px; /* Na desktopie trzymamy min. 500px */
-    
-    /* ZMIANA: Usuwamy position: absolute */
+    min-height: 500px; 
     position: relative; 
-    
     opacity: 0; 
     transition: opacity 1.5s ease-in-out; 
     z-index: 1;
-    
-    /* Ważne: ukryte slajdy nie mogą być klikalne */
     pointer-events: none; 
 }
 
-/* Klasa dodawana/obsługiwana przez JS (aktywny slajd ma opacity: 1) */
 .slide[style*="opacity: 1"] {
     pointer-events: auto;
     z-index: 2;
@@ -170,7 +177,7 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100%; /* Żeby obrazek wypełniał wysokość */
+    min-height: 100%; 
 }
 
 .slide-image-1 { background-image: url(./img/img.png); }
@@ -215,7 +222,7 @@ a {
         rgba(255, 255, 255, 0.2) var(--fill-percent, 50%) 
     );
     --fill-percent: 0%; 
-    flex-shrink: 0; /* Zapobiega zgniataniu koła */
+    flex-shrink: 0; 
 }
 
 .stat-item-header:nth-child(1) .stat-circle { --fill-percent: 50%; }
@@ -271,7 +278,7 @@ a {
     border-radius: 1000px;
     border: none;
     cursor: pointer;
-    max-width: 100%; /* Żeby nie wystawał na mobile */
+    max-width: 100%; 
 }
 
 .cta-button span {
@@ -590,7 +597,7 @@ a {
 
 @media (max-width: 1024px) {
     
-    /* --- NAPRAWA MENU MOBILNEGO --- */
+    /* --- NAPRAWA MENU MOBILNEGO/TABLETOWEGO --- */
     .hamburger {
         display: block;
         order: 1;
@@ -599,6 +606,15 @@ a {
     .navbar {
         justify-content: space-between; 
         align-items: center;
+    }
+
+    /* Resetowanie stylów linków do wersji "listy" */
+    .nav-item {
+        font-size: 18px; /* Przywracamy większy font na mobile */
+        white-space: nowrap; /* Brak zawijania w pionowej liście */
+        max-width: none; /* Brak limitu szerokości */
+        line-height: 1.5;
+        min-height: auto;
     }
 
     .nav-menu {
@@ -626,6 +642,8 @@ a {
         font-size: 14px;
         width: auto;
         flex-shrink: 0;
+        display: block;
+        white-space: nowrap;
     }
 
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
@@ -633,26 +651,25 @@ a {
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* --- SLIDER MOBILNY (AUTO HEIGHT) --- */
-    /* Slajd dostosowuje wysokość do treści, a nie sztywne 500px */
     .header-slider, .slide {
         min-height: auto; 
         height: auto;
     }
 
     .slide {
-        flex-direction: column; /* Obrazek na górze, treść na dole */
+        flex-direction: column; 
     }
 
     .slide-image {
-        min-height: 300px; /* Minimalna wysokość obrazka na mobile */
+        min-height: 300px; 
         width: 100%;
     }
 
     .slide-content {
-        padding: 40px 20px 60px; /* Większy padding na dole na kropki */
+        padding: 40px 20px 60px; 
         text-align: center;
         align-items: center;
-        flex: none; /* Niech treść zajmuje tyle miejsca ile potrzebuje */
+        flex: none; 
         width: 100%;
     }
 
