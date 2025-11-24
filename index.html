@@ -10,7 +10,7 @@
 <body>
     <div class="desktop">
         
-       <nav class="navi">
+        <nav class="navi">
             <div class="navbar">
                 
                 <button class="hamburger" aria-label="Menu">
@@ -20,11 +20,12 @@
                 </button>
 
                 <div class="nav-menu">
-                    <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV-15.1?</a>
-                    <a href="#" class="nav-item">Profilaktyka</a> <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
+                    <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV?</a>
+                    <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
-                 </div>
+                    <a href="#szczepienia" class="nav-item">Szczepienia - dla kogo?</a>
+                </div>
 
                 <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta">Gdzie się zaszczepić</a>
                 
@@ -280,6 +281,19 @@
                     </div>
                 </div>
             </section>
+
+            <section class="section" id="video-sekcja">
+                <div class="content-wrapper">
+                    <h2 class="section-title">Zobacz materiał wideo</h2>
+                    <div class="video-container">
+                        <video controls poster="img/img.png">
+                            <source src="img/video-rsv.mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje elementu wideo.
+                        </video>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <footer class="footer">
@@ -342,17 +356,17 @@
             });
             showSlide(currentSlide);
 
-            // === HAMBURGER MENU LOGIC (NOWE) ===
+            // === HAMBURGER MENU LOGIC ===
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-menu");
-            const navLinks = document.querySelectorAll(".nav-item:not(.nav-cta)"); // Wszystkie linki poza przyciskiem CTA
+            const navLinks = document.querySelectorAll(".nav-item:not(.nav-cta)"); 
 
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
                 navMenu.classList.toggle("active");
             });
 
-            // Zamknij menu po kliknięciu w link (opcjonalne)
+            // Zamknij menu po kliknięciu w link
             navLinks.forEach(n => n.addEventListener("click", () => {
                 hamburger.classList.remove("active");
                 navMenu.classList.remove("active");
