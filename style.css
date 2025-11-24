@@ -44,7 +44,7 @@ a {
 }
 
 /* ========================================= */
-/* --- NAWIGACJA --- */
+/* --- NAWIGACJA (PRZYWRÓCONA) --- */
 /* ========================================= */
 
 .navi {
@@ -65,6 +65,7 @@ a {
     width: 100%;
 }
 
+/* Kontener na linki tekstowe */
 .nav-menu {
     display: flex;
     gap: 30px;
@@ -81,6 +82,7 @@ a {
     transition: 0.3s;
 }
 
+/* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
     color: var(--txt-blue);
@@ -98,6 +100,7 @@ a {
     background-color: #ffd65c;
 }
 
+/* Hamburger Menu */
 .hamburger {
     display: none; 
     cursor: pointer;
@@ -119,47 +122,36 @@ a {
 }
 
 /* ========================================= */
-/* --- HEADER SLIDER (POPRAWIONA RESPONSYWNOŚĆ) --- */
+/* --- HEADER SLIDER --- */
 /* ========================================= */
 .header-slider {
     position: relative;
     width: 100%;
-    /* Usuwamy sztywne min-height z kontenera, grid sam ustali wysokość */
+    min-height: 500px;
     background-color: var(--dark-blue);
-    /* overflow: hidden; - usuwamy, żeby kropki (dots) mogły wystawać jeśli trzeba, lub zostawiamy */
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 .slides-container {
     width: 100%;
-    /* ZMIANA: Używamy Grid zamiast relative, żeby slajdy się nakładały, 
-       ale rodzic widział ich wysokość */
     display: grid;
     grid-template-columns: 1fr;
     position: relative;
 }
 
 .slide {
-    /* ZMIANA: Slajdy wchodzą w tę samą komórkę grida */
     grid-column: 1;
     grid-row: 1;
-    
     display: flex;
     width: 100%;
-    min-height: 500px; /* Na desktopie trzymamy min. 500px */
-    
-    /* ZMIANA: Usuwamy position: absolute */
+    min-height: 500px; 
     position: relative; 
-    
     opacity: 0; 
     transition: opacity 1.5s ease-in-out; 
     z-index: 1;
-    
-    /* Ważne: ukryte slajdy nie mogą być klikalne */
     pointer-events: none; 
 }
 
-/* Klasa dodawana/obsługiwana przez JS (aktywny slajd ma opacity: 1) */
 .slide[style*="opacity: 1"] {
     pointer-events: auto;
     z-index: 2;
@@ -170,7 +162,7 @@ a {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100%; /* Żeby obrazek wypełniał wysokość */
+    min-height: 100%; 
 }
 
 .slide-image-1 { background-image: url(./img/img.png); }
@@ -215,7 +207,7 @@ a {
         rgba(255, 255, 255, 0.2) var(--fill-percent, 50%) 
     );
     --fill-percent: 0%; 
-    flex-shrink: 0; /* Zapobiega zgniataniu koła */
+    flex-shrink: 0; 
 }
 
 .stat-item-header:nth-child(1) .stat-circle { --fill-percent: 50%; }
@@ -271,7 +263,7 @@ a {
     border-radius: 1000px;
     border: none;
     cursor: pointer;
-    max-width: 100%; /* Żeby nie wystawał na mobile */
+    max-width: 100%; 
 }
 
 .cta-button span {
@@ -585,6 +577,23 @@ a {
 }
 
 /* ========================================= */
+/* --- SEKCJA WIDEO (NOWE) --- */
+/* ========================================= */
+.video-container {
+    width: 100%;
+    max-width: 900px; /* Ograniczenie szerokości */
+    margin: 0 auto;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 20px; /* Zaokrąglone rogi wideo */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Cień pod wideo */
+    display: block;
+}
+
+/* ========================================= */
 /* --- MEDIA QUERIES (RESPONSYWNOŚĆ) --- */
 /* ========================================= */
 
@@ -633,26 +642,25 @@ a {
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* --- SLIDER MOBILNY (AUTO HEIGHT) --- */
-    /* Slajd dostosowuje wysokość do treści, a nie sztywne 500px */
     .header-slider, .slide {
         min-height: auto; 
         height: auto;
     }
 
     .slide {
-        flex-direction: column; /* Obrazek na górze, treść na dole */
+        flex-direction: column; 
     }
 
     .slide-image {
-        min-height: 300px; /* Minimalna wysokość obrazka na mobile */
+        min-height: 300px; 
         width: 100%;
     }
 
     .slide-content {
-        padding: 40px 20px 60px; /* Większy padding na dole na kropki */
+        padding: 40px 20px 60px; 
         text-align: center;
         align-items: center;
-        flex: none; /* Niech treść zajmuje tyle miejsca ile potrzebuje */
+        flex: none; 
         width: 100%;
     }
 
