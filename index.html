@@ -20,7 +20,7 @@
                 </button>
 
                 <div class="nav-menu">
-                    <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV?</a>
+                    <a href="#czym-jest-rsv" class="nav-item">Czym jest RSV-22?</a>
                     <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
@@ -286,7 +286,7 @@
                 <div class="content-wrapper">
                     <h2 class="section-title">Zobacz materiał wideo</h2>
                     <div class="video-container">
-                        <video controls preload="metadata">
+                        <video controls preload="metadata" id="rsvVideo">
                             <source src="img/video-rsv.mp4" type="video/mp4">
                             Twoja przeglądarka nie obsługuje elementu wideo.
                         </video>
@@ -366,11 +366,29 @@
                 navMenu.classList.toggle("active");
             });
 
-            // Zamknij menu po kliknięciu w link
             navLinks.forEach(n => n.addEventListener("click", () => {
                 hamburger.classList.remove("active");
                 navMenu.classList.remove("active");
             }));
+
+            // === VIDEO THUMBNAIL LOGIC (4. SEKUNDA) ===
+            const video = document.getElementById('rsvVideo');
+            
+            if(video) {
+                // 1. Ustaw czas na 4 sekundę po załadowaniu metadanych
+                video.addEventListener('loadedmetadata', function() {
+                    this.currentTime = 4;
+                });
+
+                // 2. Przy pierwszym odtworzeniu cofnij do początku
+                let hasStarted = false;
+                video.addEventListener('play', function() {
+                    if (!hasStarted) {
+                        this.currentTime = 0;
+                        hasStarted = true;
+                    }
+                });
+            }
         });
     </script>
 </body>
