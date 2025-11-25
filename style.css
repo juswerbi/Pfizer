@@ -78,29 +78,61 @@ a {
     width: 100%;
 }
 
-/* Kontener na linki tekstowe */
+/* Kontener na linki tekstowe (desktop) */
 .nav-menu {
     display: flex;
     gap: 30px;
     align-items: center;
-    margin: 0 auto;
+    /* Zmiana: push menu do lewej */
+    margin: 0; 
+    margin-right: auto; 
 }
 
 .nav-item {
     color: #fff;
     font-weight: 700;
     font-size: 18px;
-    text-align: center;
-    white-space: nowrap;
     transition: 0.3s;
+    /* Usunięto: text-align: center; i white-space: nowrap; - zostaną zdefiniowane poniżej */
 }
 
-/* NOWE: Styl dla aktywnej strony (tylko na desktopy, na mobile będzie w media query) */
+/* NOWE: Style dla łamania linków i lewego wyrównania (Desktop > 1024px) */
+.nav-menu .nav-item {
+    white-space: normal; /* Pozwala na łamanie tekstu */
+    max-width: 120px; /* Maksymalna szerokość wymuszająca łamanie 3+ słów */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+    
+    /* Ustawienie flex dla poprawnego wyświetlania ikony i tekstu */
+    display: flex; 
+    align-items: flex-start;
+}
+
+/* NOWE: Styl dla aktywnej strony (desktop) */
 .nav-item.current-page {
     font-weight: 700; 
     text-decoration: underline; 
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
+}
+
+/* NOWE: Styl dla ikony domu - linia i biała (maska SVG) */
+.nav-item.current-page::before {
+    content: ""; 
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    margin-right: 8px;
+    
+    background-color: #fff; 
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 /* Przycisk CTA (Gdzie się zaszczepić) */
@@ -113,8 +145,9 @@ a {
     margin-left: auto;
     font-size: 16px;
     display: block;
-    white-space: nowrap;
+    white-space: nowrap; /* Musi pozostać w jednej linii */
     z-index: 1002; 
+    flex-shrink: 0; 
 }
 
 .nav-item.nav-cta:hover {
@@ -653,28 +686,35 @@ a {
 
 @media (max-width: 1024px) {
     
-    /* --- NAPRAWA MENU MOBILNEGO --- */
+    /* --- ZMIANY W NAWIGACJI MOBILNEJ (Linki i CTA w jednej linii, menu rozwijane) --- */
     
-    .navbar {
-        display: flex;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: space-between; 
-        align-items: center;
+    /* Zapewnienie, że w trybie mobile linki z menu rozwijanego nie łamią się */
+    .nav-menu .nav-item {
+        white-space: nowrap; 
+        max-width: none;
+        width: 100%; 
+        text-align: left; 
+        padding: 10px 0;
+        display: block; /* Powrót do bloku dla listy w menu rozwijanym */
     }
 
+    /* Na mobile usuwamy ikonę domu w rozwijanym menu */
+    .nav-item.current-page::before {
+        content: none; 
+        margin-right: 0;
+    }
+    
+    /* Dopasowanie CTA, które pozostaje widoczne w jednej linii z hamburgerem */
+    .nav-item.nav-cta {
+        font-size: 14px; 
+        padding: 8px 15px; 
+        order: 2; /* Ustawia przycisk po prawej stronie */
+    }
+
+    /* Wyświetlenie hamburgera (już było, ale dla pewności) */
     .hamburger {
         display: block;
-        order: 1;
-    }
-
-    .nav-item.nav-cta {
-        order: 2;
-        margin-left: auto;
-        padding: 8px 20px;
-        font-size: 14px;
-        width: auto;
-        flex-shrink: 0;
+        order: 1; /* Ustawia hamburger po lewej stronie */
     }
 
     .nav-menu {
@@ -685,7 +725,7 @@ a {
         flex-direction: column;
         background-color: var(--dark-blue);
         width: 100%;
-        padding: 20px 40px; /* NOWE: Zwiększony padding boczny dla wyrównania */
+        padding: 20px 40px; 
         display: none; 
         gap: 20px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
@@ -694,17 +734,10 @@ a {
         max-height: calc(100vh - 80px); 
         overflow-y: auto; 
         
-        /* NOWE: Wyrównanie do lewej */
         align-items: flex-start; 
         text-align: left;
     }
     
-    .nav-menu .nav-item {
-        width: 100%; /* Rozciągnięcie linków */
-        text-align: left; /* Zapewnienie lewego wyrównania tekstu */
-        padding: 10px 0; /* Więcej miejsca na kliknięcie */
-    }
-
     .nav-menu.active { display: flex; }
 
     /* Animacja hamburgera */
