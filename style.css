@@ -34,6 +34,14 @@ a {
     width: 100%;
 }
 
+/* NOWY KONTENER DLA BLUR */
+.content-to-blur {
+    width: 100%;
+    /* Płynne przejście dla efektu blur */
+    transition: filter 0.3s ease-in-out; 
+}
+
+
 .content-wrapper {
     width: 100%;
     max-width: 1200px;
@@ -52,7 +60,7 @@ a {
     background-color: var(--dark-blue);
     padding: 15px 20px;
     position: relative;
-    z-index: 100;
+    z-index: 1000; /* Zapewnia, że nawigacja jest zawsze na wierzchu */
 }
 
 .navbar {
@@ -93,6 +101,7 @@ a {
     font-size: 16px;
     display: block;
     white-space: nowrap;
+    z-index: 1002; /* Zawsze nad blurem i menu */
 }
 
 .nav-item.nav-cta:hover {
@@ -107,8 +116,7 @@ a {
     background: none;
     border: none;
     padding: 10px; 
-    /* Usunięto margin-right, flex space-between to załatwi */
-    z-index: 101;
+    z-index: 1002; /* Zawsze nad blurem i menu */
     flex-shrink: 0; 
 }
 
@@ -581,17 +589,50 @@ a {
 /* ========================================= */
 .video-container {
     width: 100%;
-    max-width: 900px; /* Ograniczenie szerokości */
+    max-width: 900px; 
     margin: 0 auto;
 }
 
 .video-container video {
     width: 100%;
     height: auto;
-    border-radius: 20px; /* Zaokrąglone rogi wideo */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Cień pod wideo */
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
     display: block;
 }
+
+/* ========================================= */
+/* --- FOOTER --- */
+/* ========================================= */
+
+.footer {
+    width: 100%;
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 40px 20px 80px;
+}
+
+.footer-section {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.disclaimer {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
 
 /* ========================================= */
 /* --- MEDIA QUERIES (RESPONSYWNOŚĆ) --- */
@@ -599,36 +640,33 @@ a {
 
 @media (max-width: 1024px) {
     
-    /* --- NAPRAWA MENU MOBILNEGO (ROZWIĄZANIE PROBLEMU HAMBURGERA) --- */
+    /* --- NAPRAWA MENU MOBILNEGO --- */
     
-    /* Wymuszamy układ w jednym rzędzie, bez zawijania */
     .navbar {
         display: flex;
-        flex-direction: row !important; /* Ważne: zawsze rząd */
-        flex-wrap: nowrap !important;   /* Ważne: nigdy nie łam linii */
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
         justify-content: space-between; 
         align-items: center;
     }
 
     .hamburger {
         display: block;
-        order: 1; /* Hamburger po lewej */
+        order: 1;
     }
 
-    /* Przycisk Gdzie się zaszczepić - po prawej */
     .nav-item.nav-cta {
         order: 2;
-        margin-left: auto; /* Dopycha do prawej */
+        margin-left: auto;
         padding: 8px 20px;
         font-size: 14px;
         width: auto;
-        flex-shrink: 0; /* Nie pozwala się skurczyć */
+        flex-shrink: 0;
     }
 
-    /* Ukryte menu (dropdown) */
     .nav-menu {
-        position: absolute;
-        top: 100%;
+        position: fixed; /* Zmieniono na fixed by było nad treścią */
+        top: 80px; /* Dopasuj do wysokości navi */
         left: 0;
         right: 0;
         flex-direction: column;
@@ -640,6 +678,9 @@ a {
         gap: 20px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
         z-index: 999;
+        height: auto;
+        max-height: calc(100vh - 80px); /* Ogranicz wysokość do widocznego obszaru */
+        overflow-y: auto; /* Dodaj scrolla dla długich list */
     }
 
     .nav-menu.active { display: flex; }
@@ -648,6 +689,15 @@ a {
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* === EFEKT BLUR DLA TREŚCI === */
+    .content-to-blur.blurred {
+        filter: blur(4px); 
+        /* Ważne: Zablokowanie interakcji z zablurwaną treścią */
+        pointer-events: none; 
+        user-select: none;
+    }
+
 
     /* --- RESZTA ELEMENTÓW --- */
     .header-slider, .slide { min-height: auto; height: auto; }
@@ -667,8 +717,8 @@ a {
 @media (max-width: 768px) {
     /* --- Jeszcze mniejsze ekrany (mobile) --- */
     .nav-item.nav-cta {
-        font-size: 13px; /* Mniejszy tekst na małych ekranach */
-        padding: 8px 15px; /* Mniejszy guzik */
+        font-size: 13px; 
+        padding: 8px 15px; 
     }
 
     .rsv-info-section { padding: 40px 20px; }
