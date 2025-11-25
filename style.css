@@ -19,11 +19,10 @@ body {
     color: var(--txt-blue);
     background-color: #fff;
     line-height: 1.5;
-    /* NOWE: Płynne przejście dla overflow (jeśli body jest na tyle małe, że nie ma scrolla) */
     transition: overflow 0.3s; 
 }
 
-/* NOWA REGUŁA: Blokowanie scrollowania na całym body */
+/* NOWA REGUŁA: Blokowanie scrollowania na całym body (wymaga klasy w JS) */
 body.menu-open {
     overflow: hidden;
 }
@@ -41,10 +40,9 @@ a {
     width: 100%;
 }
 
-/* NOWY KONTENER DLA BLUR */
+/* KONTENER DLA BLUR/WYSZARZENIA */
 .content-to-blur {
     width: 100%;
-    /* Płynne przejście dla efektu blur */
     transition: filter 0.3s ease-in-out; 
 }
 
@@ -67,7 +65,7 @@ a {
     background-color: var(--dark-blue);
     padding: 15px 20px;
     position: relative;
-    z-index: 1000; /* Zapewnia, że nawigacja jest zawsze na wierzchu */
+    z-index: 1000; 
 }
 
 .navbar {
@@ -97,6 +95,14 @@ a {
     transition: 0.3s;
 }
 
+/* NOWE: Styl dla aktywnej strony (tylko na desktopy, na mobile będzie w media query) */
+.nav-item.current-page {
+    font-weight: 700; 
+    text-decoration: underline; 
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
 /* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
     background-color: var(--yellow);
@@ -108,7 +114,7 @@ a {
     font-size: 16px;
     display: block;
     white-space: nowrap;
-    z-index: 1002; /* Zawsze nad blurem i menu */
+    z-index: 1002; 
 }
 
 .nav-item.nav-cta:hover {
@@ -123,7 +129,7 @@ a {
     background: none;
     border: none;
     padding: 10px; 
-    z-index: 1002; /* Zawsze nad blurem i menu */
+    z-index: 1002; 
     flex-shrink: 0; 
 }
 
@@ -679,8 +685,7 @@ a {
         flex-direction: column;
         background-color: var(--dark-blue);
         width: 100%;
-        text-align: center;
-        padding: 20px 0;
+        padding: 20px 40px; /* NOWE: Zwiększony padding boczny dla wyrównania */
         display: none; 
         gap: 20px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
@@ -688,6 +693,16 @@ a {
         height: auto;
         max-height: calc(100vh - 80px); 
         overflow-y: auto; 
+        
+        /* NOWE: Wyrównanie do lewej */
+        align-items: flex-start; 
+        text-align: left;
+    }
+    
+    .nav-menu .nav-item {
+        width: 100%; /* Rozciągnięcie linków */
+        text-align: left; /* Zapewnienie lewego wyrównania tekstu */
+        padding: 10px 0; /* Więcej miejsca na kliknięcie */
     }
 
     .nav-menu.active { display: flex; }
@@ -699,7 +714,6 @@ a {
 
     /* === EFEKT BLUR I WYSZARZENIA DLA TREŚCI === */
     .content-to-blur.blurred {
-        /* NOWE: Dodano brightness(50%) dla efektu przyciemnienia */
         filter: blur(4px) brightness(50%); 
         pointer-events: none; 
         user-select: none;
