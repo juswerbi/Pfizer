@@ -11,7 +11,7 @@
     <div class="desktop">
         
         <nav class="navi">
-            <div class="navbar primary-row">
+            <div class="navbar">
                 
                 <button class="hamburger" aria-label="Menu">
                     <span class="bar"></span>
@@ -20,18 +20,15 @@
                 </button>
 
                 <div class="nav-menu">
-                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV-3.4?</a>
+                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV?</a>
                     <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
                     <a href="#szczepienia" class="nav-item">Szczepienia - dla kogo?</a>
                 </div>
 
-                <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta inline-cta-for-mobile">Gdzie się zaszczepić</a>
-            </div>
-            
-            <div class="navbar secondary-row">
-                <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta desktop-cta-separate-row">Gdzie się zaszczepić</a>
+                <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta">Gdzie się zaszczepić</a>
+                
             </div>
         </nav>
 
@@ -365,34 +362,34 @@
             // === HAMBURGER MENU LOGIC I BLUR ===
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-menu");
-            // Dodajemy CTA do listy, by zamknąć menu po kliknięciu
-            const navLinks = document.querySelectorAll(".nav-item"); 
+            const navLinks = document.querySelectorAll(".nav-item:not(.nav-cta)");
             const contentToBlur = document.querySelector(".content-to-blur"); 
-            const body = document.body;
+            const body = document.body; // POBRANIE ELEMENTU BODY
 
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
                 navMenu.classList.toggle("active");
                 
+                // BLOKOWANIE SCROLLOWANIA NA BODY
                 body.classList.toggle('menu-open'); 
 
                 if (contentToBlur) {
+                    // Włączenie bluru i wyszarzenia
                     contentToBlur.classList.toggle('blurred'); 
                 }
             });
 
-            // Zamknij menu po kliknięciu w link (teraz dotyczy też CTA)
+            // Zamknij menu po kliknięciu w link
             navLinks.forEach(n => n.addEventListener("click", () => {
-                // Warunek, aby nie zamykać, jeśli to link w menu desktopowym
-                if (window.innerWidth <= 1024 || n.closest('.nav-menu')) {
-                    hamburger.classList.remove("active");
-                    navMenu.classList.remove("active");
-                    
-                    body.classList.remove('menu-open'); 
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                
+                // ODBLOKOWANIE SCROLLOWANIA NA BODY
+                body.classList.remove('menu-open'); 
 
-                    if (contentToBlur) {
-                        contentToBlur.classList.remove('blurred'); 
-                    }
+                if (contentToBlur) {
+                    // Wyłączenie bluru i wyszarzenia
+                    contentToBlur.classList.remove('blurred'); 
                 }
             }));
 
