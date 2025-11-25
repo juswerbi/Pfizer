@@ -11,7 +11,7 @@
     <div class="desktop">
         
         <nav class="navi">
-            <div class="navbar">
+            <div class="navbar primary-row">
                 
                 <button class="hamburger" aria-label="Menu">
                     <span class="bar"></span>
@@ -20,16 +20,17 @@
                 </button>
 
                 <div class="nav-menu">
-                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV-3.1?</a>
+                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV?</a>
                     <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
                     <a href="#szczepienia" class="nav-item">Szczepienia - dla kogo?</a>
+                    <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta mobile-cta-in-menu">Gdzie się zaszczepić</a>
                 </div>
             </div>
             
-            <div class="navbar">
-                <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta">Gdzie się zaszczepić</a>
+            <div class="navbar secondary-row">
+                <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta desktop-cta">Gdzie się zaszczepić</a>
             </div>
         </nav>
 
@@ -393,6 +394,15 @@
                     contentToBlur.classList.remove('blurred'); 
                 }
             }));
+            
+            // Obsługa kliknięcia w CTA w menu mobilnym
+            document.querySelector(".mobile-cta-in-menu")?.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                body.classList.remove('menu-open'); 
+                contentToBlur.classList.remove('blurred');
+            });
+
 
             // === VIDEO THUMBNAIL LOGIC (4. SEKUNDA) ===
             const video = document.getElementById('rsvVideo');
