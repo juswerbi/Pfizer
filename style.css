@@ -19,6 +19,13 @@ body {
     color: var(--txt-blue);
     background-color: #fff;
     line-height: 1.5;
+    /* NOWE: Płynne przejście dla overflow (jeśli body jest na tyle małe, że nie ma scrolla) */
+    transition: overflow 0.3s; 
+}
+
+/* NOWA REGUŁA: Blokowanie scrollowania na całym body */
+body.menu-open {
+    overflow: hidden;
 }
 
 a {
@@ -665,8 +672,8 @@ a {
     }
 
     .nav-menu {
-        position: fixed; /* Zmieniono na fixed by było nad treścią */
-        top: 80px; /* Dopasuj do wysokości navi */
+        position: fixed; 
+        top: 80px; 
         left: 0;
         right: 0;
         flex-direction: column;
@@ -679,8 +686,8 @@ a {
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
         z-index: 999;
         height: auto;
-        max-height: calc(100vh - 80px); /* Ogranicz wysokość do widocznego obszaru */
-        overflow-y: auto; /* Dodaj scrolla dla długich list */
+        max-height: calc(100vh - 80px); 
+        overflow-y: auto; 
     }
 
     .nav-menu.active { display: flex; }
@@ -690,10 +697,10 @@ a {
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-    /* === EFEKT BLUR DLA TREŚCI === */
+    /* === EFEKT BLUR I WYSZARZENIA DLA TREŚCI === */
     .content-to-blur.blurred {
-        filter: blur(4px); 
-        /* Ważne: Zablokowanie interakcji z zablurwaną treścią */
+        /* NOWE: Dodano brightness(50%) dla efektu przyciemnienia */
+        filter: blur(4px) brightness(50%); 
         pointer-events: none; 
         user-select: none;
     }
