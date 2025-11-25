@@ -70,8 +70,6 @@ a {
 
 .navbar {
     display: flex;
-    /* Zmiana: Pozwalamy na zawijanie elementów, aby przycisk mógł spaść niżej */
-    flex-wrap: wrap; 
     align-items: center;
     justify-content: space-between;
     max-width: 1200px;
@@ -79,13 +77,20 @@ a {
     width: 100%;
 }
 
+/* NOWE: Styl dla drugiego wiersza z przyciskiem CTA, wyrównanie do prawej i odstęp */
+.navi .navbar:nth-of-type(2) {
+    justify-content: flex-end; /* Wyrównanie buttona do prawej */
+    padding-top: 15px; /* Odstęp od menu powyżej */
+}
+
+
 /* Kontener na linki tekstowe */
 .nav-menu {
     display: flex;
     gap: 30px;
     align-items: center;
-    margin-right: auto; /* Przesuń menu na lewo, żeby zrobić miejsce dla przycisku */
-    margin-left: 0; /* Ustaw lewy margines na 0 */
+    margin-right: auto; /* Przesuń menu na lewo */
+    margin-left: 0; 
 }
 
 .nav-item {
@@ -97,28 +102,43 @@ a {
     transition: 0.3s;
 }
 
-/* NOWE: Styl dla aktywnej strony (desktop) */
+/* NOWE: Styl dla aktywnej strony (desktop) - dodano display:inline-flex */
 .nav-item.current-page {
     font-weight: 700; 
     text-decoration: underline; 
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
+    display: inline-flex; 
+    align-items: center;
 }
 
-/* NOWE: Styl dla ikony domu */
+/* NOWE: Styl dla ikony domu - linia i biała (maska SVG) */
 .nav-item.current-page::before {
-    content: "🏠"; /* Ikona domu */
+    content: ""; /* Usuwamy emoji */
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
     margin-right: 8px;
-    font-size: 16px; /* Upewnij się, że nie jest za duża */
+    
+    /* Białe tło i maska (prostego, wypełnionego kształtu domu - minimalistycznie) */
+    background-color: #fff; 
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 
 /* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
-    /* Zmiana: Ustawiamy szerokość na 100% i dodajemy top margin,
-       aby przycisk wylądował pod nawigacją na desktopie */
-    width: 100%; 
-    margin-top: 15px; /* Odstęp od linków nawigacyjnych */
+    /* NOWE: Zmieniamy display na inline-block i usuwamy width:100% (dla desktopa) */
+    width: auto; 
+    margin-top: 0; 
     
     background-color: var(--yellow);
     color: var(--txt-blue);
@@ -126,15 +146,20 @@ a {
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
     font-size: 16px;
-    display: block;
+    display: inline-block; /* Zmienione z block */
     white-space: nowrap;
     z-index: 1002; 
-    text-align: center; /* Wyśrodkuj tekst wewnątrz przycisku */
+    text-align: center; 
 }
 
 .nav-item.nav-cta:hover {
     transform: scale(1.05);
     background-color: #ffd65c;
+}
+
+/* NOWE: Ukrywamy mobilny CTA (który jest w menu) na desktopie */
+.nav-menu .nav-item.mobile-cta-in-menu {
+    display: none; 
 }
 
 /* Hamburger Menu */
@@ -670,25 +695,21 @@ a {
     
     /* --- NAPRAWA MENU MOBILNEGO --- */
     
+    /* Ukrywamy CTA desktopowy (drugi rząd) na mobile */
+    .navi .navbar:nth-of-type(2) {
+        display: none;
+        padding-top: 0;
+    }
+    
     .navbar {
         display: flex;
         flex-direction: row !important;
-        flex-wrap: nowrap !important; /* Na mobile menu jest w nowej linii, nie chcemy zawijania */
+        flex-wrap: nowrap !important;
         justify-content: space-between; 
         align-items: center;
     }
     
-    /* Na mobile przywracamy przycisk do linii nawigacji */
-    .nav-item.nav-cta {
-        width: auto; 
-        margin-top: 0;
-        order: 2;
-        margin-left: auto;
-        padding: 8px 20px;
-        font-size: 14px;
-        flex-shrink: 0;
-    }
-
+    /* Hamburger */
     .hamburger {
         display: block;
         order: 1;
@@ -731,6 +752,13 @@ a {
 
     .nav-menu.active { display: flex; }
 
+    /* NOWE: Na mobile - Włączamy CTA w menu, z pełną szerokością */
+    .nav-menu .nav-item.mobile-cta-in-menu {
+        display: block; /* Pełna szerokość w menu dropdown */
+        width: 100%;
+        margin-top: 15px; /* Odstęp od linków */
+    }
+
     /* Animacja hamburgera */
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -761,8 +789,8 @@ a {
 
 @media (max-width: 768px) {
     /* --- Jeszcze mniejsze ekrany (mobile) --- */
-    .nav-item.nav-cta {
-        font-size: 13px; 
+    .nav-menu .nav-item.mobile-cta-in-menu {
+        font-size: 14px; 
         padding: 8px 15px; 
     }
 
@@ -778,3 +806,4 @@ a {
     .section-title { font-size: 32px; margin-bottom: 40px; }
     .traits-grid { grid-template-columns: 1fr; gap: 40px; }
     .footer-links { flex-direction: column; gap: 10px; align-items: center; }
+}
