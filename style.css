@@ -83,32 +83,28 @@ a {
     display: flex;
     gap: 30px;
     align-items: center;
-    margin: 0; /* Usunięcie center-align */
-    margin-right: auto; /* Push menu do lewej */
+    margin: 0; 
+    margin-right: auto; 
 }
 
 .nav-item {
     color: #fff;
     font-weight: 700;
     font-size: 18px;
-    /* Usunięto: text-align: center; i white-space: nowrap; (przeniesione do bardziej szczegółowych reguł) */
     transition: 0.3s;
 }
 
-/* NOWE/POPRAWIONE: Style dla łamania linków i lewego wyrównania (Desktop > 1024px) */
-/* Dotyczy linków w menu (z wyłączeniem CTA) */
+/* Style dla łamania linków i lewego wyrównania (Desktop > 1024px) */
 .nav-menu .nav-item {
-    white-space: normal; /* Pozwala na łamanie tekstu */
-    max-width: 120px; /* Maksymalna szerokość wymuszająca łamanie 3+ słów */
-    text-align: left; /* Wyrównanie tekstu do lewej */
-    
-    /* Ustawienie flex dla poprawnego wyświetlania ikony i tekstu */
+    white-space: normal; 
+    max-width: 120px; 
+    text-align: left; 
     display: flex; 
     align-items: flex-start;
 }
 
 
-/* NOWE/POPRAWIONE: Styl dla aktywnej strony (desktop) */
+/* Styl dla aktywnej strony (desktop) */
 .nav-item.current-page {
     font-weight: 700; 
     text-decoration: underline; 
@@ -116,12 +112,12 @@ a {
     text-underline-offset: 4px;
 }
 
-/* NOWE/POPRAWIONE: Styl dla ikony domu - rozmiar 20px */
+/* Styl dla ikony domu - rozmiar 20px */
 .nav-item.current-page::before {
     content: ""; 
     display: inline-block;
     width: 20px; 
-    height: 20px; /* Zgodnie z życzeniem, wysokość 20px (zbliżona do linii tekstu) */
+    height: 20px; 
     margin-right: 8px;
     
     background-color: #fff; 
@@ -136,7 +132,6 @@ a {
     -webkit-mask-size: contain;
     mask-size: contain;
     
-    /* Zapewnienie lepszego pionowego wyrównania */
     margin-top: 1px; 
 }
 
@@ -148,10 +143,10 @@ a {
     padding: 10px 25px;
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
-    margin-left: auto; /* Wyrównanie do prawej na desktopie */
+    margin-left: auto; 
     font-size: 16px;
     display: block;
-    white-space: nowrap; /* Musi pozostać w jednej linii */
+    white-space: nowrap; 
     z-index: 1002; 
     flex-shrink: 0; 
 }
@@ -170,6 +165,7 @@ a {
     padding: 10px; 
     z-index: 1002; 
     flex-shrink: 0; 
+    order: 1; /* Upewnienie się, że jest po lewej na mobile */
 }
 
 .bar {
@@ -182,8 +178,199 @@ a {
 }
 
 /* ========================================= */
-/* --- HEADER SLIDER --- */
+/* --- HERO SECTION (STRONA GŁÓWNA) --- */
 /* ========================================= */
+.header-slider {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-color: var(--dark-blue);
+    overflow: hidden; 
+}
+
+/* ... (inne style dla header-slider pozostają bez zmian) ... */
+
+
+/* ========================================= */
+/* --- HERO SECTION (FAQ) --- */
+/* ========================================= */
+.faq-hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background-color: var(--dark-blue);
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+}
+
+.faq-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px) brightness(0.6); /* Lekki blur i przyciemnienie */
+    z-index: 1;
+}
+
+.faq-hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 400px;
+}
+
+.faq-title-box {
+    background-color: var(--blue);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 0 50px 50px 0; /* Zaokrąglenie tylko z prawej */
+    margin-right: auto; /* Wyrównanie do lewej */
+    max-width: 50%;
+    flex-shrink: 0;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+}
+
+.faq-hero-title {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.faq-info-box {
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 50px 0 0 50px; /* Zaokrąglenie tylko z lewej */
+    margin-left: auto; /* Wyrównanie do prawej */
+    max-width: 45%;
+    box-shadow: -2px 4px 10px rgba(0,0,0,0.3);
+}
+
+.faq-hero-text {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* ========================================= */
+/* --- SEKCJA WPROWADZENIE FAQ --- */
+/* ========================================= */
+.faq-intro-section {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.faq-intro-text {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--txt-blue);
+}
+
+.faq-intro-text strong {
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* ========================================= */
+/* --- SEKCJA FAQ (AKORDEON) --- */
+/* ========================================= */
+.faq-list-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.faq-item {
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    transition: all 0.3s;
+}
+
+.faq-item[open] {
+    border-color: var(--blue);
+    background-color: var(--pink); /* Lekkie podświetlenie aktywnego */
+}
+
+.faq-question {
+    display: block; /* Wymagane dla details/summary */
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--txt-blue);
+    cursor: pointer;
+    position: relative;
+    outline: none; /* Użycie własnego stylu focus */
+}
+
+/* Styl dla ikonki plus/minus w summary */
+.faq-question::marker,
+.faq-question::-webkit-details-marker {
+    display: none; /* Ukryj domyślną strzałkę */
+}
+
+.faq-question::after {
+    content: '+';
+    font-size: 24px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--blue);
+    transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+    content: '−';
+    transform: translateY(-50%) rotate(0deg); /* Dla spójności */
+}
+
+.faq-answer {
+    padding: 0 20px 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--txt-blue);
+}
+
+.faq-answer p, .faq-answer ul, .faq-answer ol {
+    margin-bottom: 15px;
+}
+
+.faq-answer ul, .faq-answer ol {
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.faq-answer li {
+    margin-bottom: 5px;
+}
+
+.faq-answer h4 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+
+/* ========================================= */
+/* --- RESZTA SEKCJI (Dla pełności) --- */
+/* ========================================= */
+
 .header-slider {
     position: relative;
     width: 100%;
@@ -636,6 +823,26 @@ a {
     padding: 40px 20px 60px;
 }
 
+.two-columns-mobile-stack {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+}
+
+.text-block-small {
+    flex: 1;
+    max-width: 500px;
+}
+
+.ok-image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin-top: 15px;
+}
+
+
 /* ========================================= */
 /* --- SEKCJA WIDEO --- */
 /* ========================================= */
@@ -692,7 +899,7 @@ a {
 
 @media (max-width: 1024px) {
     
-    /* --- NAPRAWA LAYOUTU NAGŁÓWKA NA MOBILE (CTA i Hamburger) --- */
+    /* --- NAWIGACJA MOBILNA --- */
     
     /* Wymuszenie rzędu i rozmieszczenia na całe mobile */
     .navbar {
@@ -701,7 +908,6 @@ a {
         flex-wrap: nowrap !important;
         justify-content: space-between; 
         align-items: center;
-        /* Już działa: Hamburger (order: 1) jest po lewej, CTA (order: 2) po prawej */
     }
 
     .hamburger {
@@ -711,14 +917,12 @@ a {
 
     .nav-item.nav-cta {
         order: 2;
-        margin-left: auto; /* Wyrównanie do prawej (odsuwa się od hamburgera) */
+        margin-left: auto; 
         padding: 8px 20px;
         font-size: 14px;
         width: auto;
         flex-shrink: 0;
     }
-
-    /* --- STYLIZACJA ROZWIJANEGO MENU MOBILNEGO --- */
 
     .nav-menu {
         position: fixed; 
@@ -736,7 +940,6 @@ a {
         height: auto;
         max-height: calc(100vh - 80px); 
         overflow-y: auto; 
-        
         align-items: flex-start; 
         text-align: left;
     }
@@ -771,6 +974,33 @@ a {
         user-select: none;
     }
 
+    /* --- RESPONSIVE DLA FAQ HERO --- */
+    .faq-hero-content {
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    
+    .faq-title-box, .faq-info-box {
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0;
+        padding: 15px 20px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .faq-hero-title {
+        font-size: 36px;
+        text-align: center;
+    }
+    
+    .faq-hero-text {
+        font-size: 18px;
+        text-align: center;
+    }
 
     /* --- RESZTA ELEMENTÓW --- */
     .header-slider, .slide { min-height: auto; height: auto; }
@@ -785,16 +1015,47 @@ a {
     .stat-text-header { font-size: 24px; }
     .headline h1 { font-size: 28px; }
     .headline p { font-size: 22px; }
+
+    .two-columns-mobile-stack {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .text-block-small {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
     /* --- Jeszcze mniejsze ekrany (mobile) --- */
-    /* Ustawienia CTA i Hamburgera są dziedziczone z 1024px i są poprawne (jedna linia) */
     .nav-item.nav-cta {
         font-size: 13px; 
         padding: 8px 15px; 
     }
 
+    /* --- FAQ --- */
+    .faq-hero-title {
+        font-size: 30px;
+    }
+    .faq-hero-text {
+        font-size: 16px;
+    }
+    .faq-question {
+        font-size: 16px;
+        padding: 15px;
+    }
+    .faq-question::after {
+        right: 15px;
+    }
+    .faq-answer {
+        padding: 0 15px 15px;
+        font-size: 15px;
+    }
+    .faq-intro-text {
+        font-size: 18px;
+    }
+    
+    /* --- RESZTA --- */
     .rsv-info-section { padding: 40px 20px; }
     .rsv-info-header { font-size: 32px; margin-bottom: 30px; }
     .rsv-info-text-block { flex-direction: column; align-items: center; gap: 20px; margin-bottom: 30px; }
