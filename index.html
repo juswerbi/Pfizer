@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szczepienia RSV</title>
-    <link rel="stylesheet" href="globals.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Używam wbudowanych stylów tylko do linków (dla czytelności kodu) */
+        .nav-menu a[href="#czym-jest-rsv"] { order: 1; }
+        .nav-menu a[href="grupa-ryzyka.html"] { order: 2; }
+        .nav-menu a[href="#rsv-vs-grypa"] { order: 3; }
+        .nav-menu a[href="#objawy-i-zagrozenia"] { order: 4; }
+        .nav-menu a[href="#szczepienia"] { order: 5; }
+        .nav-menu a[href="pytania-i-odpowiedzi.html"] { order: 6; } /* NOWY LINK */
+    </style>
 </head>
 <body>
     <div class="desktop">
@@ -13,19 +21,19 @@
         <nav class="navi">
             <div class="navbar">
                 
-                <button class="hamburger" aria-label="Menu">
+                <button class="hamburger" aria-label="Menu" aria-controls="nav-menu" aria-expanded="false">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </button>
 
-                <div class="nav-menu">
+                <div class="nav-menu" id="nav-menu">
                     <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV-3.5?</a>
                     <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
                     <a href="#szczepienia" class="nav-item">Szczepienia - dla kogo?</a>
-                </div>
+                    <a href="pytania-i-odpowiedzi.html" class="nav-item">Pytania i odpowiedzi</a> </div>
 
                 <a href="#gdzie-sie-zaszczepic" class="nav-item nav-cta">Gdzie się zaszczepić</a>
                 
@@ -37,361 +45,305 @@
             <header class="header-slider">
                 <div class="slides-container">
                     
-                    <div class="slide" data-slide-index="0">
+                    <div class="slide" data-slide-index="0" style="opacity: 1; z-index: 2;">
                         <div class="slide-image slide-image-1"></div>
                         <div class="slide-content">
                             <div class="headline">
-                                <h1>Już dziś zapytaj o możliwość szczepień przeciwko RSV</h1>
-                                <p>także tych <strong>bezpłatnych</strong>, również w aptece</p>
+                                <h1>Już dziś zapytaj o możliwość szczepień przeciw RSV</h1>
+                                <p>Dowiedz się więcej o zakażeniu, grupie ryzyka i profilaktyce</p>
                             </div>
-                            <button class="cta-button">
-                                <span>INFORMACJE O SZCZEPIENIU</span>
-                                <img src="img/image.svg" alt="Strzałka">
+                            <button class="cta-button" aria-label="Dowiedz się więcej">
+                                <span>Dowiedz się więcej</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z" fill="var(--txt-blue)"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
 
                     <div class="slide" data-slide-index="1">
                         <div class="slide-image slide-image-2"></div>
-                        <div class="slide-content">
-                            <div class="headline">
-                                <h1>Chroń siebie i najbliższych przed wirusem RSV</h1>
-                                <p>sprawdź, kto jest w grupie podwyższonego ryzyka</p>
+                        <div class="slide-content slide-content-stats">
+                            <div class="stat-item-header">
+                                <div class="stat-circle" style="--fill-percent: 50%;">
+                                    <span class="percent-value">50%</span>
+                                </div>
+                                <h2 class="stat-text-header">Potrzebna jest lepsza ochrona: tylko połowa seniorów jest świadoma zagrożeń związanych z RSV.</h2>
                             </div>
-                            <button class="cta-button">
-                                <span>SPRAWDŹ GRUPĘ RYZYKA</span>
-                                <img src="img/image.svg" alt="Strzałka">
-                            </button>
+                            <div class="stat-item-header">
+                                <div class="stat-circle" style="--fill-percent: 38%;">
+                                    <span class="percent-value">38%</span>
+                                </div>
+                                <h2 class="stat-text-header">Zaledwie 38% kobiet w ciąży wie o możliwości ochrony dziecka przed RSV poprzez szczepienie.</h2>
+                            </div>
                         </div>
                     </div>
 
                     <div class="slide" data-slide-index="2">
                         <div class="slide-image slide-image-3"></div>
-                        <div class="slide-content slide-content-stats">
-                            <div class="stat-item-header">
-                                <div class="stat-circle" data-percent="50">
-                                    <span class="percent-value">50%</span>
-                                </div>
-                                <p class="stat-text-header">Osób w grupie wiekowej 65+ nigdy nie słyszało o RSV</p>
+                        <div class="slide-content">
+                            <div class="headline">
+                                <h1>Wirus RSV – cichy wróg układu oddechowego, który może być groźny dla Twoich bliskich.</h1>
+                                <p>Nie bagatelizuj objawów. Chroń siebie i seniorów w Twojej rodzinie.</p>
                             </div>
-                            <div class="stat-item-header">
-                                <div class="stat-circle" data-percent="38">
-                                    <span class="percent-value">38%</span>
-                                </div>
-                                <p class="stat-text-header">Nie ma szczegółowej wiedzy na temat przebiegu infekcji².</p>
-                            </div>
-                            </div>
+                            <a href="#rsv-vs-grypa" class="cta-button">
+                                <span>Porównaj z Grypą</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z" fill="var(--txt-blue)"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-
+                    
                 </div>
-                
                 <div class="slider-dots">
                     <span class="dot active" data-slide-index="0"></span>
                     <span class="dot" data-slide-index="1"></span>
                     <span class="dot" data-slide-index="2"></span>
                 </div>
-
             </header>
-
+            
             <main>
-                <section class="section" id="czym-jest-rsv">
-                    <div class="rsv-info-section">
-                        <h2 class="rsv-info-header">CZYM JEST RSV?</h2>
-                        
-                        <div class="rsv-info-text-block">
-                            <div class="rsv-info-icon-block">
-                                <img src="img/virus-icon.svg" alt="Ikona wirusa RSV" class="virus-icon">
-                            </div>
-                            
-                            <div class="rsv-info-paragraph">
-                                <p>
-                                    Syncytialny wirus oddechowy (RSV, ang. respiratory syncytial virus) to <strong>powszechny i bardzo zaraźliwy wirus</strong>, który atakuje drogi oddechowe i płuca.
-                                </p>
-                                <br>
-                                <p>
-                                    U większości ludzi choroba ma łagodny przebieg – przypomina przeziębienie i ustępuje samoistnie. Ale u niektórych <strong>może prowadzić do poważnych powikłań</strong>.<small>¹</small>
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <button class="secondary-cta-button">
-                            <span>Zobacz więcej</span>
-                        </button>
-                    </div>
-                </section>
-
-                <section class="section" id="wygodne-szczepienia">
-                    <div class="content-wrapper">
-                        <h2 class="infographic-header">
-                            Szczepienie przeciw grypie i RSV w ramach jednej wizyty w POZ lub aptece dla osób 60+
-                        </h2>
                 
-                        <div class="infographic-stats-container">
-                            <div class="stat-card">
-                                <div class="people-icons-wrapper">
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                </div>
-                                <div class="stat-text-content">
-                                    <span class="stat-number">34%</span>
-                                    <p class="stat-description">
-                                        zdaje sobie sprawę z tej możliwości
-                                    </p>
-                                </div>
-                            </div>
+                <section id="czym-jest-rsv" class="rsv-info-section section">
+                    <h2 class="rsv-info-header">Czym jest RSV (syncytialny wirus oddechowy)?</h2>
+                    <div class="rsv-info-text-block">
+                        <svg class="virus-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C8.68629 2 6 4.68629 6 8C6 11.3137 8.68629 14 12 14C15.3137 14 18 11.3137 18 8C18 4.68629 15.3137 2 12 2ZM4 8C4 3.58172 7.58172 0 12 0C16.4183 0 20 3.58172 20 8C20 12.4183 16.4183 16 12 16C7.58172 16 4 12.4183 4 8ZM12 18C16.4183 18 20 21.5817 20 26C20 30.4183 16.4183 34 12 34C7.58172 34 4 30.4183 4 26C4 21.5817 7.58172 18 12 18ZM12 20C8.68629 20 6 22.6863 6 26C6 29.3137 8.68629 32 12 32C15.3137 32 18 29.3137 18 26C18 22.6863 15.3137 20 12 20Z" transform="scale(0.7) translate(3, 0)"/>
+                            <path d="M12 20C16.4183 20 20 23.5817 20 28C20 32.4183 16.4183 36 12 36C7.58172 36 4 32.4183 4 28C4 23.5817 7.58172 20 12 20Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <p class="rsv-info-paragraph">
+                            <strong>RSV</strong> to wirus oddechowy, który może wywołać ciężkie zakażenie dolnych dróg oddechowych, prowadzące do zapalenia płuc lub oskrzelików. Jest szczególnie niebezpieczny dla **niemowląt** i **seniorów**. Choć często mylony ze zwykłym przeziębieniem, może wymagać hospitalizacji.
+                        </p>
+                    </div>
+                    <a href="grupa-ryzyka.html" class="secondary-cta-button">
+                        <span>Dowiedz się, kto jest w grupie ryzyka</span>
+                    </a>
+                </section>
                 
-                            <div class="stat-card">
-                                <div class="people-icons-wrapper">
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human active"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                    <span class="icon-human"></span>
-                                </div>
-                                <div class="stat-text-content">
-                                    <span class="stat-number">61%</span>
-                                    <p class="stat-description">
-                                        osób deklaruje, że chętnie z niej skorzysta
-                                    </p>
-                                </div>
+                <hr>
+
+                <section id="rsv-vs-grypa" class="section">
+                    <h2 class="infographic-header">W sezonie infekcyjnym na 100 osób z zakażeniem dróg oddechowych...</h2>
+                    <div class="infographic-stats-container">
+                        <div class="stat-card">
+                            <div class="people-icons-wrapper">
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
                             </div>
+                            <span class="stat-number">40%</span>
+                            <p class="stat-description">
+                                Zostanie zakażone **wirusem grypy**, a ciężki przebieg będzie wymagał intensywnej opieki.
+                            </p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="people-icons-wrapper">
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active"></span>
+                                <span class="icon-human active" style="mask-size: 50% 100%; -webkit-mask-size: 50% 100%;"></span> 
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                                <span class="icon-human"></span>
+                            </div>
+                            <span class="stat-number">35%</span>
+                            <p class="stat-description">
+                                Będzie miało **ciężkie zakażenie RSV** wymagające hospitalizacji.
+                            </p>
                         </div>
                     </div>
                 </section>
 
-                <section class="section" id="wspolczesni-seniorzy">
-                    <div class="content-wrapper">
-                        <h2 class="section-title">Jakie są współczesne osoby 60+?</h2>
+                <hr>
+
+                <section id="objawy-i-zagrozenia" class="section">
+                    <h2 class="section-title">Współcześni seniorzy są aktywni, ale i tak zagrożeni.</h2>
+                    <div class="traits-grid">
                         
-                        <div class="traits-grid">
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:94">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
+                        <div class="trait-card">
+                            <div class="chart-wrapper">
+                                <div class="trait-chart" style="--p: 55;">
+                                    <div class="trait-icon-placeholder">
+                                        <img src="https://via.placeholder.com/36" alt="Ikona: Wypoczynek">
                                     </div>
-                                    <div class="chart-value-badge">94%</div>
                                 </div>
-                                <div class="trait-content">
-                                    <h3>Uważa, że po 60. roku życia można spełniać marzenia i cieszyć się życiem.</h3>
-                                    <p>Seniorzy wierzą, że wiek nie jest ograniczeniem, ale przestrzenią do realizowania pasji, utrzymywania sprawczości i dbania o zdrowie.</p>
-                                </div>
+                                <div class="chart-value-badge">55%</div>
                             </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:96">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">96%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Wskazuje, że dbając o zdrowie może realizować swoje plany i marzenia.</h3>
-                                    <p>Wskazuje, że dbając o zdrowie może realizować swoje plany i marzenia.</p>
-                                </div>
+                            <div class="trait-content">
+                                <h3>55% seniorów wypoczywa aktywnie, np. uprawiając sporty.</h3>
+                                <p>To pozwala im na utrzymanie zdrowia, ale nie chroni przed chorobami zakaźnymi.</p>
                             </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:96">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">96%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Badanych wskazuje niezależność jako główną motywację do dbania o zdrowie.</h3>
-                                    <p>Samodzielność stanowi kluczowy motor do działania.</p>
-                                </div>
-                            </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:93">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">93%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Zwraca szczególną uwagę na zalecenia lekarza.</h3>
-                                    <p>Wyraźna zachęta ze strony medyka jest wystarczającym powodem, by podjąć decyzję o szczepieniu.</p>
-                                </div>
-                            </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:89">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">89%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Wskazuje, że do dbania o zdrowie motywuje ich rodzina i bliscy.</h3>
-                                    <p>Zdrowie seniorów to nie tylko osobista sprawa – to także odpowiedzialność wobec innych.</p>
-                                </div>
-                            </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:76">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">76%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Chciałoby otrzymywać przypomnienia SMS-em lub telefonicznie.</h3>
-                                </div>
-                            </div>
-
-                            <div class="trait-card">
-                                <div class="chart-wrapper">
-                                    <div class="trait-chart" style="--p:62">
-                                        <div class="trait-icon-placeholder">
-                                            <img src="img/placeholder-icon.svg" alt="Ikona">
-                                        </div>
-                                    </div>
-                                    <div class="chart-value-badge">62%</div>
-                                </div>
-                                <div class="trait-content">
-                                    <h3>Wskazuje, że możliwość zaszczepienia się w aptece ułatwiłaby podjęcie decyzji o samym szczepieniu.</h3>
-                                </div>
-                            </div>
-
                         </div>
+
+                        <div class="trait-card">
+                            <div class="chart-wrapper">
+                                <div class="trait-chart" style="--p: 72;">
+                                    <div class="trait-icon-placeholder">
+                                        <img src="https://via.placeholder.com/36" alt="Ikona: Podróże">
+                                    </div>
+                                </div>
+                                <div class="chart-value-badge">72%</div>
+                            </div>
+                            <div class="trait-content">
+                                <h3>72% seniorów często podróżuje i uczestniczy w życiu społecznym.</h3>
+                                <p>Częste kontakty z ludźmi zwiększają ryzyko zarażenia wirusem RSV.</p>
+                            </div>
+                        </div>
+
+                        <div class="trait-card">
+                            <div class="chart-wrapper">
+                                <div class="trait-chart" style="--p: 88;">
+                                    <div class="trait-icon-placeholder">
+                                        <img src="https://via.placeholder.com/36" alt="Ikona: Rodzina">
+                                    </div>
+                                </div>
+                                <div class="chart-value-badge">88%</div>
+                            </div>
+                            <div class="trait-content">
+                                <h3>88% małych dzieci choruje na RSV przynajmniej raz.</h3>
+                                <p>Seniorzy są często narażeni na kontakt z wirusem przez wnuki i dzieci.</p>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 
-                <section class="section" id="video-sekcja">
-                    <div class="content-wrapper">
-                        <h2 class="section-title">Zobacz materiał wideo</h2>
-                        <div class="video-container">
-                            <video controls preload="metadata" id="rsvVideo">
-                                <source src="img/video-rsv.mp4" type="video/mp4">
-                                Twoja przeglądarka nie obsługuje elementu wideo.
-                            </video>
+                <hr>
+
+                <section id="szczepienia" class="section">
+                    <h2 class="section-title">Szczepienia przeciw RSV są dostępne dla seniorów i kobiet w ciąży.</h2>
+                    <div class="two-columns-mobile-stack">
+                        <div class="text-block-small">
+                            <h3 style="color: var(--blue); margin-bottom: 20px;">Dla seniorów po 60. roku życia:</h3>
+                            <p>Szczepienie to najskuteczniejsza forma ochrony przed ciężkim przebiegiem choroby dróg oddechowych wywołanej przez RSV. Zapytaj swojego lekarza o możliwość szczepienia.</p>
+                            <img class="ok-image" src="https://via.placeholder.com/300x200" alt="Seniorzy rozmawiają">
                         </div>
+                        <div class="text-block-small">
+                            <h3 style="color: var(--blue); margin-bottom: 20px;">Dla kobiet w ciąży (od 24. do 36. tygodnia):</h3>
+                            <p>Szczepienie matki w ciąży chroni dziecko przed chorobą dolnych dróg oddechowych wywołaną przez RSV, zapewniając bierną odporność po urodzeniu.</p>
+                            <img class="ok-image" src="https://via.placeholder.com/300x200" alt="Kobieta w ciąży">
+                        </div>
+                    </div>
+                </section>
+                
+                <hr>
+
+                <section class="section">
+                    <h2 class="section-title">Obejrzyj wideo o tym, jak RSV zagraża zdrowiu seniorów.</h2>
+                    <div class="video-container">
+                        <video id="rsvVideo" controls poster="https://via.placeholder.com/800x450?text=Wideo+o+RSV" aria-label="Wideo o zagrożeniu RSV dla seniorów">
+                            <source src="RoarX_4346_UNBRANDED_PL_ABRYSVO UNBRANDED_video_Preview_(RSV Infection)_PP-A1G-POL-0045_v03 (2).mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje znacznika wideo.
+                        </video>
                     </div>
                 </section>
 
             </main>
 
             <footer class="footer">
-                <div class="content-wrapper">
-                    <div class="footer-section">
-                        <p class="disclaimer">*Na podstawie kohorty 725 pacjentów (152 z zakażeniem RSV i 573 z grypą) leczonych w KUH w Finlandii w okresie między listopadem 2017 roku a majem 20zywał leczenie tlenem, w porównaniu do 31,2% przy grypie.2*</p>
-                        <p class="disclaimer"><strong>RSV</strong> - syncytialny wirus oddechowy. </p>
-                        <p class="disclaimer"><strong>Referencje:</strong> 1. CDC. Clinical Overview of RSV. https://www.cdc.gov/rsv/hcp/clinical-overview/index.html (dostęp: 15.04.2025). 2. Hämäläinen A et al. BMJ Open. 2022 Dec 19;12(12):e060805. 3. Descamps A et al. Eur Respir J. 2022;59(3):2100651. 4. Ackerson B et al. Clin Infect Dis. 2019;69(2):197-203. 5. CDC. Symptoms and Care of RSV. https://www.cdc.gov/rsv/symptoms/index.html (dostęp: 15.04.2025). 6. De Martino JK et al. Open Forum Infect Dis. 2023;10(5):ofad203. 7. Savic M et al. Influenza Other Respir Viruses 2023;17:e13031.</p>
-                    </div>
-                    <div class="footer-section">
-                        <ul class="footer-links">
-                            <li><a href="#">Regulamin</a></li>
-                            <li><a href="#">Nota prawna</a></li>
-                            <li><a href="#">Polityka ciasteczek</a></li>
-                            <li><a href="#">Polityka prywatności</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <p class="disclaimer">
-                            Niniejszym informujemy, że serwis www.szczepieniaRSV.pl, w żadnym przypadku nie został stworzony w celu udzielania porad ani konsultacji medycznych. Zastrzegamy równocześnie, że wszelkie informacje przekazywane za pośrednictwem serwisu internetowego www.szczepieniaRSV.pl mają wyłącznie charakter informacyjny i nie mogą zastępować fachowej porady udzielonej przez lekarza. Copyright © 2025 by Pfizer Polska. All rights reserved. PP-FSM-POL-0378 Pfizer Polska Sp. z o.o. ul. Żwirki i Wigury 16B, 02-092 Warszawa Sąd Rejonowy dla m.st. Warszawy | KRS: 0000022310 NIP: 5213115586 | Wysokość kapitału zakładowego: 33.860.000,00 zł BDO: 000189470 tel.: (22) 335 61 00, faks: (22) 335 61 11, warsaw.office@pfizer.com
-                        </p>
-                    </div>
+                <div class="footer-section">
+                    <p class="disclaimer">
+                        Niniejszym informujemy, że serwis www.szczepieniaRSV.pl, w żadnym przypadku nie został stworzony w celu udzielania porad ani konsultacji medycznych. Zastrzegamy równocześnie, że wszelkie informacje przekazywane za pośrednictwem serwisu internetowego www.szczepieniaRSV.pl mają wyłącznie charakter informacyjny i nie mogą zastępować fachowej porady udzielonej przez lekarza.
+                    </p>
+                    <p class="disclaimer">
+                        Copyright © 2025 by Pfizer Polska. All rights reserved. PP-FSM-POL-0378 Pfizer Polska Sp. z o.o. ul. Żwirki i Wigury 16B, 02-092 Warszawa Sąd Rejonowy dla m.st. Warszawy | KRS: 0000022310 NIP: 5213115586 | Wysokość kapitału zakładowego: 33.860.000,00 PLN
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <ul class="footer-links">
+                        <li><a href="#">Regulamin</a></li>
+                        <li><a href="#">Nota prawna</a></li>
+                        <li><a href="#">Polityka ciasteczek</a></li>
+                        <li><a href="#">Polityka prywatności</a></li>
+                    </ul>
                 </div>
             </footer>
-
-        </div> </div>
+        </div>
+    </div>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // === SLIDER LOGIC ===
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            let currentSlide = 0;
-            const slideDuration = 7000; 
-            let slideInterval = setInterval(nextSlide, slideDuration); 
-
-            function showSlide(index) {
-                slides.forEach(slide => {
-                    slide.style.opacity = 0;
-                    slide.style.zIndex = 1;
-                });
-                dots.forEach(dot => dot.classList.remove('active'));
-                slides[index].style.opacity = 1;
-                slides[index].style.zIndex = 2; 
-                dots[index].classList.add('active');
-                currentSlide = index;
-            }
-
-            function nextSlide() {
-                let next = (currentSlide + 1) % slides.length;
-                showSlide(next);
-            }
-            
-            dots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    clearInterval(slideInterval);
-                    const index = parseInt(this.getAttribute('data-slide-index'));
-                    showSlide(index);
-                    slideInterval = setInterval(nextSlide, slideDuration);
-                });
-            });
-            showSlide(currentSlide);
-
-            // === HAMBURGER MENU LOGIC I BLUR ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // === NAWIGACJA MOBILNA LOGIKA ===
+            const body = document.body;
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-menu");
-            const navLinks = document.querySelectorAll(".nav-item:not(.nav-cta)");
-            const contentToBlur = document.querySelector(".content-to-blur"); 
-            const body = document.body; // POBRANIE ELEMENTU BODY
-
-            hamburger.addEventListener("click", () => {
-                hamburger.classList.toggle("active");
-                navMenu.classList.toggle("active");
-                
-                // BLOKOWANIE SCROLLOWANIA NA BODY
-                body.classList.toggle('menu-open'); 
-
-                if (contentToBlur) {
-                    // Włączenie bluru i wyszarzenia
-                    contentToBlur.classList.toggle('blurred'); 
-                }
-            });
+            const navLinks = document.querySelectorAll(".nav-menu a");
+            const contentToBlur = document.querySelector('.content-to-blur');
+            
+            if (hamburger) {
+                hamburger.addEventListener("click", () => {
+                    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+                    hamburger.setAttribute('aria-expanded', !isExpanded);
+                    hamburger.classList.toggle("active");
+                    navMenu.classList.toggle("active");
+                    body.classList.toggle('menu-open'); 
+                    if (contentToBlur) {
+                        contentToBlur.classList.toggle('blurred'); 
+                    }
+                });
+            }
 
             // Zamknij menu po kliknięciu w link
             navLinks.forEach(n => n.addEventListener("click", () => {
                 hamburger.classList.remove("active");
+                hamburger.setAttribute('aria-expanded', 'false');
                 navMenu.classList.remove("active");
-                
-                // ODBLOKOWANIE SCROLLOWANIA NA BODY
                 body.classList.remove('menu-open'); 
-
                 if (contentToBlur) {
-                    // Wyłączenie bluru i wyszarzenia
                     contentToBlur.classList.remove('blurred'); 
                 }
             }));
+            
+            // === SLIDER LOGIC ===
+            const slides = document.querySelectorAll('.header-slider .slide');
+            const dots = document.querySelectorAll('.slider-dots .dot');
+            if (slides.length > 0) {
+                const slideDuration = 7000; // Czas trwania slajdu (7 sekund)
+                let currentSlide = 0;
+                let slideInterval = setInterval(nextSlide, slideDuration); 
+
+                function showSlide(index) {
+                    slides.forEach(slide => {
+                        slide.style.opacity = 0;
+                        slide.style.zIndex = 1;
+                    });
+                    dots.forEach(dot => dot.classList.remove('active'));
+
+                    slides[index].style.opacity = 1;
+                    slides[index].style.zIndex = 2; 
+
+                    dots[index].classList.add('active');
+
+                    currentSlide = index;
+                }
+
+                function nextSlide() {
+                    let next = (currentSlide + 1) % slides.length;
+                    showSlide(next);
+                }
+                
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        clearInterval(slideInterval); 
+                        const index = parseInt(this.getAttribute('data-slide-index'));
+                        showSlide(index);
+                        slideInterval = setInterval(nextSlide, slideDuration); 
+                    });
+                });
+
+                showSlide(currentSlide);
+            }
 
             // === VIDEO THUMBNAIL LOGIC (4. SEKUNDA) ===
             const video = document.getElementById('rsvVideo');
