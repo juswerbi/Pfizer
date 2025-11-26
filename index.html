@@ -5,16 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szczepienia RSV</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Używam wbudowanych stylów tylko do linków (dla czytelności kodu) */
-        .nav-menu a[href="#czym-jest-rsv"] { order: 1; }
-        .nav-menu a[href="grupa-ryzyka.html"] { order: 2; }
-        .nav-menu a[href="#rsv-vs-grypa"] { order: 3; }
-        .nav-menu a[href="#objawy-i-zagrozenia"] { order: 4; }
-        .nav-menu a[href="#szczepienia"] { order: 5; }
-        .nav-menu a[href="pytania-i-odpowiedzi.html"] { order: 6; } /* NOWY LINK */
-    </style>
-</head>
+    </head>
 <body>
     <div class="desktop">
         
@@ -28,7 +19,7 @@
                 </button>
 
                 <div class="nav-menu" id="nav-menu">
-                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV-3.5?</a>
+                    <a href="#czym-jest-rsv" class="nav-item current-page">Czym jest RSV?</a>
                     <a href="grupa-ryzyka.html" class="nav-item">Grupa ryzyka</a>
                     <a href="#rsv-vs-grypa" class="nav-item">RSV vs. Grypa</a>
                     <a href="#objawy-i-zagrozenia" class="nav-item">Objawy i zagrożenia</a>
@@ -149,7 +140,7 @@
                                 <span class="icon-human active"></span>
                                 <span class="icon-human active"></span>
                                 <span class="icon-human active"></span>
-                                <span class="icon-human active" style="mask-size: 50% 100%; -webkit-mask-size: 50% 100%;"></span> 
+                                <span class="icon-human active-half"></span> 
                                 <span class="icon-human"></span>
                                 <span class="icon-human"></span>
                                 <span class="icon-human"></span>
@@ -296,6 +287,20 @@
 
             // Zamknij menu po kliknięciu w link
             navLinks.forEach(n => n.addEventListener("click", () => {
+                // Jeśli kliknięty link to link do innej strony (np. FAQ), usuwamy blur i zamykamy menu
+                if (n.getAttribute('href').endsWith('.html')) {
+                    hamburger.classList.remove("active");
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    navMenu.classList.remove("active");
+                    body.classList.remove('menu-open'); 
+                    if (contentToBlur) {
+                        contentToBlur.classList.remove('blurred'); 
+                    }
+                    // Pozwalamy przeglądarce przejść do nowej strony
+                    return;
+                }
+                
+                // Dla linków wewnątrz strony (anchors) zamykamy menu po kliknięciu
                 hamburger.classList.remove("active");
                 hamburger.setAttribute('aria-expanded', 'false');
                 navMenu.classList.remove("active");
