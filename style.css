@@ -112,27 +112,16 @@ a {
     text-underline-offset: 4px;
 }
 
-/* Styl dla ikony domu - rozmiar 20px */
-.nav-item.current-page::before {
-    content: ""; 
-    display: inline-block;
-    width: 20px; 
-    height: 20px; 
-    margin-right: 8px;
-    
-    background-color: #fff; 
-    /* SVG ikony domu */
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
-    
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    
-    margin-top: 1px; 
+/* --- NAPRAWIONY STYL DLA AKTYWNEGO LINKU FAQ --- */
+
+/* Dla podstron (np. FAQ) z aktywnym linkiem */
+.faq-hero-section + main .nav-menu a[href="pytania-i-odpowiedzi.html"].current-page,
+/* Dla strony głównej z aktywnym linkiem, usunięto ikonę domu, by nie powodować problemów */
+.header-slider + main .nav-menu a[href="#czym-jest-rsv"].current-page {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
 }
 
 
@@ -165,7 +154,7 @@ a {
     padding: 10px; 
     z-index: 1002; 
     flex-shrink: 0; 
-    order: 1; /* Upewnienie się, że jest po lewej na mobile */
+    order: 1; 
 }
 
 .bar {
@@ -180,197 +169,6 @@ a {
 /* ========================================= */
 /* --- HERO SECTION (STRONA GŁÓWNA) --- */
 /* ========================================= */
-.header-slider {
-    position: relative;
-    width: 100%;
-    min-height: 500px;
-    background-color: var(--dark-blue);
-    overflow: hidden; 
-}
-
-/* ... (inne style dla header-slider pozostają bez zmian) ... */
-
-
-/* ========================================= */
-/* --- HERO SECTION (FAQ) --- */
-/* ========================================= */
-.faq-hero-section {
-    position: relative;
-    width: 100%;
-    min-height: 400px;
-    background-color: var(--dark-blue);
-    overflow: hidden; 
-    display: flex;
-    align-items: center;
-}
-
-.faq-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    filter: blur(5px) brightness(0.6); /* Lekki blur i przyciemnienie */
-    z-index: 1;
-}
-
-.faq-hero-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 400px;
-}
-
-.faq-title-box {
-    background-color: var(--blue);
-    color: #fff;
-    padding: 20px 40px;
-    border-radius: 0 50px 50px 0; /* Zaokrąglenie tylko z prawej */
-    margin-right: auto; /* Wyrównanie do lewej */
-    max-width: 50%;
-    flex-shrink: 0;
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
-}
-
-.faq-hero-title {
-    font-size: 44px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.faq-info-box {
-    background-color: var(--dark-blue);
-    color: #fff;
-    padding: 20px 40px;
-    border-radius: 50px 0 0 50px; /* Zaokrąglenie tylko z lewej */
-    margin-left: auto; /* Wyrównanie do prawej */
-    max-width: 45%;
-    box-shadow: -2px 4px 10px rgba(0,0,0,0.3);
-}
-
-.faq-hero-text {
-    font-size: 20px;
-    font-style: italic;
-    font-weight: 400;
-}
-
-/* ========================================= */
-/* --- SEKCJA WPROWADZENIE FAQ --- */
-/* ========================================= */
-.faq-intro-section {
-    padding-top: 60px;
-    padding-bottom: 20px;
-}
-
-.faq-intro-text {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 20px;
-    line-height: 1.6;
-    text-align: center;
-    color: var(--txt-blue);
-}
-
-.faq-intro-text strong {
-    font-weight: 700;
-    font-style: italic;
-}
-
-/* ========================================= */
-/* --- SEKCJA FAQ (AKORDEON) --- */
-/* ========================================= */
-.faq-list-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 20px 60px;
-}
-
-.faq-item {
-    border: 1px solid var(--light-blue);
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    background-color: #fff;
-    transition: all 0.3s;
-}
-
-.faq-item[open] {
-    border-color: var(--blue);
-    background-color: var(--pink); /* Lekkie podświetlenie aktywnego */
-}
-
-.faq-question {
-    display: block; /* Wymagane dla details/summary */
-    padding: 20px;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--txt-blue);
-    cursor: pointer;
-    position: relative;
-    outline: none; /* Użycie własnego stylu focus */
-}
-
-/* Styl dla ikonki plus/minus w summary */
-.faq-question::marker,
-.faq-question::-webkit-details-marker {
-    display: none; /* Ukryj domyślną strzałkę */
-}
-
-.faq-question::after {
-    content: '+';
-    font-size: 24px;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--blue);
-    transition: transform 0.3s;
-}
-
-.faq-item[open] .faq-question::after {
-    content: '−';
-    transform: translateY(-50%) rotate(0deg); /* Dla spójności */
-}
-
-.faq-answer {
-    padding: 0 20px 20px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--txt-blue);
-}
-
-.faq-answer p, .faq-answer ul, .faq-answer ol {
-    margin-bottom: 15px;
-}
-
-.faq-answer ul, .faq-answer ol {
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-.faq-answer li {
-    margin-bottom: 5px;
-}
-
-.faq-answer h4 {
-    font-size: 18px;
-    color: var(--blue);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-
-/* ========================================= */
-/* --- RESZTA SEKCJI (Dla pełności) --- */
-/* ========================================= */
-
 .header-slider {
     position: relative;
     width: 100%;
@@ -545,6 +343,181 @@ a {
 }
 
 /* ========================================= */
+/* --- HERO SECTION (FAQ) --- */
+/* ========================================= */
+.faq-hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background-color: var(--dark-blue);
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+}
+
+.faq-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px) brightness(0.6); 
+    z-index: 1;
+}
+
+.faq-hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 400px;
+}
+
+.faq-title-box {
+    background-color: var(--blue);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 0 50px 50px 0; 
+    margin-right: auto; 
+    max-width: 50%;
+    flex-shrink: 0;
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+}
+
+.faq-hero-title {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.faq-info-box {
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 50px 0 0 50px; 
+    margin-left: auto; 
+    max-width: 45%;
+    box-shadow: -2px 4px 10px rgba(0,0,0,0.3);
+}
+
+.faq-hero-text {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* ========================================= */
+/* --- SEKCJA WPROWADZENIE FAQ --- */
+/* ========================================= */
+.faq-intro-section {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.faq-intro-text {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--txt-blue);
+}
+
+.faq-intro-text strong {
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* ========================================= */
+/* --- SEKCJA FAQ (AKORDEON) --- */
+/* ========================================= */
+.faq-list-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.faq-item {
+    border: 1px solid var(--light-blue);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    transition: all 0.3s;
+}
+
+.faq-item[open] {
+    border-color: var(--blue);
+    background-color: var(--pink); 
+}
+
+.faq-question {
+    display: block; 
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--txt-blue);
+    cursor: pointer;
+    position: relative;
+    outline: none; 
+}
+
+.faq-question::marker,
+.faq-question::-webkit-details-marker {
+    display: none; 
+}
+
+.faq-question::after {
+    content: '+';
+    font-size: 24px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--blue);
+    transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+    content: '−';
+    transform: translateY(-50%) rotate(0deg); 
+}
+
+.faq-answer {
+    padding: 0 20px 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--txt-blue);
+}
+
+.faq-answer p, .faq-answer ul, .faq-answer ol {
+    margin-bottom: 15px;
+}
+
+.faq-answer ul, .faq-answer ol {
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.faq-answer li {
+    margin-bottom: 5px;
+}
+
+.faq-answer h4 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+
+/* ========================================= */
 /* --- SEKCJA CZYM JEST RSV? --- */
 /* ========================================= */
 .rsv-info-section {
@@ -668,6 +641,7 @@ a {
     justify-content: center;
 }
 
+/* NAPRAWIONE: Użycie CSS dla maski ikon ludzików */
 .icon-human {
     display: inline-block;
     width: 24px;
@@ -684,6 +658,13 @@ a {
 }
 
 .icon-human.active { background-color: var(--yellow); }
+
+/* Styl dla połowy ludzika (35% -> 3.5 z 10) */
+.icon-human.active-half {
+    background-color: var(--yellow); 
+    -webkit-mask-size: 50% 100%;
+    mask-size: 50% 100%;
+}
 
 .stat-number {
     display: block;
@@ -901,7 +882,6 @@ a {
     
     /* --- NAWIGACJA MOBILNA --- */
     
-    /* Wymuszenie rzędu i rozmieszczenia na całe mobile */
     .navbar {
         display: flex;
         flex-direction: row !important;
@@ -944,7 +924,6 @@ a {
         text-align: left;
     }
 
-    /* Cofamy łamanie linków na mobile, aby menu rozwijane było czytelne */
     .nav-menu .nav-item {
         white-space: nowrap; 
         max-width: none;
@@ -954,12 +933,6 @@ a {
         display: block;
     }
     
-    /* Na mobile usuwamy ikonę domu w rozwijanym menu */
-    .nav-item.current-page::before {
-        content: none; 
-        margin-right: 0;
-    }
-
     .nav-menu.active { display: flex; }
 
     /* Animacja hamburgera */
