@@ -78,25 +78,25 @@ a {
     width: 100%;
 }
 
-/* Kontener na linki tekstowe (desktop) */
+/* Kontener na linki tekstowe (Desktop: lewe wyrównanie) */
 .nav-menu {
     display: flex;
     gap: 30px;
     align-items: center;
-    /* Zmiana: push menu do lewej */
-    margin: 0; 
-    margin-right: auto; 
+    margin: 0; /* Usunięcie center-align */
+    margin-right: auto; /* Push menu do lewej */
 }
 
 .nav-item {
     color: #fff;
     font-weight: 700;
     font-size: 18px;
+    /* Usunięto: text-align: center; i white-space: nowrap; (przeniesione do bardziej szczegółowych reguł) */
     transition: 0.3s;
-    /* Usunięto: text-align: center; i white-space: nowrap; - zostaną zdefiniowane poniżej */
 }
 
-/* NOWE: Style dla łamania linków i lewego wyrównania (Desktop > 1024px) */
+/* NOWE/POPRAWIONE: Style dla łamania linków i lewego wyrównania (Desktop > 1024px) */
+/* Dotyczy linków w menu (z wyłączeniem CTA) */
 .nav-menu .nav-item {
     white-space: normal; /* Pozwala na łamanie tekstu */
     max-width: 120px; /* Maksymalna szerokość wymuszająca łamanie 3+ słów */
@@ -107,7 +107,8 @@ a {
     align-items: flex-start;
 }
 
-/* NOWE: Styl dla aktywnej strony (desktop) */
+
+/* NOWE/POPRAWIONE: Styl dla aktywnej strony (desktop) */
 .nav-item.current-page {
     font-weight: 700; 
     text-decoration: underline; 
@@ -115,15 +116,16 @@ a {
     text-underline-offset: 4px;
 }
 
-/* NOWE: Styl dla ikony domu - linia i biała (maska SVG) */
+/* NOWE/POPRAWIONE: Styl dla ikony domu - rozmiar 20px */
 .nav-item.current-page::before {
     content: ""; 
     display: inline-block;
     width: 20px; 
-    height: 20px;
+    height: 20px; /* Zgodnie z życzeniem, wysokość 20px (zbliżona do linii tekstu) */
     margin-right: 8px;
     
     background-color: #fff; 
+    /* SVG ikony domu */
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
     
@@ -133,7 +135,11 @@ a {
     mask-position: center;
     -webkit-mask-size: contain;
     mask-size: contain;
+    
+    /* Zapewnienie lepszego pionowego wyrównania */
+    margin-top: 1px; 
 }
+
 
 /* Przycisk CTA (Gdzie się zaszczepić) */
 .nav-item.nav-cta {
@@ -142,7 +148,7 @@ a {
     padding: 10px 25px;
     border-radius: 100px;
     transition: transform 0.3s ease, background-color 0.3s;
-    margin-left: auto;
+    margin-left: auto; /* Wyrównanie do prawej na desktopie */
     font-size: 16px;
     display: block;
     white-space: nowrap; /* Musi pozostać w jednej linii */
@@ -686,36 +692,33 @@ a {
 
 @media (max-width: 1024px) {
     
-    /* --- ZMIANY W NAWIGACJI MOBILNEJ (Linki i CTA w jednej linii, menu rozwijane) --- */
+    /* --- NAPRAWA LAYOUTU NAGŁÓWKA NA MOBILE (CTA i Hamburger) --- */
     
-    /* Zapewnienie, że w trybie mobile linki z menu rozwijanego nie łamią się */
-    .nav-menu .nav-item {
-        white-space: nowrap; 
-        max-width: none;
-        width: 100%; 
-        text-align: left; 
-        padding: 10px 0;
-        display: block; /* Powrót do bloku dla listy w menu rozwijanym */
+    /* Wymuszenie rzędu i rozmieszczenia na całe mobile */
+    .navbar {
+        display: flex;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between; 
+        align-items: center;
+        /* Już działa: Hamburger (order: 1) jest po lewej, CTA (order: 2) po prawej */
     }
 
-    /* Na mobile usuwamy ikonę domu w rozwijanym menu */
-    .nav-item.current-page::before {
-        content: none; 
-        margin-right: 0;
-    }
-    
-    /* Dopasowanie CTA, które pozostaje widoczne w jednej linii z hamburgerem */
-    .nav-item.nav-cta {
-        font-size: 14px; 
-        padding: 8px 15px; 
-        order: 2; /* Ustawia przycisk po prawej stronie */
-    }
-
-    /* Wyświetlenie hamburgera (już było, ale dla pewności) */
     .hamburger {
         display: block;
-        order: 1; /* Ustawia hamburger po lewej stronie */
+        order: 1;
     }
+
+    .nav-item.nav-cta {
+        order: 2;
+        margin-left: auto; /* Wyrównanie do prawej (odsuwa się od hamburgera) */
+        padding: 8px 20px;
+        font-size: 14px;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    /* --- STYLIZACJA ROZWIJANEGO MENU MOBILNEGO --- */
 
     .nav-menu {
         position: fixed; 
@@ -725,7 +728,7 @@ a {
         flex-direction: column;
         background-color: var(--dark-blue);
         width: 100%;
-        padding: 20px 40px; 
+        padding: 20px 40px;
         display: none; 
         gap: 20px;
         box-shadow: 0 10px 10px rgba(0,0,0,0.2);
@@ -737,7 +740,23 @@ a {
         align-items: flex-start; 
         text-align: left;
     }
+
+    /* Cofamy łamanie linków na mobile, aby menu rozwijane było czytelne */
+    .nav-menu .nav-item {
+        white-space: nowrap; 
+        max-width: none;
+        width: 100%; 
+        text-align: left; 
+        padding: 10px 0;
+        display: block;
+    }
     
+    /* Na mobile usuwamy ikonę domu w rozwijanym menu */
+    .nav-item.current-page::before {
+        content: none; 
+        margin-right: 0;
+    }
+
     .nav-menu.active { display: flex; }
 
     /* Animacja hamburgera */
@@ -770,6 +789,7 @@ a {
 
 @media (max-width: 768px) {
     /* --- Jeszcze mniejsze ekrany (mobile) --- */
+    /* Ustawienia CTA i Hamburgera są dziedziczone z 1024px i są poprawne (jedna linia) */
     .nav-item.nav-cta {
         font-size: 13px; 
         padding: 8px 15px; 
